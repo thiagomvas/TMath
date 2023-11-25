@@ -1,5 +1,6 @@
 namespace TMath.Tests;
 
+// TODO: Separate each type into a different file (EG TMathFloatTests, TMathDoubleTests...)
 public class TMathTests
 {
     [SetUp]
@@ -151,4 +152,5 @@ public class TMathTests
         Assert.That(TMath.Rad2Deg(TMath.ToRadians(60d)), Is.EqualTo(60d).Within(0.000000000001d));
         Assert.That(TMath.Rad2Deg(TMath.ToRadians(60m)), Is.EqualTo(60m).Within(0.000000000001m));
     }
+
 }
