@@ -62,6 +62,28 @@ public static class TMath
     /// <returns>The radian value converted into degrees</returns>
     public static T Rad2Deg<T>(T radians) where T : INumber<T> => radians * IntToT<T>(180) / TConstants<T>.Pi;
 
+    /// <summary>
+    /// Calculates a to the power of b.
+    /// </summary>
+    /// <param name="a">The base number.</param>
+    /// <param name="b">The power of the base number.</param>
+    /// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
+    public static T Pow<T>(T a, int b) where T : INumber<T>
+    {
+        if (b < 0) return Pow<T>(T.One / a, Abs(b));
+        if (b == 0) return T.One;
+        if (b == 1) return a;
+        else return a * Pow(a, b - 1);
+    }
 
+    /// <summary>
+    /// Clamps a value between min and max values
+    /// </summary>
+    /// <param name="value">The value to clamp</param>
+    /// <param name="min">The minimal value</param>
+    /// <param name="max">The maximum vvalue</param>
+    /// <returns> <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/> and <paramref name="max"/> </returns>
+    public static T Clamp<T>(T value, T min, T max) where T : INumber<T> =>
+        min > value ? min : (value < max ? value : max);
 }
 
