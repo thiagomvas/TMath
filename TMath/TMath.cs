@@ -2,6 +2,10 @@
 
 namespace TMath;
 
+/// <summary>
+/// Mathematics class with support for any <see cref="INumber{TSelf}"/>, such as floats, doubles,
+/// decimals, integers, or any custom number type that implements the interface.
+/// </summary>
 public static class TMath
 {
     /// <summary>
@@ -11,7 +15,13 @@ public static class TMath
     /// <typeparam name="T">The target type</typeparam>
     /// <returns>The converted integer into the type T</returns>
     /// <remarks>Used internally a lot by <see cref="TMath"/> to get a specific number of a type T so operations can be done successfully.</remarks>
-    public static T IntToT<T>(int num) where T : INumber<T> => num <= 1 ? T.One : T.One + IntToT<T>(num - 1);
+    public static T IntToT<T>(int num) where T : INumber<T>
+    {
+        if (num < 0) return IntToT<T>(num + 1) - T.One;
+        if (num == 0) return T.Zero;
+        if (num == 1) return T.One;
+        return T.One + IntToT<T>(num - 1);
+    }
 
     /// <summary>
     /// Returns the absolute value of a number.
@@ -25,20 +35,29 @@ public static class TMath
     /// </summary>
     /// <param name="n">The number to round down</param>
     /// <returns>The rounded down number.</returns>
-    public static T Floor<T>(T n) where T : INumber<T> => n - n % T.One;
+    public static T Floor<T>(T n) where T : INumber<T>
+    {
+        if (T.IsNegative(n))
+            return -(Abs(n) - Abs(n % T.One)) - T.One;
+        else return n - (n % T.One);
+    }
     /// <summary>
     /// Rounds the number up to the closest integral form.
     /// </summary>
     /// <param name="n">The number to round up</param>
     /// <returns>The rounded up number.</returns>
-    public static T Ceil<T>(T n) where T : INumber<T> => n - n % T.One + T.One;
+    public static T Ceil<T>(T n) where T : INumber<T> => n % T.One == T.Zero ? n : n + (T.One - Abs(n % T.One));
 
     /// <summary>
     /// Rounds the number to the closest integral form.
     /// </summary>
     /// <param name="n">The number to rounud</param>
     /// <returns>The rounded number</returns>
-    public static T Round<T>(T n) where T : INumber<T> => Ceil(n) - n <= T.One / IntToT<T>(2) ? Ceil(n) : Floor(n);
+    public static T Round<T>(T n) where T : INumber<T>
+    {
+        if (n % T.One >= T.One / IntToT<T>(2)) return Ceil(n);
+        return Floor(n);
+    }
     
     /// <summary>
     /// Gets the factorial of an number.
@@ -65,16 +84,29 @@ public static class TMath
     /// <summary>
     /// Calculates a to the power of b.
     /// </summary>
+    /// <param name="a">The base</param>
+    /// <param name="b">The exponent</param>
+    /// <typeparam name="T">A generic type that inherits <see cref="INumber{TSelf}"/> and <see cref="IPowerFunctions{TSelf}"/></typeparam>
+    /// <returns>a to the power of b</returns>
+    public static T Pow<T>(T a, T b) where T : INumber<T>, IPowerFunctions<T> => T.Pow(a, b);
+
+
+    /// <summary>
+    /// Calculates a to the power of b.
+    /// </summary>
     /// <param name="a">The base number.</param>
     /// <param name="b">The power of the base number.</param>
     /// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
     public static T Pow<T>(T a, int b) where T : INumber<T>
     {
-        if (b < 0) return Pow<T>(T.One / a, Abs(b));
+        if (b < 0) return Pow(T.One / a, Abs(b));
         if (b == 0) return T.One;
         if (b == 1) return a;
         else return a * Pow(a, b - 1);
     }
+
+        
+    
 
     /// <summary>
     /// Clamps a value between min and max values
@@ -85,5 +117,6 @@ public static class TMath
     /// <returns> <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/> and <paramref name="max"/> </returns>
     public static T Clamp<T>(T value, T min, T max) where T : INumber<T> =>
         min > value ? min : (value < max ? value : max);
+    
 }
 
