@@ -65,7 +65,7 @@ public class FloatTests
     [TestCase(3.14f, 3f, ExpectedResult = 30.959146f)]
     [TestCase(-1f, 3f, ExpectedResult = -1f)]
     [TestCase(-1f, 4f, ExpectedResult = 1f)]
-    public float PowTest(float a, float b) => TMath.Pow(a, b);
+    public float PowTest(float a, float b) => TMath.Pow<float>(a, b); // Unecessary but GitHub actions is janky.
 
     [Test]
     [TestCase(1f, 2f, 3f, ExpectedResult = 2f)]
