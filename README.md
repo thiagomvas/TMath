@@ -1,1 +1,60 @@
-# TMath
+# TMath - Generics Math Library for C#
+[![NUnit Tests](https://github.com/thiagomvas/TMath/actions/workflows/dotnet.yml/badge.svg)](https://github.com/thiagomvas/TMath/actions/workflows/dotnet.yml) [![Version](https://img.shields.io/nuget/v/tmath
+)](https://www.nuget.org/packages/TMath/) ![Downloads](https://img.shields.io/nuget/dt/tmath
+) ![Stars](https://img.shields.io/github/stars/thiagomvas/tmath 
+) ![License](https://img.shields.io/github/license/thiagomvas/tmath)
+
+
+TMath is a C# Math library that has function implementations for any number or custom type 
+that implements ``INumber<T>``. Some functions require other implementations like 
+``ILogarithmicFunctions<T>`` or ``IPowerFunctions<T>``.
+
+## 🌟 • Features
+- **Generics Support**: TMath can make calculations using all number types with the same
+function call, doesn't matter if you're using `float`, `ulong`, `decimal` or your custom 
+numeric type, as long as it implements `INumber<T>`
+- **Generics Constants:** TMath also has a ``TConstants<T>`` class for getting mathematical
+constants as any numeric type, such as **Euler's Number, Pi, Golden Ratio** and common square roots
+- **Expanded math functions**: More math functions not supported by the default `Math` class
+that also work with generics, such as ``Factorial()``.
+
+## 📙 • Getting Started
+### Installation
+There are multiple ways of installing TMath on your project:
+1. **NuGet Package Manager**: From your IDE, simply open the package manager and search for TMath
+2. **.NET CLI**: Open a command line and switch to the directory that contains your project file.
+After that, run the following command
+```shell 
+dotnet add package TMath
+```
+3. **Forking / Cloning the repository**: Clone the repository into your projects and keep the package 
+saved on your project files.
+> [!IMPORTANT]
+> Downloading the files manually means you will have to update the package manually if you want the
+> latest release whenever the package gets updated
+
+## 🔧 • Usage
+Using TMath is very simple, simply call the functions like you would with ``Math`` and it'll automatically 
+return
+the correct type for most functions, with the exception of a handful of them like ``Factorial<T>()``.
+
+For getting any constants using ``TConstants<T>``, specify your type (for example, ``TConstants<float>``).
+```csharp
+// Calculating the area of a circle arc.
+decimal angle = TConstants<decimal>.Pi;
+decimal radius = 1;
+decimal areaOfArc = (Foo.Rad2Deg(angle) / 360) * TConstants<decimal>.Pi * Foo.Pow(radius, 2);
+Console.WriteLine(areaOfArc);
+
+// Calculating 20!
+long factorial = TMath.Factorial<long>(20);
+Console.WriteLine(factorial);
+
+// Absolute value
+sbyte number = -34;
+sbyte abs = TMath.Abs(number);
+Console.WriteLine(abs);
+```
+
+## 📄 • License
+TMath is licensed under the MIT License.
