@@ -4,7 +4,6 @@ namespace TMath;
 
 public static class TMath
 {
-    
     /// <summary>
     /// Converts an integer to a type T.
     /// </summary>
@@ -12,7 +11,7 @@ public static class TMath
     /// <typeparam name="T">The target type</typeparam>
     /// <returns>The converted integer into the type T</returns>
     /// <remarks>Used internally a lot by <see cref="TMath"/> to get a specific number of a type T so operations can be done successfully.</remarks>
-    public static T IntToT<T>(int num) where T : INumber<T> => num == 1 ? T.One : T.One + IntToT<T>(num - 1);
+    public static T IntToT<T>(int num) where T : INumber<T> => num <= 1 ? T.One : T.One + IntToT<T>(num - 1);
 
     /// <summary>
     /// Returns the absolute value of a number.
@@ -40,5 +39,29 @@ public static class TMath
     /// <param name="n">The number to rounud</param>
     /// <returns>The rounded number</returns>
     public static T Round<T>(T n) where T : INumber<T> => Ceil(n) - n <= T.One / IntToT<T>(2) ? Ceil(n) : Floor(n);
+    
+    /// <summary>
+    /// Gets the factorial of an number.
+    /// </summary>
+    /// <param name="n">The number to obtain its factorial</param>
+    /// <typeparam name="T">The number type to return the factorial as</typeparam>
+    /// <returns>The factorial of a number as a type T</returns>
+    public static T Factorial<T>(int n) where T : INumber<T> => n <= 1 ? T.One : IntToT<T>(n) * Factorial<T>(n - 1);
+
+    /// <summary>
+    /// Converts a number of degrees into radians.
+    /// </summary>
+    /// <param name="deg">The degree value</param>
+    /// <returns>The degrees converted into radians</returns>
+    public static T ToRadians<T>(T deg) where T : INumber<T> => deg * TConstants<T>.Pi / IntToT<T>(180);
+
+    /// <summary>
+    /// Converts a value in radians into degrees.
+    /// </summary>
+    /// <param name="radians">The radian value</param>
+    /// <returns>The radian value converted into degrees</returns>
+    public static T Rad2Deg<T>(T radians) where T : INumber<T> => radians * IntToT<T>(180) / TConstants<T>.Pi;
+
+
 }
 

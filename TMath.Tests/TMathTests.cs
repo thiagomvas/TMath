@@ -111,5 +111,44 @@ public class TMathTests
         decimal eDec3 = 123m;
         Assert.That(TMath.Floor(dec3), Is.EqualTo(eDec3));
     }
+
+
+    [Test]
+    public void FactorialTest()
+    {
+        int[] Factorials = new[] { 1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880 };
+        for (int i = 0; i < Factorials.Length; i++)
+        {
+            Assert.That(TMath.Factorial<int>(i), Is.EqualTo(Factorials[i]));
+            Assert.That(TMath.Factorial<float>(i), Is.EqualTo((float) Factorials[i]));
+            Assert.That(TMath.Factorial<double>(i), Is.EqualTo((double) Factorials[i]));
+            Assert.That(TMath.Factorial<decimal>(i), Is.EqualTo((decimal) Factorials[i]));
+        }
+    }
+    
+    [Test]
+    public void ToRadiansTest()
+    {
+        Assert.That(TMath.ToRadians(30f), Is.EqualTo(0.5235988f));
+        Assert.That(TMath.ToRadians(45f), Is.EqualTo(0.7853982f));
+        Assert.That(TMath.ToRadians(60f), Is.EqualTo(1.0471976f));
+        Assert.That(TMath.ToRadians(30d), Is.EqualTo(0.5235987755982988d));
+        Assert.That(TMath.ToRadians(45d), Is.EqualTo(0.7853981633974483d));
+        Assert.That(TMath.ToRadians(60d), Is.EqualTo(1.0471975511965976d));
+    }
+    [Test]
+    public void Rad2DegTest()
+    {
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(30f)), Is.EqualTo(30f));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(30d)), Is.EqualTo(30d).Within(0.000000000001d));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(30m)), Is.EqualTo(30m).Within(0.000000000001m));
         
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(45f)), Is.EqualTo(45f));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(45d)), Is.EqualTo(45d).Within(0.000000000001d));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(45m)), Is.EqualTo(45m).Within(0.000000000001m));
+        
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(60f)), Is.EqualTo(60f));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(60d)), Is.EqualTo(60d).Within(0.000000000001d));
+        Assert.That(TMath.Rad2Deg(TMath.ToRadians(60m)), Is.EqualTo(60m).Within(0.000000000001m));
+    }
 }
