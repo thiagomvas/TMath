@@ -10,7 +10,7 @@ that implements ``INumber<T>``. Some functions require other implementations lik
 ``ILogarithmicFunctions<T>`` or ``IPowerFunctions<T>``.
 
 ## 🌟 • Features
-- **Generics Support**: TMath can make calculations using all number types with the same
+- **Generics Support**: With TFunctions, you can make calculations using all number types with the same
 function call, doesn't matter if you're using `float`, `ulong`, `decimal` or your custom 
 numeric type, as long as it implements `INumber<T>`
 - **Generics Constants:** TMath also has a ``TConstants<T>`` class for getting mathematical
@@ -45,16 +45,16 @@ For getting any constants using ``TConstants<T>``, specify your type (for exampl
 // Calculating the area of a circle arc.
 decimal angle = TConstants<decimal>.Pi;
 decimal radius = 1;
-decimal areaOfArc = (TMath.Rad2Deg(angle) / 360) * TConstants<decimal>.Pi * TMath.Pow(radius, 2);
+decimal areaOfArc = (TFunctions.Rad2Deg(angle) / 360) * TConstants<decimal>.Pi * TFunctions.Pow(radius, 2);
 Console.WriteLine(areaOfArc);
 
 // Calculating 20!
-long factorial = TMath.Factorial<long>(20);
+long factorial = TFunctions.Factorial<long>(20);
 Console.WriteLine(factorial);
 
 // Absolute value
 sbyte number = -34;
-sbyte abs = TMath.Abs(number);
+sbyte abs = TFunctions.Abs(number);
 Console.WriteLine(abs);
 ```
 
