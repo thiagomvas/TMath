@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
 
 namespace TMath;
 
@@ -155,6 +154,15 @@ public static class TMath
         => T.Sin(radians);
 
     /// <summary>
+    /// Calculates the sine of a number in degrees;
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <returns>The sine of the angle</returns>
+    public static T SinDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => Sin(ToRadians(degrees));
+
+    /// <summary>
     /// Calculates the cosine of a number in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
@@ -164,6 +172,15 @@ public static class TMath
         => T.Cos(radians);
 
     /// <summary>
+    /// Calculates the cosine of a number in degrees.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <returns>The cosine of <paramref name="degrees"/></returns>
+    public static T CosDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => Cos(ToRadians(degrees));
+
+    /// <summary>
     /// Calculates the tangent of a number in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
@@ -171,6 +188,15 @@ public static class TMath
     /// <returns>The tangent of <paramref name="radians"/></returns>
     public static T Tan<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Tan(radians);
+
+    /// <summary>
+    /// Calculates the tangent of an angle in degrees
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <returns>The tangent of <paramref name="degrees"/></returns>
+    public static T TanDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => Tan(ToRadians(degrees));
 
     /// <summary>
     /// Calculates the arcsine of a number.
