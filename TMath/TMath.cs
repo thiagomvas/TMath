@@ -231,6 +231,16 @@ public static class TMath
     public static T Csc<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.One / Sin(radians);
 
+
+    /// <summary>
+    /// Calculates the cosecant of an angle in degrees.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in radians</param>
+    /// <returns>The cosecant of <paramref name="degrees"/></returns>
+    public static T CscDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / SinDeg(degrees);
+
     /// <summary>
     /// Calculates the secant of an angle in radians.
     /// </summary>
@@ -241,6 +251,15 @@ public static class TMath
         => T.One / Cos(radians);
 
     /// <summary>
+    /// Calculates the secant of an angle in degrees.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <returns>The secant  of <paramref name="degrees"/></returns>
+    public static T SecDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / CosDeg(degrees);
+
+    /// <summary>
     /// Calculates the cotangent of an angle in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
@@ -248,6 +267,16 @@ public static class TMath
     /// <returns>The cotangent of <paramref name="radians"/></returns>
     public static T Cot<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.One / Tan(radians);
+
+
+    /// <summary>
+    /// Calculates the cotangent of an angle in degrees.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="degrees">The angle in radians</param>
+    /// <returns>The cotangent of <paramref name="degrees"/></returns>
+    public static T CotDeg<T>(T degrees) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / TanDeg(degrees);
 
 
 }
