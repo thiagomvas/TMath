@@ -137,8 +137,33 @@ public static partial class TMath
     /// <returns>The remainder of <paramref name="number"/>/<paramref name="divider"/></returns>
     public static T Remainder<T>(T number, T divider) where T : INumber<T>
     {
+        if (T.IsNegative(number)) return Remainder(Abs(number), divider) * CopySign(T.One, number);
         if (number > divider) return Remainder(number - divider, divider);
         return number; 
     }
+
+    /// <summary>
+    /// Calculates the summation of a function.
+    /// </summary>
+    /// <param name="func">The function to calculate the sum of</param>
+    /// <param name="n">The upper limit of summation</param>
+    /// <param name="i">The index of summation</param>
+    /// <returns>The sum of f(i) + f(i + 1) + ... + f(n)</returns>
+    public static T Sum<T>(Func<T, T> func, int n, int i = 1) where T : INumber<T>
+    {
+        T sum = T.Zero;
+        for (int x = i; x <= n; x++)
+            sum += func(IntToT<T>(x));
+        return sum;
+    }
+
+    /// <summary>
+    /// Truncates the number by removing decimal places on the number
+    /// </summary>
+    /// <param name="value">The value to truncate</param>
+    /// <param name="accuracy">The amount of decimal places to have.</param>
+    /// <returns>The truncated number</returns>
+    public static T Truncate<T>(T value, int accuracy) where T : INumber<T>
+        => Floor(value * Pow(IntToT<T>(10), accuracy)) / Pow(IntToT<T>(10), accuracy);
 }
 

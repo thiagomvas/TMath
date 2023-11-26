@@ -1,3 +1,5 @@
+using NUnit.Framework.Constraints;
+
 namespace TMath.Tests;
 
 [TestFixture]
@@ -74,5 +76,42 @@ public class FloatTests
     [TestCase(3f, 2f, 3f, ExpectedResult = 3f)]
     [TestCase(4f, 2f, 3f, ExpectedResult = 3f)]
     public float ClampTest(float value, float min, float max) => TMath.Clamp(value, min, max);
+
+    [Test]
+    [TestCase(1f, 1f, ExpectedResult = 1f)]
+    [TestCase(-1f, 1f, ExpectedResult = 1f)]
+    [TestCase(-1f, -1f, ExpectedResult = -1f)]
+    [TestCase(1f, -1f, ExpectedResult = -1f)]
+    [TestCase(1f, -0f, ExpectedResult = -1f)]
+    [TestCase(1f, 0f, ExpectedResult = 1f)]
+    public float CopySign(float value, float sign) => TMath.CopySign(value, sign);
+
+    [Test]
+    [TestCase(2.1f, 0.5f, ExpectedResult = 0.1f)]
+    [TestCase(-2.1f, 0.5f, ExpectedResult = -0.1f)]
+    public float RemainderTest(float number, float divider) 
+        => TMath.Round(TMath.Remainder(number, divider) * 1000000f) / 1000000f; // Rounding to compensate for float inaccuracy.
+
+    [Test]
+    public void SumTest()
+    {
+        Func<float, float> f1 = x => x * x;
+        Func<float, float> f2 = x => 1 / x;
+
+        Assert.That(TMath.Sum(f1, 5), Is.EqualTo(55));
+        Assert.That(TMath.Sum(f1, 3), Is.EqualTo(14));
+        Assert.That(TMath.Sum(f2, 3), Is.EqualTo(1.83333f).Within(0.00001f));
+        Assert.That(TMath.Sum(f2, 6), Is.EqualTo(2.45f).Within(0.00001f));
+    }
+
+    [Test]
+    [TestCase(1.1234567f, 1, ExpectedResult = 1.1f)]
+    [TestCase(1.1234567f, 2, ExpectedResult = 1.12f)]
+    [TestCase(1.1234567f, 3, ExpectedResult = 1.123f)]
+    [TestCase(1.1234567f, 4, ExpectedResult = 1.1234f)]
+    [TestCase(1.1234567f, 5, ExpectedResult = 1.12345f)]
+    [TestCase(1.1234567f, 6, ExpectedResult = 1.123456f)]
+    [TestCase(1.1234567f, 7, ExpectedResult = 1.1234567f)]
+    public float TruncateTest(float value, int accuracy) => TMath.Truncate(value, accuracy);
 
 }
