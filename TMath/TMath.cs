@@ -142,16 +142,16 @@ public static class TMath
     }
 
     /// <summary>
-    /// Calculates the sine of a number in radians.
+    /// Calculates the sine of an angle in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="radians"></param>
+    /// <param name="radians">The angle in radians</param>
     /// <returns>The sine of <paramref name="radians"/></returns>
     public static T Sin<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Sin(radians);
 
     /// <summary>
-    /// Calculates the sine of a number in degrees;
+    /// Calculates the sine of an angle in degrees;
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
     /// <param name="degrees">The angle in degrees</param>
@@ -160,16 +160,16 @@ public static class TMath
         => Sin(ToRadians(degrees));
 
     /// <summary>
-    /// Calculates the cosine of a number in radians.
+    /// Calculates the cosine of an angle in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="radians"></param>
+    /// <param name="radians">The angle in radians</param>
     /// <returns>The cosine of <paramref name="radians"/></returns>
     public static T Cos<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Cos(radians);
 
     /// <summary>
-    /// Calculates the cosine of a number in degrees.
+    /// Calculates the cosine of an angle in degrees.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
     /// <param name="degrees">The angle in degrees</param>
@@ -178,10 +178,10 @@ public static class TMath
         => Cos(ToRadians(degrees));
 
     /// <summary>
-    /// Calculates the tangent of a number in radians.
+    /// Calculates the tangent of an angle in radians.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="radians"></param>
+    /// <param name="radians">The angle in radians</param>
     /// <returns>The tangent of <paramref name="radians"/></returns>
     public static T Tan<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Tan(radians);
@@ -199,7 +199,7 @@ public static class TMath
     /// Calculates the arcsine of a number.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="value"></param>
+    /// <param name="value">The value to calculate the arcsine of</param>
     /// <returns>The arcsine of <paramref name="value"/></returns>
     public static T Asin<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Asin(value);
@@ -208,7 +208,7 @@ public static class TMath
     /// Calculates the arccosine of a number.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="value"></param>
+    /// <param name="value">The value to calculate the arccosine of</param>
     /// <returns>The arccosine of <paramref name="value"/></returns>
     public static T Acos<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Acos(value);
@@ -217,7 +217,7 @@ public static class TMath
     /// Calculates the arctangent of a number.
     /// </summary>
     /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
-    /// <param name="value"></param>
+    /// <param name="value">The value to calculate the arctangent of</param>
     /// <returns>The arctangent of <paramref name="value"/></returns>
     public static T Atan<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Atan(value);
