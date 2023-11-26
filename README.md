@@ -17,6 +17,8 @@ numeric type, as long as it implements `INumber<T>`
 constants as any numeric type, such as **Euler's Number, Pi, Golden Ratio** and common square roots
 - **Expanded math functions**: More math functions not supported by the default `Math` class
 that also work with generics, such as ``Factorial()``.
+- **Generics Easings Class:** ``TEasings`` offers a handful of easing functions for usage in
+your projects that support any ``INumber<T>``
 
 ## 📙 • Getting Started
 ### Installation
@@ -56,5 +58,8 @@ sbyte abs = TMath.Abs(number);
 Console.WriteLine(abs);
 ```
 
+## 🤝 • Contributing
+If you'd like to contribute in anyways, check out the [Contributing Guidelines](https://github.com/thiagomvas/TMath/blob/master/CONTRIBUTING.md) for info on how you can contribute.
+
 ## 📄 • License
-TMath is licensed under the MIT License.
+TMath is licensed under the [MIT License](https://github.com/thiagomvas/TMath/blob/master/LICENSE).
