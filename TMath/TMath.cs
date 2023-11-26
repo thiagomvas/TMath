@@ -110,9 +110,6 @@ public static class TMath
         else return a * Pow(a, b - 1);
     }
 
-        
-    
-
     /// <summary>
     /// Clamps a value between min and max values
     /// </summary>
@@ -224,6 +221,33 @@ public static class TMath
     /// <returns>The arctangent of <paramref name="value"/></returns>
     public static T Atan<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
         => T.Atan(value);
+
+    /// <summary>
+    /// Calculates the cosecant of an angle in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians">The angle in radians</param>
+    /// <returns>The cosecant of <paramref name="radians"/></returns>
+    public static T Csc<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / Sin(radians);
+
+    /// <summary>
+    /// Calculates the secant of an angle in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians">The angle in radians</param>
+    /// <returns>The secant  of <paramref name="radians"/></returns>
+    public static T Sec<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / Cos(radians);
+
+    /// <summary>
+    /// Calculates the cotangent of an angle in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians">The angle in radians</param>
+    /// <returns>The cotangent of <paramref name="radians"/></returns>
+    public static T Cot<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.One / Tan(radians);
 
 
 }
