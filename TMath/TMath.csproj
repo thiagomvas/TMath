@@ -14,7 +14,13 @@
         <RepositoryUrl>https://github.com/thiagomvas/TMath</RepositoryUrl>
         <PackageTags>math, generics, csharp</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Version>1.0.1</Version>
+        <Version>1.1.0</Version>
+        <PackageReleaseNotes>Added TEasings: A Easings function class with support for generics
+Added TMath functions:
+- Sum&lt;T&gt;( ): Gets the summation of a function
+- Truncate&lt;T&gt;(): Truncates a floating point number.
+- CopySign&lt;T&gt;(): Copies the sign of one value to another.
+- Trigonometric functions for supported types.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

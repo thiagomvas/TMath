@@ -55,24 +55,24 @@ namespace TMath
         public static T OutQuad<T>(T t) where T : INumber<T> => T.One - InQuad(T.One - t);
         public static T InOutQuad<T>(T t) where T : INumber<T>
         {
-            if (t < T.One / TMath.IntToT<T>(2)) return InQuad(t * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
-            return T.One - InQuad((T.One - t) / TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
+            if (t < T.One / TFunctions.IntToT<T>(2)) return InQuad(t * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
+            return T.One - InQuad((T.One - t) / TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
         }
 
         public static T InCubic<T>(T t) where T : INumber<T> => t * t * t;
         public static T OutCubic<T>(T t) where T : INumber<T> => T.One - InCubic(T.One - t);
         public static T InOutCubic<T>(T t) where T : INumber<T>
         {
-            if (t < T.One / (TMath.IntToT<T>(2))) return InCubic(t * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
-            return T.One - InCubic((T.One - t) * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
+            if (t < T.One / (TFunctions.IntToT<T>(2))) return InCubic(t * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
+            return T.One - InCubic((T.One - t) * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
         }
 
         public static T InQuart<T>(T t) where T : INumber<T> => t * t * t * t;
         public static T OutQuart<T>(T t) where T : INumber<T> => T.One - InQuart(T.One - t);
         public static T InOutQuart<T>(T t) where T : INumber<T>
         {
-            if (t < T.One / (TMath.IntToT<T>(2))) return InQuart(t * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
-            return T.One - InQuart((T.One - t) * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
+            if (t < T.One / (TFunctions.IntToT<T>(2))) return InQuart(t * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
+            return T.One - InQuart((T.One - t) * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
         }
 
         public static T InQuint<T>(T t) where T : INumber<T> => t * t * t * t * t;
@@ -80,8 +80,8 @@ namespace TMath
 
         public static T InOutQuint<T>(T t) where T : INumber<T>
         {
-            if (t < T.One / (TMath.IntToT<T>(2))) return InQuint(t * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
-            return T.One - InQuint((T.One - t) * TMath.IntToT<T>(2)) / TMath.IntToT<T>(2);
+            if (t < T.One / (TFunctions.IntToT<T>(2))) return InQuint(t * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
+            return T.One - InQuint((T.One - t) * TFunctions.IntToT<T>(2)) / TFunctions.IntToT<T>(2);
         }
 
 

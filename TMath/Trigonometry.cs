@@ -2,7 +2,7 @@
 
 namespace TMath
 {
-    public static partial class TMath
+    public static partial class TFunctions
     {
 
         /// <summary>
