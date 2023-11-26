@@ -1,4 +1,4 @@
-namespace TMath.Tests;
+namespace TFunctions.Tests;
 
 [TestFixture]
 public class TConstantsTests
