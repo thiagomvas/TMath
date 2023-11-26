@@ -6,7 +6,12 @@ namespace TMath;
 /// Mathematics class with support for any <see cref="INumber{TSelf}"/>, such as floats, doubles,
 /// decimals, integers, or any custom number type that implements the interface.
 /// </summary>
-public static class TMath
+/// <remarks>
+/// Some functions require additional implementations for each number, which means not all number types are supported by them.
+/// For example, trigonometric functions require a type that implements <see cref="ITrigonometricFunctions{TSelf}"/>, some exponential
+/// functions require <see cref="IExponentialFunctions{TSelf}"/>, and so on. 
+/// </remarks>
+public static partial class TMath
 {
     /// <summary>
     /// Converts an integer to a type T.
@@ -51,7 +56,7 @@ public static class TMath
     /// <summary>
     /// Rounds the number to the closest integral form.
     /// </summary>
-    /// <param name="n">The number to rounud</param>
+    /// <param name="n">The number to round</param>
     /// <returns>The rounded number</returns>
     public static T Round<T>(T n) where T : INumber<T>
     {
@@ -105,18 +110,35 @@ public static class TMath
         else return a * Pow(a, b - 1);
     }
 
-        
-    
-
     /// <summary>
     /// Clamps a value between min and max values
     /// </summary>
     /// <param name="value">The value to clamp</param>
     /// <param name="min">The minimal value</param>
-    /// <param name="max">The maximum vvalue</param>
+    /// <param name="max">The maximum value</param>
     /// <returns> <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/> and <paramref name="max"/> </returns>
     public static T Clamp<T>(T value, T min, T max) where T : INumber<T> =>
         min > value ? min : (value < max ? value : max);
-    
+
+
+    /// <summary>
+    /// Copies the sign from one variable to the other.
+    /// </summary>
+    /// <param name="value">The value of the result</param>
+    /// <param name="sign">The sign of the result</param>
+    /// <returns>A number with the magnitude of <paramref name="value"/> and the sign of <paramref name="sign"/></returns>
+    public static T CopySign<T>(T value, T sign) where T : INumber<T> => T.CopySign(value, sign);
+
+    /// <summary>
+    /// Returns the remainder of the division of 2 numbers
+    /// </summary>
+    /// <param name="number">The number to divide</param>
+    /// <param name="divider">The divider</param>
+    /// <returns>The remainder of <paramref name="number"/>/<paramref name="divider"/></returns>
+    public static T Remainder<T>(T number, T divider) where T : INumber<T>
+    {
+        if (number > divider) return Remainder(number - divider, divider);
+        return number; 
+    }
 }
 
