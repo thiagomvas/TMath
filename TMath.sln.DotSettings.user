@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">VISIBLE_FILES</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1f693704_002D4f25_002D4334_002Dbd66_002D70e4ae346414/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Run All Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Not&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::FA361212-F869-498B-8080-EFB75B5A2F2D::net8.0::TMath.Tests.FloatTests.Rad2DegTest(1.047198f)&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Not&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
