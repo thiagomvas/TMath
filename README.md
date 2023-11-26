@@ -45,7 +45,7 @@ For getting any constants using ``TConstants<T>``, specify your type (for exampl
 // Calculating the area of a circle arc.
 decimal angle = TConstants<decimal>.Pi;
 decimal radius = 1;
-decimal areaOfArc = (Foo.Rad2Deg(angle) / 360) * TConstants<decimal>.Pi * Foo.Pow(radius, 2);
+decimal areaOfArc = (TMath.Rad2Deg(angle) / 360) * TConstants<decimal>.Pi * TMath.Pow(radius, 2);
 Console.WriteLine(areaOfArc);
 
 // Calculating 20!
