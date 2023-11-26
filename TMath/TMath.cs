@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace TMath;
 
@@ -6,6 +7,11 @@ namespace TMath;
 /// Mathematics class with support for any <see cref="INumber{TSelf}"/>, such as floats, doubles,
 /// decimals, integers, or any custom number type that implements the interface.
 /// </summary>
+/// <remarks>
+/// Some functions require additional implementations for each number, which means not all number types are supported by them.
+/// For example, trigonometric functions require a type that implements <see cref="ITrigonometricFunctions{TSelf}"/>, some exponential
+/// functions require <see cref="IExponentialFunctions{TSelf}"/>, and so on. 
+/// </remarks>
 public static class TMath
 {
     /// <summary>
@@ -51,7 +57,7 @@ public static class TMath
     /// <summary>
     /// Rounds the number to the closest integral form.
     /// </summary>
-    /// <param name="n">The number to rounud</param>
+    /// <param name="n">The number to round</param>
     /// <returns>The rounded number</returns>
     public static T Round<T>(T n) where T : INumber<T>
     {
@@ -113,10 +119,86 @@ public static class TMath
     /// </summary>
     /// <param name="value">The value to clamp</param>
     /// <param name="min">The minimal value</param>
-    /// <param name="max">The maximum vvalue</param>
+    /// <param name="max">The maximum value</param>
     /// <returns> <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/> and <paramref name="max"/> </returns>
     public static T Clamp<T>(T value, T min, T max) where T : INumber<T> =>
         min > value ? min : (value < max ? value : max);
-    
+
+
+    /// <summary>
+    /// Copies the sign from one variable to the other.
+    /// </summary>
+    /// <param name="value">The value of the result</param>
+    /// <param name="sign">The sign of the result</param>
+    /// <returns>A number with the magnitude of <paramref name="value"/> and the sign of <paramref name="sign"/></returns>
+    public static T CopySign<T>(T value, T sign) where T : INumber<T> => T.CopySign(value, sign);
+
+    /// <summary>
+    /// Returns the remainder of the division of 2 numbers
+    /// </summary>
+    /// <param name="number">The number to divide</param>
+    /// <param name="divider">The divider</param>
+    /// <returns>The remainder of <paramref name="number"/>/<paramref name="divider"/></returns>
+    public static T Remainder<T>(T number, T divider) where T : INumber<T>
+    {
+        if (number > divider) return Remainder(number - divider, divider);
+        return number; 
+    }
+
+    /// <summary>
+    /// Calculates the sine of a number in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians"></param>
+    /// <returns>The sine of <paramref name="radians"/></returns>
+    public static T Sin<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Sin(radians);
+
+    /// <summary>
+    /// Calculates the cosine of a number in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians"></param>
+    /// <returns>The cosine of <paramref name="radians"/></returns>
+    public static T Cos<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Cos(radians);
+
+    /// <summary>
+    /// Calculates the tangent of a number in radians.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="radians"></param>
+    /// <returns>The tangent of <paramref name="radians"/></returns>
+    public static T Tan<T>(T radians) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Tan(radians);
+
+    /// <summary>
+    /// Calculates the arcsine of a number.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="value"></param>
+    /// <returns>The arcsine of <paramref name="value"/></returns>
+    public static T Asin<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Asin(value);
+
+    /// <summary>
+    /// Calculates the arccosine of a number.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="value"></param>
+    /// <returns>The arccosine of <paramref name="value"/></returns>
+    public static T Acos<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Acos(value);
+
+    /// <summary>
+    /// Calculates the arctangent of a number.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ITrigonometricFunctions{TSelf}"/></typeparam>
+    /// <param name="value"></param>
+    /// <returns>The arctangent of <paramref name="value"/></returns>
+    public static T Atan<T>(T value) where T : INumber<T>, ITrigonometricFunctions<T>
+        => T.Atan(value);
+
+
 }
 
