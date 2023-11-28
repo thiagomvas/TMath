@@ -29,6 +29,14 @@ namespace TMath
         /// <returns>The natural logarithm of <paramref name="num"/></returns>
         public static T Ln<T>(T num) where T : INumber<T>, ILogarithmicFunctions<T> => T.Log(num);
 
+        /// <summary>
+        /// Calculates the natural logarithm of <paramref name="num"/>.
+        /// </summary>
+        /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ILogarithmicFunctions{TSelf}"/></typeparam>
+        /// <param name="num">The number to calculate the natural logarithm of</param>
+        /// <returns>The natural logarithm of <paramref name="num"/></returns>
+        public static T Log<T>(T num) where T : INumber<T>, ILogarithmicFunctions<T> => T.Log(num);
+
 
         /// <summary>
         /// Calculates the logarithm of <paramref name="num"/> with the specified base.
@@ -37,6 +45,6 @@ namespace TMath
         /// <param name="num">The number to calculate the logarithm of</param>
         /// <param name="base">The base of the logarithm</param>
         /// <returns>The logarithm of <paramref name="num"/> with the specified base</returns>
-        public static T LogN<T>(T num, T @base) where T : INumber<T>, ILogarithmicFunctions<T> => T.Log(num, @base);
+        public static T Log<T>(T num, T @base) where T : INumber<T>, ILogarithmicFunctions<T> => T.Log(num, @base);
     }
 }
