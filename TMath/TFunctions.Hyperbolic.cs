@@ -58,4 +58,33 @@ public static partial class TFunctions
     public static T Coth<T>(T num) where T : INumber<T>, IPowerFunctions<T>
         => Cosh(num) / Sinh(num);
 
+
+    /// <summary>
+    /// Calculates the inverse hyperbolic sine of a number.
+    /// </summary>
+    /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="IPowerFunctions{TSelf}"/>, <see cref="IRootFunctions{TSelf}"/>, and <see cref="ILogarithmicFunctions{TSelf}"/></typeparam>
+    /// <param name="num">The number.</param>
+    /// <returns>The inverse hyperbolic sine of the number.</returns>
+    public static T Asinh<T>(T num) where T : INumber<T>, IPowerFunctions<T>, IRootFunctions<T>, ILogarithmicFunctions<T>
+        => Ln(num + Sqrt(Pow(num, IntToT<T>(2)) + T.One));
+
+
+        /// <summary>
+        /// Calculates the inverse hyperbolic cosine of a number.
+        /// </summary>
+        /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="IPowerFunctions{TSelf}"/>, <see cref="IRootFunctions{TSelf}"/>, and <see cref="ILogarithmicFunctions{TSelf}"/></typeparam>
+        /// <param name="num">The number.</param>
+        /// <returns>The inverse hyperbolic cosine of the number.</returns>
+    public static T Acosh<T>(T num) where T : INumber<T>, IPowerFunctions<T>, IRootFunctions<T>, ILogarithmicFunctions<T>
+        => Ln(num + Sqrt(Pow(num, IntToT<T>(2)) - T.One));
+
+        /// <summary>
+        /// Calculates the inverse hyperbolic tangent of a number.
+        /// </summary>
+        /// <typeparam name="T">An <see cref="INumber{TSelf}"/> that also implements <see cref="ILogarithmicFunctions{TSelf}"/></typeparam>
+        /// <param name="num">A number x where -1 &lt; x &lt; 1</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <returns>The inverse hyperbolic tangent of the number.</returns>
+        public static T Atanh<T>(T num) where T : INumber<T>, ILogarithmicFunctions<T>
+        => -T.One < num && num < T.One ? Ln((T.One + num) / (T.One - num)) / IntToT<T>(2) : throw new ArgumentOutOfRangeException();
 }
