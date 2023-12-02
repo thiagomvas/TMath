@@ -40,6 +40,16 @@ namespace TMath.Numerics
             return v;
         }
 
+        /// <summary>
+        /// Returns the length squared for this vector.
+        /// </summary>
+        /// <returns>The Length squared of the vector</returns>
+        /// <remarks>
+        /// If you wish to calculate the actual Length for the vector. Use a square root function on the result of this function such as <see cref="TFunctions"/>.Sqrt().
+        /// This because the constraint for the <see cref="TVector{T}"/> class is that <typeparamref name="T"/>
+        /// is an <see cref="INumber{TSelf}"/>>, it doesn't naturally have the <see cref="IRootFunctions{TSelf}"/> interface implemented, therefore you have to calculate
+        /// the length yourself. 
+        /// </remarks>
         public T LengthSquared() => Values.Select(x => x * x).Aggregate((acc, x) => acc + x);
 
 
