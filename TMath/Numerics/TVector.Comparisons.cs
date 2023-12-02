@@ -4,32 +4,58 @@ public partial class TVector<T>
 {
     public int CompareTo(object? obj)
     {
-        throw new NotImplementedException();
+        if (obj is TVector<T> v)
+        {
+            return CompareTo(v);
+        }
+        throw new ArgumentException("Object is not a TVector<T>", nameof(obj));
+        
     }
 
     public int CompareTo(TVector<T>? other)
     {
-        throw new NotImplementedException();
+        if (LengthSquared() == other.LengthSquared()) return 0;
+        return LengthSquared() > other.LengthSquared() ? 1 : -1;
     }
 
     public bool Equals(TVector<T>? other)
     {
-        throw new NotImplementedException();
+        foreach (var (x, y) in Values.Zip(other.Values))
+        {
+            if (!x.Equals(y)) return false;
+        }
+
+        return true;
     }
 
     public static bool IsCanonical(TVector<T> value)
     {
-        throw new NotImplementedException();
+        foreach (var x in value.Values)
+        {
+            if (!T.IsCanonical(x)) return false;
+        }
+
+        return true;
     }
 
     public static bool IsComplexNumber(TVector<T> value)
     {
-        throw new NotImplementedException();
+        foreach (var x in value.Values)
+        {
+            if (!T.IsComplexNumber(x)) return false;
+        }
+
+        return true;
     }
 
     public static bool IsEvenInteger(TVector<T> value)
     {
-        throw new NotImplementedException();
+        foreach (var x in value.Values)
+        {
+            if (!T.IsEvenInteger(x)) return false;
+        }
+
+        return true;
     }
 
     public static bool IsFinite(TVector<T> value)
