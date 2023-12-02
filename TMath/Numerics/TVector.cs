@@ -40,6 +40,9 @@ namespace TMath.Numerics
             return v;
         }
 
+        public T LengthSquared() => Values.Select(x => x * x).Aggregate((acc, x) => acc + x);
+
+
         public static TVector<T> One => new TVector<T>();
 
         public static int Radix => 10;
