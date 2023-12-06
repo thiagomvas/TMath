@@ -7,6 +7,21 @@ namespace TMath.Numerics
     public partial class TVector<T> : INumber<TVector<T>>
     where T : INumber<T>
     {
+        public TVector()
+        {
+            Values = new T[] { T.Zero };
+        }
+
+        public TVector(int dimensions)
+        {
+            Values = Enumerable.Repeat(T.Zero, dimensions).ToArray();
+        }
+
+        public TVector(T[] values)
+        {
+            Values = values;
+        }
+
         public T[] Values { get; set; }
 
         public string ToString(string? format, IFormatProvider? formatProvider)
