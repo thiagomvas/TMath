@@ -7,6 +7,16 @@ namespace TMath.Numerics
     public partial class TVector<T> : INumber<TVector<T>>
     where T : INumber<T>
     {
+        public T[] Values { get; set; }
+
+        public int Size
+        {
+            get
+            {
+                return Values.Length;
+            }
+        }
+
         public TVector()
         {
             Values = new T[] { T.Zero };
@@ -22,7 +32,6 @@ namespace TMath.Numerics
             Values = values;
         }
 
-        public T[] Values { get; set; }
 
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
