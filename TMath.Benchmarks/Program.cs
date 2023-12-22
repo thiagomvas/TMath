@@ -1,4 +1,6 @@
 ﻿using TMath;
+using BenchmarkDotNet.Running;
+
 
 namespace TMath.Benchmarks
 {
@@ -6,7 +8,11 @@ namespace TMath.Benchmarks
     {
         static void Main(string[] args)
         {
-
+            var switcher = new BenchmarkSwitcher(new[]
+            {
+                typeof(TFunctionsBenchmarks),
+            });
+            switcher.Run(args);
         }
     }
 }
