@@ -4,42 +4,48 @@ namespace TMath.Benchmarks
 {
     public class TFunctionsBenchmarks
     {
-        private const double number = 2345.0;
-
-
-        [Benchmark]
-        public double IntToT() => TFunctions.IntToT<double>(2345);
-        [Benchmark]
-        public double CreateSaturating() => double.CreateSaturating(2345);
+        private const double value = 1.23456789d;
 
         [Benchmark]
-        public double TAbs() => TFunctions.Abs(-number);
-        [Benchmark]
-        public double MathAbs() => Math.Abs(-number);
+        public double TAbs() => TFunctions.Abs(value);
 
         [Benchmark]
-        public double TFloor() => TFunctions.Floor(number);
-        [Benchmark]
-        public double MathFloor() => Math.Floor(number);
+        public double MathAbs() => Math.Abs(value);
 
         [Benchmark]
-        public double TCeil() => TFunctions.Ceil(number);
-        [Benchmark]
-        public double MathCeil() => Math.Ceiling(number);
+        public double TFloor() => TFunctions.Floor(value);
 
         [Benchmark]
-        public double TRound() => TFunctions.Round(number);
-        [Benchmark]
-        public double MathRound() => Math.Round(number);
+        public double MathFloor() => Math.Floor(value);
 
         [Benchmark]
-        public double TToRadians() => TFunctions.ToRadians(number);
-        [Benchmark]
-        public double MathToRadians() => Math.PI * 2345.0 / 180.0;
+        public double TCeil() => TFunctions.Ceil(value);
 
         [Benchmark]
-        public double TRad2Deg() => TFunctions.Rad2Deg(number);
+        public double MathCeil() => Math.Ceiling(value);
+
         [Benchmark]
-        public double MathRad2Deg() => 2345.0 * 180.0 / Math.PI;
+        public double TRound() => TFunctions.Round(value);
+
+        [Benchmark]
+        public double MathRound() => Math.Round(value);
+
+        [Benchmark]
+        public double TToRadians() => TFunctions.ToRadians(value);
+
+        [Benchmark]
+        public double MathToRadians() => Math.PI * value / 180.0;
+
+        [Benchmark]
+        public double TRad2Deg() => TFunctions.Rad2Deg(value);
+
+        [Benchmark]
+        public double MathRad2Deg() => value * 180.0 / Math.PI;
+
+        [Benchmark]
+        public double TClamp() => TFunctions.Clamp(value, 0.0, 1.0);
+
+        [Benchmark]
+        public double MathClamp() => Math.Clamp(value, 0.0, 1.0);
     }
 }

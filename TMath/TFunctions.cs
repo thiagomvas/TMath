@@ -23,11 +23,10 @@ namespace TMath
         /// <remarks>Used internally a lot by <see cref="TFunctions"/> to get a specific number of a type T so operations can be done successfully.</remarks>
         public static T IntToT<T>(int num) where T : INumber<T>
         {
-            return T.CreateSaturating(num);
-            //if (num < 0) return IntToT<T>(num + 1) - T.One;
-            //if (num == 0) return T.Zero;
-            //if (num == 1) return T.One;
-            //return T.One + IntToT<T>(num - 1);
+            if (num < 0) return IntToT<T>(num + 1) - T.One;
+            if (num == 0) return T.Zero;
+            if (num == 1) return T.One;
+            return T.One + IntToT<T>(num - 1);
         }
 
         /// <summary>
