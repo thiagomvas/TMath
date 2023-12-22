@@ -2,7 +2,7 @@
 
 namespace TMath.Benchmarks
 {
-    public class TFunctionsBenchmarks
+    public class AllTFunctionsBenchmarks
     {
         private const double value = 1.23456789d;
 
