@@ -1,4 +1,5 @@
-﻿using TMath;
+﻿using BenchmarkDotNet.Running;
+using TMath;
 
 namespace TMath.Benchmarks
 {
@@ -6,7 +7,7 @@ namespace TMath.Benchmarks
     {
         static void Main(string[] args)
         {
-
+            var summary = BenchmarkRunner.Run<TFunctionsBenchmarks>();
         }
     }
 }
