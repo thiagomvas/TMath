@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Configs;
+﻿using System.Reflection;
+using BenchmarkDotNet.Configs;
 using TMath;
 using BenchmarkDotNet.Running;
 
@@ -9,11 +10,7 @@ namespace TMath.Benchmarks
     {
         static void Main(string[] args)
         {
-            var switcher = new BenchmarkSwitcher(new[]
-            {
-                typeof(AllTFunctionsBenchmarks),
-                typeof(BaseFunctions.RoundingBenchmarks),
-            });
+            var switcher = new BenchmarkSwitcher(Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Name.Contains("Benchmark")).ToArray());
             switcher.Run(args);
         }
     }
