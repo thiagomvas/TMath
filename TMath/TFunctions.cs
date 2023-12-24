@@ -138,13 +138,6 @@ namespace TMath
         /// <returns>A number with the magnitude of <paramref name="value"/> and the sign of <paramref name="sign"/></returns>
         public static T CopySign<T>(T value, T sign) where T : INumber<T> => T.CopySign(value, sign);
 
-        public static T CopySignIf<T>(T value, T sign) where T : INumber<T>
-        {
-            if(value < T.Zero && sign > T.Zero) return -value;
-            if(value > T.Zero && sign < T.Zero) return -value;
-            return value;
-        }
-
         /// <summary>
         /// Returns the remainder of the division of 2 numbers
         /// </summary>

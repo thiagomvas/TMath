@@ -21,8 +21,5 @@ namespace TMath.Benchmarks.BaseFunctions
 
         [Benchmark]
         public double TCopySign() => TFunctions.CopySign<double>(10, -1);
-
-        [Benchmark]
-        public double CopySign_With_If() => TFunctions.CopySignIf<double>(10, -1);
     }
 }
