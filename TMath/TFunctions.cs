@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Xml.XPath;
 
 namespace TMath
 {
@@ -21,13 +22,7 @@ namespace TMath
         /// <typeparam name="T">The target type</typeparam>
         /// <returns>The converted integer into the type T</returns>
         /// <remarks>Used internally a lot by <see cref="TFunctions"/> to get a specific number of a type T so operations can be done successfully.</remarks>
-        public static T IntToT<T>(int num) where T : INumber<T>
-        {
-            if (num < 0) return IntToT<T>(num + 1) - T.One;
-            if (num == 0) return T.Zero;
-            if (num == 1) return T.One;
-            return T.One + IntToT<T>(num - 1);
-        }
+        public static T IntToT<T>(int num) where T : INumber<T> => T.CreateSaturating(num);
 
         /// <summary>
         /// Returns the absolute value of a number.
@@ -72,7 +67,19 @@ namespace TMath
         /// <param name="n">The number to obtain its factorial</param>
         /// <typeparam name="T">The number type to return the factorial as</typeparam>
         /// <returns>The factorial of a number as a type T</returns>
-        public static T Factorial<T>(int n) where T : INumber<T> => n <= 1 ? T.One : IntToT<T>(n) * Factorial<T>(n - 1);
+
+        public static T Factorial<T>(int n) where T : INumber<T> 
+        {
+            T result = T.One;
+            T value = IntToT<T>(n);
+            while (value > T.One)
+            {
+                result *= value;
+                value--;
+                
+            }
+            return result;
+        }
 
         /// <summary>
         /// Converts a number of degrees into radians.
@@ -137,12 +144,7 @@ namespace TMath
         /// <param name="number">The number to divide</param>
         /// <param name="divider">The divider</param>
         /// <returns>The remainder of <paramref name="number"/>/<paramref name="divider"/></returns>
-        public static T Remainder<T>(T number, T divider) where T : INumber<T>
-        {
-            if (T.IsNegative(number)) return Remainder(Abs(number), divider) * CopySign(T.One, number);
-            if (number > divider) return Remainder(number - divider, divider);
-            return number;
-        }
+        public static T Remainder<T>(T n, T d) where T : INumber<T> => n % d;
 
         /// <summary>
         /// Calculates the summation of a function.
