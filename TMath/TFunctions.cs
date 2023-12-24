@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Xml.XPath;
 
 namespace TMath
 {
@@ -66,7 +67,19 @@ namespace TMath
         /// <param name="n">The number to obtain its factorial</param>
         /// <typeparam name="T">The number type to return the factorial as</typeparam>
         /// <returns>The factorial of a number as a type T</returns>
-        public static T Factorial<T>(int n) where T : INumber<T> => n <= 1 ? T.One : IntToT<T>(n) * Factorial<T>(n - 1);
+
+        public static T Factorial<T>(int n) where T : INumber<T> 
+        {
+            T result = T.One;
+            T value = IntToT<T>(n);
+            while (value > T.One)
+            {
+                result *= value;
+                value--;
+                
+            }
+            return result;
+        }
 
         /// <summary>
         /// Converts a number of degrees into radians.
@@ -125,18 +138,20 @@ namespace TMath
         /// <returns>A number with the magnitude of <paramref name="value"/> and the sign of <paramref name="sign"/></returns>
         public static T CopySign<T>(T value, T sign) where T : INumber<T> => T.CopySign(value, sign);
 
+        public static T CopySignIf<T>(T value, T sign) where T : INumber<T>
+        {
+            if(value < T.Zero && sign > T.Zero) return -value;
+            if(value > T.Zero && sign < T.Zero) return -value;
+            return value;
+        }
+
         /// <summary>
         /// Returns the remainder of the division of 2 numbers
         /// </summary>
         /// <param name="number">The number to divide</param>
         /// <param name="divider">The divider</param>
         /// <returns>The remainder of <paramref name="number"/>/<paramref name="divider"/></returns>
-        public static T Remainder<T>(T number, T divider) where T : INumber<T>
-        {
-            if (T.IsNegative(number)) return Remainder(Abs(number), divider) * CopySign(T.One, number);
-            if (number > divider) return Remainder(number - divider, divider);
-            return number;
-        }
+        public static T Remainder<T>(T n, T d) where T : INumber<T> => n % d;
 
         /// <summary>
         /// Calculates the summation of a function.
