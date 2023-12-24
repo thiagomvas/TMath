@@ -22,5 +22,10 @@ namespace TMath.Benchmarks.BaseFunctions
 
         [Benchmark]
         public double MathRound() => Math.Round(Value);
+        [Benchmark]
+        public double TTruncate() => TFunctions.Truncate(Value, 0);
+
+        [Benchmark]
+        public double MathTruncate() => Math.Truncate(Value);
     }
 }
