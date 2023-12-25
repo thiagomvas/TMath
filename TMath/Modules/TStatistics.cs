@@ -216,7 +216,32 @@ namespace TMath.Modules
             where TSource : INumber<TSource>, IBinaryInteger<TSource>
             => TFunctions.Sqrt<TTarget, TTarget>(Variance<TTarget, TSource>(data));
 
-
+        /// <summary>
+        /// Gets the nth percentile of a set of data.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+        /// <param name="percentile">The percentile to return from 0 to 100</param>
+        /// <returns>The nth percentile of a data set</returns>
+        /// <remarks>
+        /// The percentile is the value below which a percentage of data falls. For example, the 50th percentile is the median. <br/>
+        /// - If the percentile is greater than 100, the maximum value is returned. <br/>
+        /// - If the percentile is less than 0, the minimum value is returned. <br/>
+        /// - If the data set is empty, 0 is returned.<br/>
+        /// - If the data set has only one value, that value is returned.<br/>
+        /// </remarks>
+        public static T Percentile<T>(IEnumerable<T> data, double percentile) where T : INumber<T>
+        {
+            
+            if (data.Count() == 0) return T.Zero;
+            if (data.Count() == 1 || percentile <= 0) return data.First();
+            if (percentile >= 100) return data.Last();
+            if (percentile == 50) return Median(data);
+            T[] sorted = data.ToArray();
+            Array.Sort(sorted);
+            int index = (int)TFunctions.Ceil(percentile / 100 * data.Count());
+            return sorted[index - 1];
+        }
 
     }
 }

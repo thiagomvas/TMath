@@ -175,6 +175,26 @@ namespace TMath.Tests
             // Assert
             Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
         }
+
+        [Test]
+        [TestCase(new double[] { },  95d, 0d)]
+        [TestCase(new[] { 1d },  50d, 1d)]
+        [TestCase(new[] { 0d, 0d, 0d, 0d, 0d, 0d },  50d, 0d)]
+        [TestCase(new[] { 1d, 2, 3 },  50d, 2d)]
+        [TestCase(new[] { 1d, 2, 3 },  95d, 3d)]
+        [TestCase(new[] { -1d, -2, -3 },  30d, -3d)]
+        [TestCase(new[] { -1d, -2, -3 },  95d, -1d)]
+        [TestCase(new[] { -1d, -2, -3, -4 },  50d, -2.5d)]
+        public void Percentile(double[] data, double percentile, double expected)
+        {
+            // Arrange
+
+            // Act
+            var actual = TStatistics.Percentile(data, percentile);
+            
+            // Assert
+            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+        }
         
     }
 }
