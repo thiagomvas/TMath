@@ -31,5 +31,15 @@ namespace TMath.Modules
                 return (sorted[sorted.Length / 2] + sorted[sorted.Length / 2 - 1]) / TFunctions.IntToT<T>(2);
             else return sorted[sorted.Length / 2];
         }
+
+        public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if (data.Count() <= 1) return T.Zero;
+            T mean = Mean(data);
+            T sum = T.Zero;
+            foreach (T d in data)
+                sum += (d - mean) * (d - mean);
+            return sum / T.CreateSaturating(data.Count() - 1);
+        }
     }
 }
