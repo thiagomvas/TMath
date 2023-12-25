@@ -75,5 +75,24 @@ namespace TMath.Tests
         [TestCase(new int[] { -1, -2, -3, -4, -5 }, ExpectedResult = 2.5d)]
         [TestCase(new int[] { 237, 589, 412, 765, 321 }, ExpectedResult = 45226.2d)]
         public double VarianceInteger(int[] data) => TStatistics.Variance<double, int>(data);
+
+        [Test]
+        [TestCase(new double[] { }, ExpectedResult = 0d)]
+        [TestCase(new[] {1d}, ExpectedResult = 0d)]
+        [TestCase(new[] {0d, 0d, 0d, 0d, 0d, 0d}, ExpectedResult = 0d)]
+        [TestCase(new[] {1d, 2, 3}, ExpectedResult = 1d)]
+        [TestCase(new[] { -1d, -2, -3}, ExpectedResult = 1d)]
+        [TestCase(new[] {-1d, -2, -3, -4, -5}, ExpectedResult = 1.5811388300841898d)]        // Having to do this due to floating point errors
+        [TestCase(new[] { 237d, 589, 412, 765, 321 }, ExpectedResult = 212.66452454511543d)] // Having to do this due to floating point errors
+        public double StandardDeviation(double[] data) => TStatistics.StandardDeviation(data);
+
+        [Test]
+        [TestCase(new int[] { }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 1 }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, 0 }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 1, 2, 3 }, ExpectedResult = 1d)]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 }, ExpectedResult = 1.5811388300841898d)]        // Having to do this due to floating point errors
+        [TestCase(new int[] { 237, 589, 412, 765, 321 }, ExpectedResult = 212.66452454511543d)] // Having to do this due to floating point errors
+        public double StandardDeviationIntegers(int[] data) => TStatistics.StandardDeviation<double, int>(data);
     }
 }

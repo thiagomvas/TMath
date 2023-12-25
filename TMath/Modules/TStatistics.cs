@@ -182,5 +182,15 @@ namespace TMath.Modules
                 
             return sum / TTarget.CreateSaturating(data.Count() - 1);
         }
+
+        public static T StandardDeviation<T>(IEnumerable<T> data) 
+            where T : INumber<T>, IFloatingPoint<T>, IRootFunctions<T> 
+            => TFunctions.Sqrt<T>(Variance(data));
+
+        public static TTarget StandardDeviation<TTarget, TSource>(IEnumerable<TSource> data)
+            where TTarget : INumber<TTarget>, IFloatingPoint<TTarget>
+            where TSource : INumber<TSource>, IBinaryInteger<TSource>
+            => TFunctions.Sqrt<TTarget, TTarget>(Variance<TTarget, TSource>(data));
+
     }
 }
