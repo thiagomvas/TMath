@@ -11,6 +11,9 @@ namespace TMath
         /// <param name="num">The number to calculate the square root of</param>
         /// <returns>The square root of <paramref name="num"/></returns>
         public static T Sqrt<T>(T num) where T : INumber<T>, IRootFunctions<T> => T.Sqrt(num);
+        public static TTarget Sqrt<TTarget, T>(T num) 
+            where T : INumber<T>
+            where TTarget : INumber<TTarget> => TTarget.CreateSaturating(Sqrt(Convert.ToDouble(num)));
 
 
         /// <summary>
