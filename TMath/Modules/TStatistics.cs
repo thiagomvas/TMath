@@ -13,6 +13,8 @@ namespace TMath.Modules
     {
         public static T Mean<T>(IEnumerable<T> data) where T : INumber<T>
         {
+            if(data.Count() == 0) return T.Zero;
+            if(data.Count() == 1) return data.First();
             T sum = T.Zero;
             foreach (T d in data)
                 sum += d;
@@ -21,6 +23,8 @@ namespace TMath.Modules
 
         public static T Median<T>(IEnumerable<T> data) where T : INumber<T>
         {
+            if (data.Count() == 0) return T.Zero;
+            if (data.Count() == 1) return data.First();
             T[] sorted = data.ToArray();
             Array.Sort(sorted);
             if(sorted.Length % 2 == 0)
