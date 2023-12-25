@@ -101,6 +101,39 @@ namespace TMath.Modules
             else return TTarget.CreateSaturating(sorted[sorted.Length / 2]);
         }
 
+        /// <summary>
+        /// Calculates the mode of a set of data.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <returns>The mode of the set of data</returns>
+        /// <remarks>
+        /// The mode is the value that occurs most often in a set of data. If there are multiple modes, the first one is returned.
+        /// </remarks>
+        public static T Mode<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if (data.Count() == 0) return T.Zero;
+            if (data.Count() == 1) return data.First();
+            Dictionary<T, int> counts = new Dictionary<T, int>();
+            foreach (T d in data)
+            {
+                if (counts.ContainsKey(d))
+                    counts[d]++;
+                else counts.Add(d, 1);
+            }
+            int max = 0;
+            T mode = T.Zero;
+            foreach (KeyValuePair<T, int> pair in counts)
+            {
+                if (pair.Value > max)
+                {
+                    max = pair.Value;
+                    mode = pair.Key;
+                }
+            }
+            return mode;
+        }
+
         public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>, IFloatingPoint<T>
         {
             if (data.Count() <= 1) return T.Zero;

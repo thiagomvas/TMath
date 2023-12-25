@@ -45,6 +45,17 @@ namespace TMath.Tests
         public double MedianIntegers(int[] data) => TStatistics.Median<double, int>(data);
 
         [Test]
+        [TestCase(new int[] { }, ExpectedResult = 0)]
+        [TestCase(new[] {1}, ExpectedResult = 1)]
+        [TestCase(new[] {0, 0, 0, 0, 0, 0}, ExpectedResult = 0)]
+        [TestCase(new[] {1, 2, 3}, ExpectedResult = 1d)]
+        [TestCase(new[] {4, 3, 3, 4, 5, 7, 2, 1, 7, 3, 4, 9, 4}, ExpectedResult = 4)]
+        [TestCase(new[] { 1, -3, 2, -6, 2, 1, -3, -3, -4, 0, 0, 1 }, ExpectedResult = 1)]
+        [TestCase(new[] { 1, 2, 1, 2, 1, 2 }, ExpectedResult = 1)]
+        public double Mode(int[] data) => TStatistics.Mode(data);
+
+
+        [Test]
         [TestCase(new double[] { }, ExpectedResult = 0d)]
         [TestCase(new[] {1d}, ExpectedResult = 0d)]
         [TestCase(new[] {0d, 0d, 0d, 0d, 0d, 0d}, ExpectedResult = 0d)]
