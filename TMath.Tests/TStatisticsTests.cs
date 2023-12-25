@@ -65,5 +65,15 @@ namespace TMath.Tests
         [TestCase(new[] { 237d, 589, 412, 765, 321 }, ExpectedResult = 45226.2d)]
 
         public double Variance(double[] data) => TStatistics.Variance(data);
+
+        [Test]
+        [TestCase(new int[] { }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 1 }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, 0 }, ExpectedResult = 0d)]
+        [TestCase(new int[] { 1, 2, 3 }, ExpectedResult = 1d)]
+        [TestCase(new int[] { 1, 1, 0, 3, 1, 3, 12, 0, 0, -5 }, ExpectedResult = 274/15d)]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 }, ExpectedResult = 2.5d)]
+        [TestCase(new int[] { 237, 589, 412, 765, 321 }, ExpectedResult = 45226.2d)]
+        public double VarianceInteger(int[] data) => TStatistics.Variance<double, int>(data);
     }
 }

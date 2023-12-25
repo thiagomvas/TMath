@@ -134,6 +134,17 @@ namespace TMath.Modules
             return mode;
         }
 
+        /// <summary>
+        /// Calculates the variance of a set of data.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+        /// <returns>The variance of the data set</returns>
+        /// <remarks>
+        /// The variance is the average of the squared differences from the mean. It is a measure of how spread out the data is.
+        /// For integer types, the variance will be rounded down to the nearest integer.
+        /// If more accuracy is needed, use the <see cref="Variance{TTarget,TSource}"/> overload
+        /// </remarks>
         public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>, IFloatingPoint<T>
         {
             if (data.Count() <= 1) return T.Zero;
@@ -142,6 +153,34 @@ namespace TMath.Modules
             foreach (T d in data)
                 sum += (d - mean) * (d - mean);
             return sum / T.CreateSaturating(data.Count() - 1);
+        }
+
+        /// <summary>
+        /// Calculates the variance of a set of data.
+        /// </summary>
+        /// <typeparam name="TTarget">The target type to return the mean as</typeparam>
+        /// <typeparam name="TSource">The type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <returns>The variance of the set of data as a <typeparamref name="TTarget"/></returns>
+        /// <remarks>
+        /// This overload is slower due to converting types. It is however recommended for accurate results when using integer types as data,
+        /// as it will not suffer from rounding errors when dividing integers. For floating point types or when rounding errors isn't an issue,
+        /// use the <see cref="Variance{T}(IEnumerable{T})"/> overload.
+        /// </remarks>
+        public static TTarget Variance<TTarget, TSource>(IEnumerable<TSource> data) 
+            where TTarget : INumber<TTarget>, IFloatingPoint<TTarget>
+            where TSource : INumber<TSource>, IBinaryInteger<TSource>
+        {
+            if (data.Count() <= 1) return TTarget.Zero;
+            TTarget mean = Mean<TTarget, TSource>(data);
+            TTarget sum = TTarget.Zero;
+            foreach (TSource d in data)
+            {
+                TTarget elem = TTarget.CreateSaturating(d);
+                sum += (elem - mean) * (elem - mean);
+            }
+                
+            return sum / TTarget.CreateSaturating(data.Count() - 1);
         }
     }
 }
