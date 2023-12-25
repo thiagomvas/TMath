@@ -14,8 +14,8 @@ namespace TMath.Modules
         /// <summary>
         /// Calculates the mean of a set of data.
         /// </summary>
-        /// <typeparam name="T">A floating point numeric type</typeparam>
-        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
         /// <returns>The mean of the data as <typeparamref name="T"/></returns>
         /// <remarks> The mean is the average of a set of data. Due to that, it is recommended to use floating point types as data.
         /// For integer types, the mean will be rounded down to the nearest integer. If more accuracy is needed, use the <see cref="Mean{TTarget,TSource}"/> overload
@@ -33,7 +33,7 @@ namespace TMath.Modules
         /// <summary>
         /// Calculates the mean of a set of data.
         /// </summary>
-        /// <typeparam name="TTarget">The target type to return the mean as</typeparam>
+        /// <typeparam name="TTarget">The target type to return as the result</typeparam>
         /// <typeparam name="TSource">The type of the data</typeparam>
         /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
         /// <returns>The mean of the data set as a <typeparamref name="TTarget"/></returns>
@@ -58,12 +58,13 @@ namespace TMath.Modules
         /// <summary>
         /// Calculates the median of a set of data.
         /// </summary>
-        /// <typeparam name="T">The data type</typeparam>
-        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
         /// <returns>The median of a the set of data</returns>
         /// <remarks>
         /// The median is the middle value of a set of data. If the set of data has an even number of values, the median is the average of the two middle values.
-        /// For integer types, the median will be rounded down to the nearest integer. If more accuracy is needed, use the <see cref="Median{TTarget,TSource}"/> overload
+        /// For integer types, the median will be rounded down to the nearest integer.
+        /// If more accuracy is needed, use the <see cref="Median{TTarget,TSource}"/> overload
         /// </remarks>
         public static T Median<T>(IEnumerable<T> data) where T : INumber<T>
         {
@@ -79,8 +80,8 @@ namespace TMath.Modules
         /// <summary>
         /// Calculates the median of a set of data.
         /// </summary>
-        /// <typeparam name="TTarget">The target type to return the median as </typeparam>
-        /// <typeparam name="TSource">The source type of the data set</typeparam>
+        /// <typeparam name="TTarget">The target type to return as the result</typeparam>
+        /// <typeparam name="TSource">The type of the data</typeparam>
         /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
         /// <returns>The median of the set of data as a <typeparamref name="TTarget"/></returns>
         /// <remarks>
@@ -143,7 +144,7 @@ namespace TMath.Modules
         /// <remarks>
         /// The variance is the average of the squared differences from the mean. It is a measure of how spread out the data is.
         /// For integer types, the variance will be rounded down to the nearest integer.
-        /// If more accuracy is needed, use the <see cref="Variance{TTarget,TSource}"/> overload
+        /// If more accuracy is needed for integer types, use the <see cref="Variance{TTarget,TSource}"/> overload
         /// </remarks>
         public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>, IFloatingPoint<T>
         {
@@ -158,7 +159,7 @@ namespace TMath.Modules
         /// <summary>
         /// Calculates the variance of a set of data.
         /// </summary>
-        /// <typeparam name="TTarget">The target type to return the mean as</typeparam>
+        /// <typeparam name="TTarget">The target type to return as the result</typeparam>
         /// <typeparam name="TSource">The type of the data</typeparam>
         /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
         /// <returns>The variance of the set of data as a <typeparamref name="TTarget"/></returns>
@@ -183,14 +184,39 @@ namespace TMath.Modules
             return sum / TTarget.CreateSaturating(data.Count() - 1);
         }
 
+        /// <summary>
+        /// Calculates the standard deviation of a set of data.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+        /// <returns>The standard deviation of a data set</returns>
+        /// <remarks>
+        /// The standard deviation is the square root of the variance. It is a measure of how spread out the data is.
+        /// For integer types, the standard deviation will be rounded down to the nearest integer.
+        /// If more accuracy is needed for integer types, use the <see cref="StandardDeviation{TTarget,TSource}"/> overload
+        /// </remarks>
         public static T StandardDeviation<T>(IEnumerable<T> data) 
             where T : INumber<T>, IFloatingPoint<T>, IRootFunctions<T> 
             => TFunctions.Sqrt<T>(Variance(data));
 
+        /// <summary>
+        /// Calculates the standard deviation of a set of data.
+        /// </summary>
+        /// <typeparam name="TTarget">The target type to return as the result</typeparam>
+        /// <typeparam name="TSource">The type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+        /// <returns>The standard deviation of the set of data as a <typeparamref name="TTarget"/></returns>
+        /// <remarks>
+        /// This overload is slower due to converting types. It is however recommended for accurate results when using integer types as data,
+        /// as it will not suffer from rounding errors when dividing integers. for floating point types or when rounding errors isn't an issue,
+        /// use the <see cref="StandardDeviation{T}(IEnumerable{T})"/> overload.
+        /// </remarks>
         public static TTarget StandardDeviation<TTarget, TSource>(IEnumerable<TSource> data)
             where TTarget : INumber<TTarget>, IFloatingPoint<TTarget>
             where TSource : INumber<TSource>, IBinaryInteger<TSource>
             => TFunctions.Sqrt<TTarget, TTarget>(Variance<TTarget, TSource>(data));
+
+
 
     }
 }
