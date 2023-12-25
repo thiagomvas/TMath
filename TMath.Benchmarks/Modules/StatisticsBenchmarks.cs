@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using TMath.Modules;
+using TMath.Numerics.Models;
 
 namespace TMath.Benchmarks.Modules
 {
@@ -15,11 +16,13 @@ namespace TMath.Benchmarks.Modules
         private double[] data;
         private int[] dataInt;
 
+
         [IterationSetup]
         public void Setup()
         {
             data = Enumerable.Range(0, arraySize).Select(x => (random.NextDouble() * 2 - 1) * maxValue).ToArray();
             dataInt = Enumerable.Range(0, arraySize).Select(x => random.Next(-maxValue, maxValue)).ToArray();
+
         }
 
         [Benchmark]
@@ -55,5 +58,11 @@ namespace TMath.Benchmarks.Modules
 
         [Benchmark]
         public int PercentileInt() => TStatistics.Percentile(dataInt, 49);
+
+        [Benchmark]
+        public DescriptiveStatistics<double> ComputeDescriptiveStatistics() => new DescriptiveStatistics<double>(data);
+
+        [Benchmark]
+        public DescriptiveStatistics<int> ComputeDescriptiveStatisticsInt() => new DescriptiveStatistics<int>(dataInt);
     }
 }

@@ -146,7 +146,8 @@ namespace TMath.Modules
         /// For integer types, the variance will be rounded down to the nearest integer.
         /// If more accuracy is needed for integer types, use the <see cref="Variance{TTarget,TSource}"/> overload
         /// </remarks>
-        public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>, IFloatingPoint<T>
+        public static T Variance<T>(IEnumerable<T> data) 
+            where T : INumber<T>
         {
             if (data.Count() <= 1) return T.Zero;
             T mean = Mean(data);
@@ -196,8 +197,8 @@ namespace TMath.Modules
         /// If more accuracy is needed for integer types, use the <see cref="StandardDeviation{TTarget,TSource}"/> overload
         /// </remarks>
         public static T StandardDeviation<T>(IEnumerable<T> data) 
-            where T : INumber<T>, IFloatingPoint<T>, IRootFunctions<T> 
-            => TFunctions.Sqrt<T>(Variance(data));
+            where T : INumber<T>
+            => TFunctions.Sqrt<T, T>(Variance(data));
 
         /// <summary>
         /// Calculates the standard deviation of a set of data.

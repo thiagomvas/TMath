@@ -1,4 +1,5 @@
 ﻿using TMath.Modules;
+using TMath.Numerics.Models;
 
 namespace TMath.Tests
 {
@@ -195,6 +196,63 @@ namespace TMath.Tests
             // Assert
             Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
         }
-        
+
+        [Test]
+        [TestCase(new double[] { })]
+        [TestCase(new[] { 1d })]
+        [TestCase(new[] { 0d, 0d, 0d, 0d, 0d, 0d })]
+        [TestCase(new[] { 1d, 2, 3 })]
+        [TestCase(new[] { -1d, -2, -3 })]
+        [TestCase(new[] { 1, 0.93, 12, 3, -2, -1.2 })]
+        [TestCase(new[] { 1, 0.93, 12, 3, -2, -1.2, 1, 0.93, 12, 3, -2, -1.2, 1, 0.93, 12, 3, -2, -1.2, 1, 0.93, 12, 3, -2, -1.2, 1, 0.93, 12, 3, -2, -1.2 })]
+
+        public void DescriptiveStatistics_CreateAndCompute(double[] data)
+        {
+            // Arrange
+            var expectedMean = TStatistics.Mean(data);
+            var expectedMedian = TStatistics.Median(data);
+            var expectedVariance = TStatistics.Variance(data);
+            var expectedStandardDeviation = TStatistics.StandardDeviation(data);
+            var expectedMode = TStatistics.Mode(data);
+
+            // Act
+            var actual = new DescriptiveStatistics<double>(data);
+
+            // Assert
+            Assert.That(expectedMean, Is.EqualTo(actual.Mean).Within(0.0001));
+            Assert.That(expectedMedian, Is.EqualTo(actual.Median).Within(0.0001));
+            Assert.That(expectedVariance, Is.EqualTo(actual.Variance).Within(0.0001));
+            Assert.That(expectedStandardDeviation, Is.EqualTo(actual.StandardDeviation).Within(0.0001));
+            Assert.That(expectedMode, Is.EqualTo(actual.Mode).Within(0.0001));
+        }
+
+        [Test]
+        [TestCase(new int[] { })]
+        [TestCase(new[] { 1 })]
+        [TestCase(new[] { 0, 0, 0, 0, 0, 0 })]
+        [TestCase(new[] { 1, 2, 3 })]
+        [TestCase(new[] { -1, -2, -3 })]
+        [TestCase(new[] { 1, 0, 12, 3, -2, -1 })]
+        [TestCase(new[] { 1, 0, 12, 3, -2, -1, 1, 0, 12, 3, -2, -1, 1, 0, 12, 3, -2, -1, 1, 0, 12, 3, -2, -1, 1, 0, 12, 3, -2, -1 })]
+        public void DescriptiveStatistics_CreateAndCompute_WithIntegers(int[] data)
+        {
+            // Arrange
+            var expectedMean = TStatistics.Mean(data);
+            var expectedMedian = TStatistics.Median(data);
+            var expectedVariance = TStatistics.Variance(data);
+            var expectedStandardDeviation = TStatistics.StandardDeviation(data);
+            var expectedMode = TStatistics.Mode(data);
+
+            // Act
+            var actual = new DescriptiveStatistics<int>(data);
+
+            // Assert
+            Assert.That(expectedMean, Is.EqualTo(actual.Mean).Within(1));
+            Assert.That(expectedMedian, Is.EqualTo(actual.Median).Within(1));
+            Assert.That(expectedVariance, Is.EqualTo(actual.Variance).Within(1));
+            Assert.That(expectedStandardDeviation, Is.EqualTo(actual.StandardDeviation).Within(1));
+            Assert.That(expectedMode, Is.EqualTo(actual.Mode).Within(1));
+        }
+
     }
 }
