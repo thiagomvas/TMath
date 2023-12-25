@@ -11,6 +11,16 @@ namespace TMath.Modules
     /// </remarks>
     public static class TStatistics
     {
+        /// <summary>
+        /// Calculates the mean of a set of data.
+        /// </summary>
+        /// <typeparam name="T">A floating point numeric type</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <returns>The mean of the data as <typeparamref name="T"/></returns>
+        /// <remarks> <b>For using integer types as data</b>, it is recommended to use the <see cref="Mean{TTarget,TSource}"/> overload
+        /// with TTarget being a floating point type.
+        /// <br/>
+        /// It will still work with this overload, but it will be less accurate due to rounding errors when dividing integers.</remarks>
         public static T Mean<T>(IEnumerable<T> data) where T : INumber<T>
         {
             if(data.Count() == 0) return T.Zero;
@@ -19,6 +29,31 @@ namespace TMath.Modules
             foreach (T d in data)
                 sum += d;
             return sum / T.CreateSaturating(data.Count());
+        }
+
+        /// <summary>
+        /// Calculates the mean of a set of data.
+        /// </summary>
+        /// <typeparam name="TTarget">The target type to return the mean as</typeparam>
+        /// <typeparam name="TSource">The type of the data</typeparam>
+        /// <param name="data">An <see cref="IEnumerable{T}"/> containing all the data</param>
+        /// <returns>The mean of the data set as a <typeparamref name="TTarget"/></returns>
+        /// <remarks>
+        /// This overload is slower due to converting types. It is however recommended for accurate results when using
+        /// integer types as data, as it will not suffer from rounding errors when dividing integers.
+        /// <br/>
+        /// For floating point types or when rounding errors isn't an issue, use the <see cref="Mean{T}(IEnumerable{T})"/> overload.
+        /// </remarks>
+        public static TTarget Mean<TTarget, TSource>(IEnumerable<TSource> data) 
+            where TTarget : INumber<TTarget>, IFloatingPoint<TTarget>
+            where TSource : INumber<TSource>, IBinaryInteger<TSource>
+        {
+            if (data.Count() == 0) return TTarget.Zero;
+            if (data.Count() == 1) return TTarget.CreateSaturating(data.First());
+            TTarget sum = TTarget.Zero;
+            foreach (TSource d in data)
+                sum += TTarget.CreateSaturating(d);
+            return sum / TTarget.CreateSaturating(data.Count());
         }
 
         public static T Median<T>(IEnumerable<T> data) where T : INumber<T>
@@ -32,7 +67,7 @@ namespace TMath.Modules
             else return sorted[sorted.Length / 2];
         }
 
-        public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>
+        public static T Variance<T>(IEnumerable<T> data) where T : INumber<T>, IFloatingPoint<T>
         {
             if (data.Count() <= 1) return T.Zero;
             T mean = Mean(data);
