@@ -26,7 +26,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Sinh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Cosh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Tanh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Sech(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Csch(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Coth(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -146,7 +146,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Asinh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Acosh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace TMath.Tests.Numerics
             var actual = TFunctions.Atanh(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
     }
 }

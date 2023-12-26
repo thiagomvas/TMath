@@ -20,7 +20,7 @@
             var actual = TFunctions.Sqrt(number);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -40,7 +40,7 @@
             var actual = TFunctions.Sqrt<double, int>(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -60,7 +60,7 @@
             var actual = TFunctions.Cbrt(number);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -80,7 +80,7 @@
             var actual = TFunctions.NRoot(number, n);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
     }
 }

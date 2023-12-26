@@ -26,7 +26,7 @@ namespace TMath.Tests.Numerics
             double actual = TFunctions.Log2(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace TMath.Tests.Numerics
             double actual = TFunctions.Log10(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace TMath.Tests.Numerics
             double actual = TFunctions.Ln(num);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual));
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace TMath.Tests.Numerics
             double actual = TFunctions.Log(num, @base);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
     }
 }

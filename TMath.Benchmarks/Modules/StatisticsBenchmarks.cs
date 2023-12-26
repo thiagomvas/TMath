@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
-using TMath.Modules;
+using TMath.Numerics;
 using TMath.Numerics.Models;
 
 namespace TMath.Benchmarks.Modules

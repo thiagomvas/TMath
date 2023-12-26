@@ -21,7 +21,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Mean(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Mean<double, int>(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Median(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Median<double, int>(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Mode(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
 
@@ -118,7 +118,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Variance(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Variance<double, int>(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.StandardDeviation(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -174,7 +174,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.StandardDeviation<double, int>(data);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
@@ -194,7 +194,7 @@ namespace TMath.Tests.Numerics
             var actual = TStatistics.Percentile(data, percentile);
 
             // Assert
-            Assert.That(expected, Is.EqualTo(actual).Within(0.0001));
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
 
         [Test]
