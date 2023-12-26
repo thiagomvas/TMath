@@ -71,22 +71,41 @@ namespace TMath.Tests.Numerics
         [Test]
         [TestCase(0)]
         [TestCase(0.1)]
-        [TestCase(0.12)]
+        [TestCase(-0.12)]
         [TestCase(0.123)]
-        [TestCase(0.1234)]
+        [TestCase(-0.1234)]
         [TestCase(0.12345)]
-        [TestCase(0.123456)]
+        [TestCase(-0.123456)]
         public void TruncateTest(double num)
         {
             // Arrange
             var expected = Math.Truncate(num);
 
             // Act
-            var actual = TFunctions.Truncate(num, 0);
+            var actual = TFunctions.Truncate(num);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(-1)]
+        [TestCase(1.1)]
+        [TestCase(-1.1)]
+        [TestCase(-0.123456789)]
+        [TestCase(-324532634252)]
+        public void AbsTest(double num)
+        {
+            // Arrange
+            var expected = Math.Abs(num);
+
+            // Act
+            var actual = TFunctions.Abs(num);
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
