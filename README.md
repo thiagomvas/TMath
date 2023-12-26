@@ -19,6 +19,8 @@ constants as any numeric type, such as **Euler's Number, Pi, Golden Ratio** and 
 that also work with generics, such as ``Factorial()``.
 - **Generics Easings Class:** ``TEasings`` offers a handful of easing functions for usage in
 your projects that support any ``INumber<T>``
+- **Statistics Functions:** Use TStatistics to get info about a data set of numbers, such as Mean, Variance, etc.
+or use the ``DescriptiveStatistics`` class to hold all that info about a data set.
 
 ## 📙 • Getting Started
 ### Installation
@@ -56,6 +58,14 @@ Console.WriteLine(factorial);
 sbyte number = -34;
 sbyte abs = TFunctions.Abs(number);
 Console.WriteLine(abs);
+
+// Getting the info about a data set
+float[] data = new float[] { 1, 2, 3, 4, 5, 6}
+float mean = TStatistics.Mean(data);
+
+DescriptiveStatistics statistics = new(data); // Or get all that info computed into the custom class
+Console.WriteLine(statistics);
+
 ```
 
 ## 🤝 • Contributing
