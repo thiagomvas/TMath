@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace TMath.Modules
+namespace TMath.Numerics
 {
     /// <summary>
     /// A mathematical utility class providing statistical functions for data analysis, with functions like Mean, Standard deviation, and more.

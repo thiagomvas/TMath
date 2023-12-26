@@ -14,8 +14,16 @@
         <RepositoryUrl>https://github.com/thiagomvas/TMath</RepositoryUrl>
         <PackageTags>math, generics, csharp</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Version>1.1.2</Version>
-        <PackageReleaseNotes>Fixed documentation not showing.</PackageReleaseNotes>
+        <Version>1.3.1</Version>
+        <PackageReleaseNotes>Added TStatistics, a set of statistics-related functions using generics. Functions implemented:
+- Mean
+- Median
+- Mode
+- Percentile
+- Variance
+- StandardDeviation
+
+Added DescriptiveStatistics&lt;T&gt;, a class for holding all the data that TStatistics can calculate for a data set, which gets calculated upon creation.</PackageReleaseNotes>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
