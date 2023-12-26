@@ -3,17 +3,47 @@ using TMath.Modules;
 
 namespace TMath.Numerics.Models
 {
+    /// <summary>
+    /// Provides descriptive statistics for a collection of numeric data.
+    /// </summary>
+    /// <typeparam name="T">The numeric type of the data, implementing the INumber interface.</typeparam>
     public class DescriptiveStatistics<T> where T : INumber<T>
     {
-        
+        /// <summary>
+        /// Gets the mean (average) of the data.
+        /// </summary>
         public T Mean { get; private set; }
-        public T Median { get; private set; }
-        public T Variance { get; private set; }
-        public T StandardDeviation { get; private set; }
-        public T Mode { get; private set; }
-        public T[] Data { get; private set; }
 
-        public DescriptiveStatistics(T[] data)
+        /// <summary>
+        /// Gets the median of the data.
+        /// </summary>
+        public T Median { get; private set; }
+
+        /// <summary>
+        /// Gets the variance of the data.
+        /// </summary>
+        public T Variance { get; private set; }
+
+        /// <summary>
+        /// Gets the standard deviation of the data.
+        /// </summary>
+        public T StandardDeviation { get; private set; }
+
+        /// <summary>
+        /// Gets the mode (most frequently occurring value) of the data.
+        /// </summary>
+        public T Mode { get; private set; }
+
+        /// <summary>
+        /// Gets the raw data provided to calculate statistics.
+        /// </summary>
+        public IEnumerable<T> Data { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the DescriptiveStatistics class with the provided data.
+        /// </summary>
+        /// <param name="data">The numeric data for which descriptive statistics are calculated.</param>
+        public DescriptiveStatistics(IEnumerable<T> data)
         {
             Mean = TStatistics.Mean(data);
             Median = TStatistics.Median(data);
@@ -22,7 +52,13 @@ namespace TMath.Numerics.Models
             Mode = TStatistics.Mode(data);
         }
 
+        /// <summary>
+        /// Calculates and returns the specified percentile of the data.
+        /// </summary>
+        /// <param name="percentile">The desired percentile (0 to 100).</param>
+        /// <returns>The value at the specified percentile in the data.</returns>
         public T Percentile(int percentile) => TStatistics.Percentile(Data, percentile);
+
 
         public override string ToString()
         {
