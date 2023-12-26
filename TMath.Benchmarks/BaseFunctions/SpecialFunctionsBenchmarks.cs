@@ -14,7 +14,7 @@ namespace TMath.Benchmarks.BaseFunctions
         public double TRemainder() => TFunctions.Remainder(10, 3);
 
         [Benchmark]
-        public double TTruncate() => TFunctions.Truncate<double>(10.123456789, 5);
+        public double TTruncate() => TFunctions.Truncate<double>(10.123456789);
 
         [Benchmark]
         public double TClamp() => TFunctions.Clamp<double>(10, 5, 15);

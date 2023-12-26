@@ -48,17 +48,41 @@ namespace TMath
         /// </summary>
         /// <param name="n">The number to round up</param>
         /// <returns>The rounded up number.</returns>
-        public static T Ceil<T>(T n) where T : INumber<T> => n % T.One == T.Zero ? n : n + (T.One - Abs(n % T.One));
+        public static T Ceil<T>(T n) where T : INumber<T>
+        {
+            if(n % T.One == T.Zero)
+                return n;
+            if (T.IsNegative(n))
+                return Truncate(n);
+            return Truncate(n) + T.One;
+        }
 
         /// <summary>
         /// Rounds the number to the closest integral form.
         /// </summary>
         /// <param name="n">The number to round</param>
         /// <returns>The rounded number</returns>
-        public static T Round<T>(T n) where T : INumber<T>
+        public static T Round<T>(T n, int precision = 0) where T : INumber<T>
         {
-            if (n % T.One >= T.One / IntToT<T>(2)) return Ceil(n);
-            return Floor(n);
+            T pow = precision > 0 ? Pow(IntToT<T>(10), precision) : T.One;
+            if(T.IsNegative(n))
+            {
+                T floating = precision > 0 ? -n * pow % T.One : -n % T.One;
+                if (floating > T.One / (T.One + T.One))
+                    return pow <= T.One ? Floor(n) : Floor(n * pow) / pow;
+                else
+                    return pow <= T.One ? Ceil(n) : Ceil(n * pow) / pow;
+            }
+
+            else
+            {
+                T floating = precision > 0 ? n * pow % T.One : n % T.One;
+
+                if (floating > T.One / (T.One + T.One))
+                    return pow <= T.One ? Ceil(n) : Ceil(n * pow) / pow;
+                else
+                    return pow <= T.One ? Floor(n) : Floor(n * pow) / pow;
+            }
         }
 
         /// <summary>
@@ -167,7 +191,11 @@ namespace TMath
         /// <param name="value">The value to truncate</param>
         /// <param name="accuracy">The amount of decimal places to have.</param>
         /// <returns>The truncated number</returns>
-        public static T Truncate<T>(T value, int accuracy) where T : INumber<T>
-            => Floor(value * Pow(IntToT<T>(10), accuracy)) / Pow(IntToT<T>(10), accuracy);
+        public static T Truncate<T>(T value)
+            where T : INumber<T>
+        {
+            T n = value % T.One;
+            return value - n;
+        }
     }
 }

@@ -53,16 +53,20 @@ namespace TMath.Tests.Numerics
         [TestCase(1)]
         [TestCase(1.1)]
         [TestCase(-1.1)]
-        [TestCase(0.123456789)]
-        [TestCase(3.1)]
-        [TestCase(-3.1)]
-        public void RoundTest(double num)
+        [TestCase(1.9)]
+        [TestCase(-1.9)]
+        [TestCase(0.123456789, 7)]
+        [TestCase(-0.123456789, 7)]
+        [TestCase(-3.989765432, 7)]
+        [TestCase(0.5)]
+        [TestCase(-0.5)]
+        public void RoundTest(double num, int precision = 0)
         {
             // Arrange
-            var expected = Math.Round(num);
+            var expected = Math.Round(num, precision);
 
             // Act
-            var actual = TFunctions.Round(num);
+            var actual = TFunctions.Round(num, precision);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
