@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Xml.XPath;
 
 namespace TMath
 {
@@ -92,15 +91,40 @@ namespace TMath
         /// <typeparam name="T">The number type to return the factorial as</typeparam>
         /// <returns>The factorial of a number as a type T</returns>
 
-        public static T Factorial<T>(int n) where T : INumber<T> 
+        public static T Factorial<T>(T n) where T : INumber<T>, IBinaryInteger<T>
         {
             T result = T.One;
-            T value = IntToT<T>(n);
+            T value = n;
             while (value > T.One)
             {
                 result *= value;
                 value--;
                 
+            }
+            return result;
+        }
+
+
+
+        /// <summary>
+        /// Gets the factorial of an number.
+        /// </summary>
+        /// <param name="n">The number to obtain its factorial</param>
+        /// <typeparam name="TSource">The type of N to calculate the factorial, where N is an integer type</typeparam>
+        /// <typeparam name="TTarget">The number type to return the factorial as</typeparam>
+        /// <returns>The factorial of a number as a type T</returns>
+
+        public static TTarget Factorial<TTarget, TSource>(TSource n) 
+            where TSource : INumber<TSource>, IBinaryInteger<TSource>
+            where TTarget : INumber<TTarget>
+        {
+            TTarget result = TTarget.One;
+            TTarget value = TTarget.CreateSaturating(n);
+            while (value > TTarget.One)
+            {
+                result *= value;
+                value--;
+
             }
             return result;
         }
@@ -135,12 +159,18 @@ namespace TMath
         /// <param name="a">The base number.</param>
         /// <param name="b">The power of the base number.</param>
         /// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
+        /// <remarks>
+        /// When using integer types, do keep in mind that it will also return an integer type by casting it.
+        /// </remarks>
         public static T Pow<T>(T a, int b) where T : INumber<T>
         {
-            if (b < 0) return Pow(T.One / a, Abs(b));
-            if (b == 0) return T.One;
+            if (b < 0) return T.One / Pow(a, Abs(b));
+            if (b == 0) return T.One; 
             if (b == 1) return a;
-            else return a * Pow(a, b - 1);
+            T result = a;
+            for(int i = 2; i <= b; i++)
+                result *= a;
+            return result;
         }
 
         /// <summary>
