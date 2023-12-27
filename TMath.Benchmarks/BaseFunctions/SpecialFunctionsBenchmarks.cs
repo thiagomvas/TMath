@@ -5,7 +5,7 @@ namespace TMath.Benchmarks.BaseFunctions
     public class SpecialFunctionsBenchmarks
     {
         [Benchmark]
-        public double TFactorial() => TFunctions.Factorial<double>(10);
+        public long TFactorial() => TFunctions.Factorial(10);
 
         [Benchmark]
         public double TSum() => TFunctions.Sum<double>(x => x, 10);
