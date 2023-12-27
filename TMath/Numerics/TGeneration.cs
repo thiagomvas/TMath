@@ -42,6 +42,19 @@ namespace TMath.Numerics
             return result;
         }
 
+        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
+        {
+            T size = (end - start) / step;
+            int length = int.CreateSaturating(size);
+            T[] result = new T[length];
 
+            int index = 0;
+            for (T i = start; i < size; i += step)
+            {
+                result[index] = function(start + step * i);
+                index++;
+            }
+            return result;
+        }
     }
 }
