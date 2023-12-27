@@ -44,12 +44,12 @@ namespace TMath.Numerics
 
         public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
         {
-            T size = (end - start) / step;
+            T size = TFunctions.Floor((end - start) / step);
             int length = int.CreateSaturating(size);
             T[] result = new T[length];
 
             int index = 0;
-            for (T i = start; i < size; i += step)
+            for (T i = start; i < size; i++)
             {
                 result[index] = function(start + step * i);
                 index++;
