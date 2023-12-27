@@ -42,17 +42,53 @@ namespace TMath.Numerics
             return result;
         }
 
-        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
+        public T[] FunctionSequence<T>(Func<T,T> function, T length) where T : INumber<T>
         {
-            T size = TFunctions.Floor((end - start) / step);
-            int length = int.CreateSaturating(size);
+            T[] result = new T[int.CreateSaturating(length)];
+
+            for((T value, int index) i = (T.Zero, 0); i.value < length; i = (i.value + T.One, i.index + 1))
+            {
+                result[i.index] = function(i.value);
+            }
+
+            return result;
+        }
+
+        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end) where T : INumber<T>
+        {
+
+            // If min is bigger than max, swap them
+            if (start > end)
+            {
+                (start, end) = (end, start);
+            }
+
+            T size = TFunctions.Floor(end - start);
+            int length = int.CreateSaturating(size) + 1;
             T[] result = new T[length];
 
-            int index = 0;
-            for (T i = start; i < size; i++)
+            for ((T value, int index) i = (T.Zero, 0); i.index < length; i = (i.value + T.One, i.index + 1))
             {
-                result[index] = function(start + step * i);
-                index++;
+                result[i.index] = function(start + i.value);
+            }
+            return result;
+        }
+
+        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
+        {
+            if (start == end && start == T.Zero) return new T[0];
+            // If min is bigger than max, swap them
+            if (start > end)
+            {
+                (start, end) = (end, start);
+            }
+            T size = TFunctions.Floor((end - start) / step);
+            int length = int.CreateSaturating(size) + 1;
+            T[] result = new T[length];
+
+            for ((T value, int index) i = (T.Zero, 0); i.index < length; i = (i.value + T.One, i.index + 1))
+            {
+                result[i.index] = function(start + step * i.value);
             }
             return result;
         }
