@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Xml.XPath;
 
 namespace TMath
 {
@@ -48,17 +47,41 @@ namespace TMath
         /// </summary>
         /// <param name="n">The number to round up</param>
         /// <returns>The rounded up number.</returns>
-        public static T Ceil<T>(T n) where T : INumber<T> => n % T.One == T.Zero ? n : n + (T.One - Abs(n % T.One));
+        public static T Ceil<T>(T n) where T : INumber<T>
+        {
+            if(n % T.One == T.Zero)
+                return n;
+            if (T.IsNegative(n))
+                return Truncate(n);
+            return Truncate(n) + T.One;
+        }
 
         /// <summary>
         /// Rounds the number to the closest integral form.
         /// </summary>
         /// <param name="n">The number to round</param>
         /// <returns>The rounded number</returns>
-        public static T Round<T>(T n) where T : INumber<T>
+        public static T Round<T>(T n, int precision = 0) where T : INumber<T>
         {
-            if (n % T.One >= T.One / IntToT<T>(2)) return Ceil(n);
-            return Floor(n);
+            T pow = precision > 0 ? Pow(IntToT<T>(10), precision) : T.One;
+            if(T.IsNegative(n))
+            {
+                T floating = precision > 0 ? -n * pow % T.One : -n % T.One;
+                if (floating > T.One / (T.One + T.One))
+                    return pow <= T.One ? Floor(n) : Floor(n * pow) / pow;
+                else
+                    return pow <= T.One ? Ceil(n) : Ceil(n * pow) / pow;
+            }
+
+            else
+            {
+                T floating = precision > 0 ? n * pow % T.One : n % T.One;
+
+                if (floating > T.One / (T.One + T.One))
+                    return pow <= T.One ? Ceil(n) : Ceil(n * pow) / pow;
+                else
+                    return pow <= T.One ? Floor(n) : Floor(n * pow) / pow;
+            }
         }
 
         /// <summary>
@@ -68,15 +91,40 @@ namespace TMath
         /// <typeparam name="T">The number type to return the factorial as</typeparam>
         /// <returns>The factorial of a number as a type T</returns>
 
-        public static T Factorial<T>(int n) where T : INumber<T> 
+        public static T Factorial<T>(T n) where T : INumber<T>, IBinaryInteger<T>
         {
             T result = T.One;
-            T value = IntToT<T>(n);
+            T value = n;
             while (value > T.One)
             {
                 result *= value;
                 value--;
                 
+            }
+            return result;
+        }
+
+
+
+        /// <summary>
+        /// Gets the factorial of an number.
+        /// </summary>
+        /// <param name="n">The number to obtain its factorial</param>
+        /// <typeparam name="TSource">The type of N to calculate the factorial, where N is an integer type</typeparam>
+        /// <typeparam name="TTarget">The number type to return the factorial as</typeparam>
+        /// <returns>The factorial of a number as a type T</returns>
+
+        public static TTarget Factorial<TTarget, TSource>(TSource n) 
+            where TSource : INumber<TSource>, IBinaryInteger<TSource>
+            where TTarget : INumber<TTarget>
+        {
+            TTarget result = TTarget.One;
+            TTarget value = TTarget.CreateSaturating(n);
+            while (value > TTarget.One)
+            {
+                result *= value;
+                value--;
+
             }
             return result;
         }
@@ -111,12 +159,18 @@ namespace TMath
         /// <param name="a">The base number.</param>
         /// <param name="b">The power of the base number.</param>
         /// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
+        /// <remarks>
+        /// When using integer types, do keep in mind that it will also return an integer type by casting it.
+        /// </remarks>
         public static T Pow<T>(T a, int b) where T : INumber<T>
         {
-            if (b < 0) return Pow(T.One / a, Abs(b));
-            if (b == 0) return T.One;
+            if (b < 0) return T.One / Pow(a, Abs(b));
+            if (b == 0) return T.One; 
             if (b == 1) return a;
-            else return a * Pow(a, b - 1);
+            T result = a;
+            for(int i = 2; i <= b; i++)
+                result *= a;
+            return result;
         }
 
         /// <summary>
@@ -167,7 +221,11 @@ namespace TMath
         /// <param name="value">The value to truncate</param>
         /// <param name="accuracy">The amount of decimal places to have.</param>
         /// <returns>The truncated number</returns>
-        public static T Truncate<T>(T value, int accuracy) where T : INumber<T>
-            => Floor(value * Pow(IntToT<T>(10), accuracy)) / Pow(IntToT<T>(10), accuracy);
+        public static T Truncate<T>(T value)
+            where T : INumber<T>
+        {
+            T n = value % T.One;
+            return value - n;
+        }
     }
 }
