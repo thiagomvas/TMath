@@ -299,5 +299,46 @@ namespace TMath.Tests.Numerics
             // Assert
             Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
         }
+
+        [Test]
+        [TestCase(15)]
+        [TestCase(-67)]
+        [TestCase(123)]
+        [TestCase(-89)]
+        [TestCase(256)]
+        [TestCase(-33)]
+        [TestCase(421)]
+
+        public void ToRadiansTest(double number)
+        {
+            // Arrange
+            var expected = number * Math.PI / 180;
+
+            // Act
+            var actual = TFunctions.ToRadians(number);
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
+        }
+
+        [Test]
+        [TestCase(0.785)]
+        [TestCase(-2.34)]
+        [TestCase(4.567)]
+        [TestCase(-1.123)]
+        [TestCase(3.456)]
+        [TestCase(-0.927)]
+        [TestCase(7.891)]
+        public void Rad2DegTest(double number)
+        {
+            // Arrange
+            var expected = number * 180 / Math.PI;
+
+            // Act
+            var actual = TFunctions.Rad2Deg(number);
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected).Within(0.0001));
+        }
     }
 }
