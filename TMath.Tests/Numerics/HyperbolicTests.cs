@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TMath.Tests.Numerics
+﻿namespace TMath.Tests.Numerics
 {
     public class HyperbolicTests
     {
