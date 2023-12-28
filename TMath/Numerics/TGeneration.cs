@@ -71,6 +71,28 @@ namespace TMath.Numerics
         }
 
         /// <summary>
+        /// Generates a random 2D array of numbers within the specified range.
+        /// </summary>
+        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <param name="xLength">The length of the array in the X axis</param>
+        /// <param name="yLength">The length of the array in the Y axis</param>
+        /// <param name="min">The minimum value of the array elements.</param>
+        /// <param name="max">The maximum value of the array elements.</param>
+        /// <returns>A 2D array of random numbers within the specified range.</returns>
+        public T[,] Random2DArray<T>(int xLength, int yLength, T min, T max) where T : INumber<T>
+        {
+            T[,] result = new T[xLength, yLength];
+            for (int x = 0; x < xLength; x++)
+            {
+                for (int y = 0; y < yLength; y++)
+                {
+                    result[x, y] = RandomNumber(min, max);
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Generates an array where each element is a sequence of results from the specified function, starting from 0.
         /// </summary>
         /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
@@ -143,5 +165,7 @@ namespace TMath.Numerics
             }
             return result;
         }
+
+        
     }
 }
