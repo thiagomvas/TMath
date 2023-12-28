@@ -62,6 +62,14 @@ namespace TMath.Numerics
         /// <returns>An array of random numbers within the specified range.</returns>
         public T[] RandomArray<T>(int length, T min, T max) where T : INumber<T>
         {
+            if(length < 0) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
+            if(length == 0) return new T[0];
+
+            if (min > max)
+            {
+                (min, max) = (max, min);
+            }
+
             T[] result = new T[length];
             for (int i = 0; i < length; i++)
             {
@@ -81,6 +89,9 @@ namespace TMath.Numerics
         /// <returns>A 2D array of random numbers within the specified range.</returns>
         public T[,] Random2DArray<T>(int xLength, int yLength, T min, T max) where T : INumber<T>
         {
+            if(xLength < 0 || yLength < 0) throw new ArgumentOutOfRangeException("Length must be greater than 0.");
+            if(xLength == 0 || yLength == 0) return new T[0,0];
+
             T[,] result = new T[xLength, yLength];
             for (int x = 0; x < xLength; x++)
             {
