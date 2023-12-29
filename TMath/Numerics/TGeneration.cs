@@ -7,8 +7,8 @@ namespace TMath.Numerics
     /// A utility class for generating random numbers and sequences of numbers.
     /// </summary>
     /// <remarks>
-    /// It uses a seed for the random number generator, so if you want to generate the same numbers every time, use the same seed.
-    /// Otherwise, use <see cref="TGeneration.Default"/> for the default instance of this class that always has the same seed.
+    /// Create an instance with no parameters for a random seed, or specify a seed to generate the same sequence of numbers every time. <br/>
+    /// Otherwise, use <see cref="Default"/> for the default instance of this class that always has the same seed.
     /// </remarks>
     public class TGeneration
     {
@@ -31,7 +31,7 @@ namespace TMath.Numerics
         /// <summary>
         /// Generates a random number between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
         /// <returns>A random number within the specified range.</returns>
@@ -57,7 +57,7 @@ namespace TMath.Numerics
         /// <summary>
         /// Generates a random array of numbers within the specified range.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="length">The length of the array to generate.</param>
         /// <param name="min">The minimum value of the array elements.</param>
         /// <param name="max">The maximum value of the array elements.</param>
@@ -67,12 +67,14 @@ namespace TMath.Numerics
             if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
             if(length == 0) return new T[0];
 
+            // If min is bigger than max, swap them
             if (min > max)
             {
                 (min, max) = (max, min);
             }
             
             T[] result = new T[length];
+
             for (int i = 0; i < length; i++)
             {
                 result[i] = RandomNumber(min, max);
@@ -80,12 +82,12 @@ namespace TMath.Numerics
             return result;
         }
 
-    
+
 
         /// <summary>
         /// Generates a random 2D array of numbers within the specified range.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="xLength">The length of the array in the X axis</param>
         /// <param name="yLength">The length of the array in the Y axis</param>
         /// <param name="min">The minimum value of the array elements.</param>
@@ -97,6 +99,7 @@ namespace TMath.Numerics
             if(xLength == 0 || yLength == 0) return new T[0,0];
 
             T[,] result = new T[xLength, yLength];
+
             for (int x = 0; x < xLength; x++)
             {
                 for (int y = 0; y < yLength; y++)
@@ -110,7 +113,7 @@ namespace TMath.Numerics
         /// <summary>
         /// Generates an array where each element is a sequence of results from the specified function, starting from 0.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="function">The function to apply to generate the sequence.</param>
         /// <param name="length">The length of the resulting array.</param>
         /// <returns>An array representing the sequence of results from the specified function.</returns>
@@ -118,6 +121,7 @@ namespace TMath.Numerics
         {
             if (length < T.Zero) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
             if (length == T.Zero) return new T[0];
+
             int len = int.CreateSaturating(length);
             T[] result = new T[len];
 
@@ -132,7 +136,7 @@ namespace TMath.Numerics
         /// <summary>
         /// Generates an array where each element is a sequence of results from the specified function.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="function">The function to apply to generate the sequence.</param>
         /// <param name="start">The starting point of the sequence.</param>
         /// <param name="end">The ending point of the sequence.</param>
@@ -159,7 +163,7 @@ namespace TMath.Numerics
         /// <summary>
         /// Generates an array where each element is a sequence of results from the specified function.
         /// </summary>
-        /// <typeparam name="T">The numeric type implementing the INumber interface.</typeparam>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
         /// <param name="function">The function to apply to generate the sequence.</param>
         /// <param name="start">The starting point of the sequence.</param>
         /// <param name="end">The ending point of the sequence.</param>
@@ -168,11 +172,13 @@ namespace TMath.Numerics
         public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
         {
             if (start == end && start == T.Zero) return new T[0];
+
             // If min is bigger than max, swap them
             if (start > end)
             {
                 (start, end) = (end, start);
             }
+
             T size = TFunctions.Floor((end - start) / step);
             int length = int.CreateSaturating(size) + 1;
             T[] result = new T[length];
@@ -184,13 +190,22 @@ namespace TMath.Numerics
             return result;
         }
 
+        /// <summary>
+        /// Generates a sequence of primes starting at 2.
+        /// </summary>
+        /// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/>   interface.</typeparam>
+        /// <param name="length">The amount of primes in the array</param>
+        /// <returns>An array of primes</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If <paramref name="length"/> &lt; 0</exception>
         public T[] PrimeSequence<T>(int length) where T : INumber<T>
         {
             if(length < 0) throw new ArgumentOutOfRangeException("Length must be greater than 0.");
             if(length == 0) return new T[0];
+
             T two = T.One + T.One;
-            T current = two + T.One;
+            T current = two + T.One; // Start at 3
             List<T> primes = new() { two };
+
             while(primes.Count < length)
             {
                 if(!primes.Any(x => current % x == T.Zero))
@@ -200,7 +215,6 @@ namespace TMath.Numerics
                 current += two;
             }
             return primes.ToArray();
-
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using TMath.Numerics;
 
-namespace TMath.Benchmarks.BaseFunctions
+namespace TMath.Benchmarks.Numerics
 {
     public class TGenerationBenchmarks
     {

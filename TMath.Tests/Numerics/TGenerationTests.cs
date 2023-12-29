@@ -141,5 +141,8 @@ namespace TMath.Tests.Numerics
             Assert.That(actual, Is.EqualTo(expected));
 
         }
+
+        [Test]
+        public void PrimeSequence_WithNegativeLength() => Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.PrimeSequence<int>(-1));
     }
 }
