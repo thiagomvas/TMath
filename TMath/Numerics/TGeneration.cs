@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using TMath.Numerics.Core;
 
 namespace TMath.Numerics
 {
@@ -52,6 +53,7 @@ namespace TMath.Numerics
             return min + range * T.CreateSaturating(randomValue);
         }
 
+
         /// <summary>
         /// Generates a random array of numbers within the specified range.
         /// </summary>
@@ -62,14 +64,14 @@ namespace TMath.Numerics
         /// <returns>An array of random numbers within the specified range.</returns>
         public T[] RandomArray<T>(int length, T min, T max) where T : INumber<T>
         {
-            if(length < 0) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
             if(length == 0) return new T[0];
 
             if (min > max)
             {
                 (min, max) = (max, min);
             }
-
+            
             T[] result = new T[length];
             for (int i = 0; i < length; i++)
             {
@@ -77,6 +79,8 @@ namespace TMath.Numerics
             }
             return result;
         }
+
+    
 
         /// <summary>
         /// Generates a random 2D array of numbers within the specified range.
@@ -112,11 +116,14 @@ namespace TMath.Numerics
         /// <returns>An array representing the sequence of results from the specified function.</returns>
         public T[] FunctionSequence<T>(Func<T,T> function, T length) where T : INumber<T>
         {
-            T[] result = new T[int.CreateSaturating(length)];
+            if (length < T.Zero) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
+            if (length == T.Zero) return new T[0];
+            int len = int.CreateSaturating(length);
+            T[] result = new T[len];
 
-            for((T value, int index) i = (T.Zero, 0); i.value < length; i = (i.value + T.One, i.index + 1))
+            for(IndexPair<T> i = new(T.Zero, 0); i < len; i++)
             {
-                result[i.index] = function(i.value);
+                result[i.Index] = function(i.Value);
             }
 
             return result;
@@ -142,9 +149,9 @@ namespace TMath.Numerics
             int length = int.CreateSaturating(size) + 1;
             T[] result = new T[length];
 
-            for ((T value, int index) i = (T.Zero, 0); i.index < length; i = (i.value + T.One, i.index + 1))
+            for (IndexPair<T> i = new(T.Zero, 0); i < length; i++)
             {
-                result[i.index] = function(start + i.value);
+                result[i.Index] = function(start + i.Value);
             }
             return result;
         }
@@ -170,9 +177,9 @@ namespace TMath.Numerics
             int length = int.CreateSaturating(size) + 1;
             T[] result = new T[length];
 
-            for ((T value, int index) i = (T.Zero, 0); i.index < length; i = (i.value + T.One, i.index + 1))
+            for (IndexPair<T> i = new(T.Zero, 0); i < length; i++)
             {
-                result[i.index] = function(start + step * i.value);
+                result[i.Index] = function(start + step * i.Value);
             }
             return result;
         }

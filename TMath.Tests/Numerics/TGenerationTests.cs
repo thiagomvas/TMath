@@ -93,5 +93,24 @@ namespace TMath.Tests.Numerics
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void RandomArray_NegativeLengthException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.RandomArray<double>(-1, 0, 1));
+        }
+
+        [Test]
+        public void FunctionSequence_NegativeLengthException()
+        {
+            // Arrange
+            Func<double, double> function = x => x * x;
+            double length = -1;
+
+            // Act
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.FunctionSequence(function, length));
+        }
     }
 }

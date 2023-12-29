@@ -23,5 +23,8 @@ namespace TMath.Benchmarks.BaseFunctions
         [Benchmark]
         public double[] FunctionSequence_WithStartEnd() => TGeneration.Default.FunctionSequence<double>(x => x * x, 0, length);
 
+
+
+
     }
 }
