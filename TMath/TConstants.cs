@@ -3,9 +3,13 @@ using System.Numerics;
 namespace TMath;
 
 /// <summary>
-/// Offers a variety of constants with up to 28 decimal places of precision.
+/// Contains a variety of constants in Mathematics and Physics.
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <remarks>
+/// Ideally, use <see cref="double"/> when using this class, but it works for any <see cref="INumber{TSelf}"/>,
+/// however, be aware of rounding errors.
+/// </remarks>
+/// <typeparam name="T">The type to pass these constants in</typeparam>
 public static class TConstants<T> where T : INumber<T>
 {
     #region Mathematics
@@ -92,6 +96,150 @@ public static class TConstants<T> where T : INumber<T>
     /// </summary>
     public static readonly T Ln10 = T.CreateSaturating(2.30258_50929_94045_68401_79914_547m);
 
-    #endregion Mathematics
+    /// <summary>
+    /// The Catalan constant.
+    /// </summary>
+    /// <remarks>
+    /// The Catalan constant appears in various combinatorial problems, particularly those involving binary trees and parenthetical expressions.
+    /// </remarks>
+    public static readonly T Catalan = T.CreateSaturating(0.91596_41589_18919_71425_20638_687m);
+
+    /// <summary>
+    /// The Khinchin constant.
+    /// </summary>
+    /// <remarks>
+    /// The Khinchin constant arises in number theory, particularly in the study of continued fractions.
+    /// </remarks>
+    public static readonly T Khinchin = T.CreateSaturating(2.68545_44693_00616_72058_27498_289m);
+
+    /// <summary>
+    /// The Glaisher constant.
+    /// </summary>
+    /// <remarks>
+    /// The Glaisher constant appears in various mathematical formulas, including those involving the Barnes G-function.
+    /// </remarks>
+    public static readonly T Glaisher = T.CreateSaturating(1.28242_71243_78304_49504_88016_845m);
+
+    /// <summary>
+    /// Apery's constant.
+    /// </summary>
+    /// <remarks>
+    /// Apery's constant is an irrational number that appears in the field of number theory, particularly in the study of the Riemann zeta function.
+    /// </remarks>
+    public static readonly T Apery = T.CreateSaturating(1.20205_69031_59594_28539_97381_615m);
+
+    /// <summary>
+    /// Euler's constant (Euler-Mascheroni constant).
+    /// </summary>
+    /// <remarks>
+    /// Euler's constant, also known as the Euler-Mascheroni constant, is an important mathematical constant in analysis. It appears in the study of the gamma function and harmonic series.
+    /// </remarks>
+    public static readonly T EulerMascheroni = T.CreateSaturating(0.57721_56649_01532_86060_65120_900m);
+
+    /// <summary>
+    /// The Omega constant.
+    /// </summary>
+    /// <remarks>
+    /// The Omega constant is a real number that arises in the study of the Lambert W function, a multivalued function related to exponentiation.
+    /// </remarks>
+    public static readonly T Omega = T.CreateSaturating(0.56714_39323_73311_12146_51000_000m);
+
+
+    #endregion 
+
+    #region Physics
+
+    /// <summary>
+    /// The speed of light in a vacuum.
+    /// </summary>
+    /// <remarks>Speed at which electromagnetic waves propagate through a vacuum. It is a fundamental constant and the maximum speed at which information or matter can travel.</remarks>
+    public static readonly T SpeedOfLight = T.CreateSaturating(299_792_458m);
+
+    /// <summary>
+    /// The gravitational constant.
+    /// </summary>
+    /// <remarks>Constant of proportionality in Newton's law of universal gravitation, describing the gravitational force between two objects with mass.</remarks>
+    public static readonly T GravitationalConstant = T.CreateSaturating(6.6743e-11);
+
+
+    /// <summary>
+    /// The value of Planck's Constant.
+    /// </summary>
+    /// <remarks>Planck's constant, symbolized as h, is a fundamental universal constant that defines the quantum nature of energy and relates the energy of a photon to its frequency.</remarks>
+    public static readonly T PlancksConstant = T.CreateSaturating(6.62607015e-34);
+
+    /// <summary>
+    /// The value of the reduced Planck's Constant.
+    /// </summary>
+    /// <remarks>Planck's constant divided by 2 pi.</remarks>
+    public static readonly T DiracConstant = T.CreateSaturating(1.054571817e-34);
+
+    /// <summary>
+    /// The elementary charge.
+    /// </summary>
+    /// <remarks>Elementary charge is the electric charge carried by a single proton or electron.</remarks>
+    public static readonly T ElementaryCharge = T.CreateSaturating(1.602176634e-19);
+
+    /// <summary>
+    /// The mass of an electron.
+    /// </summary>
+    /// <remarks>Mass of an electron, a subatomic particle with a negative elementary electric charge.</remarks>
+    public static readonly T ElectronMass = T.CreateSaturating(9.1093837015e-31);
+
+    /// <summary>
+    /// The mass of a proton.
+    /// </summary>
+    /// <remarks>Mass of a proton, a subatomic particle with a positive elementary electric charge.</remarks>
+    public static readonly T ProtonMass = T.CreateSaturating(1.67262192369e-27);
+
+    /// <summary>
+    /// The mass of a neutron.
+    /// </summary>
+    /// <remarks>Mass of a neutron, a subatomic particle with no net electric charge.</remarks>
+    public static readonly T NeutronMass = T.CreateSaturating(1.67492749804e-27);
+
+    /// <summary>
+    /// Avogadro's constant.
+    /// </summary>
+    /// <remarks>Number of constituent particles (usually atoms or molecules) that are contained in one mole of a given substance.</remarks>
+    public static readonly T AvogadroConstant = T.CreateSaturating(6.02214076e23);
+
+    /// <summary>
+    /// Boltzmann's constant.
+    /// </summary>
+    /// <remarks>Proportionality constant that relates the average kinetic energy of particles in a gas with the temperature of the gas.</remarks>
+    public static readonly T BoltzmannConstant = T.CreateSaturating(1.380649e-23);
+
+    /// <summary>
+    /// Molar gas constant.
+    /// </summary>
+    /// <remarks>Physical constant that is the gas constant divided by Avogadro's number.</remarks>
+    public static readonly T MolarGasConstant = T.CreateSaturating(8.31446261815324);
+
+    /// <summary>
+    /// Stefan-Boltzmann constant.
+    /// </summary>
+    /// <remarks>Proportionality constant that describes the power radiated per unit surface area of a black body in thermal equilibrium with its surroundings.</remarks>
+    public static readonly T StefanBoltzmannConstant = T.CreateSaturating(5.670374419e-8);
+
+    /// <summary>
+    /// Faraday's constant.
+    /// </summary>
+    /// <remarks>Charge per mole of electrons, used in electrochemistry.</remarks>
+    public static readonly T FaradayConstant = T.CreateSaturating(96485.33212_33100_184);
+
+    /// <summary>
+    /// Vacuum permittivity.
+    /// </summary>
+    /// <remarks>Physical constant that characterizes the ability of a vacuum to permit electric field lines to pass through it.</remarks>
+    public static readonly T VacuumPermittivity = T.CreateSaturating(8.8541878128e-12);
+
+    /// <summary>
+    /// Vacuum permeability.
+    /// </summary>
+    /// <remarks>Physical constant that describes the magnetic permeability of a vacuum.</remarks>
+    public static readonly T VacuumPermeability = T.CreateSaturating(1.25663706212e-6);
+
+    #endregion 
 
 }
