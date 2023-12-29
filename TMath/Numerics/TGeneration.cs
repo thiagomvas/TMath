@@ -184,6 +184,23 @@ namespace TMath.Numerics
             return result;
         }
 
-        
+        public T[] PrimeSequence<T>(int length) where T : INumber<T>
+        {
+            if(length < 0) throw new ArgumentOutOfRangeException("Length must be greater than 0.");
+            if(length == 0) return new T[0];
+            T two = T.One + T.One;
+            T current = two + T.One;
+            List<T> primes = new() { two };
+            while(primes.Count < length)
+            {
+                if(!primes.Any(x => current % x == T.Zero))
+                {
+                    primes.Add(current);
+                }
+                current += two;
+            }
+            return primes.ToArray();
+
+        }
     }
 }

@@ -112,5 +112,34 @@ namespace TMath.Tests.Numerics
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.FunctionSequence(function, length));
         }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(10)]
+        [TestCase(15)]
+        public void Primes(int length)
+        {
+            // Arrange
+            List<int> primes = new() { 2 };
+            int current = 3;
+            while (primes.Count < length)
+            {
+                if (!primes.Any(x => current % x == 0))
+                    primes.Add(current);
+                current += 2;
+            }
+            int[] expected = length == 0 ? new int[0] : primes.ToArray();
+
+            // Act
+            int[] actual = TGeneration.Default.PrimeSequence<int>(length);
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+
+        }
     }
 }
