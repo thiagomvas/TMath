@@ -285,4 +285,169 @@ public static class TConstants<T> where T : INumber<T>
     public static readonly T EarthMass = T.CreateSaturating(5.972_2e24);
 
     #endregion
+
+    #region Scientific Notation Prefixes
+
+    /// <summary>
+    /// The Yotta prefix.
+    /// </summary>
+    /// <remarks>
+    /// Yotta is the SI unit prefix representing a factor of 10^24. It is used to denote extremely large quantities, such as in information storage or energy measurements.
+    /// </remarks>
+    public static readonly T Yotta = T.CreateSaturating(1e24);
+
+    /// <summary>
+    /// The Zetta prefix.
+    /// </summary>
+    /// <remarks>
+    /// Zetta is the SI unit prefix representing a factor of 10^21. It is commonly used in information technology and data storage contexts to indicate large data capacities.
+    /// </remarks>
+    public static readonly T Zetta = T.CreateSaturating(1e21);
+
+    /// <summary>
+    /// The Exa prefix.
+    /// </summary>
+    /// <remarks>
+    /// Exa is the SI unit prefix representing a factor of 10^18. It is used in various scientific and engineering disciplines to denote quantities on the order of 10^18.
+    /// </remarks>
+    public static readonly T Exa = T.CreateSaturating(1e18);
+
+    /// <summary>
+    /// The Peta prefix.
+    /// </summary>
+    /// <remarks>
+    /// Peta is the SI unit prefix representing a factor of 10^15. It is commonly used in information technology and data storage to indicate large data capacities.
+    /// </remarks>
+    public static readonly T Peta = T.CreateSaturating(1e15);
+
+    /// <summary>
+    /// The Tera prefix.
+    /// </summary>
+    /// <remarks>
+    /// Tera is the SI unit prefix representing a factor of 10^12. It is widely used in computing and telecommunications to denote large data capacities and data transfer rates.
+    /// </remarks>
+    public static readonly T Tera = T.CreateSaturating(1e12);
+
+    /// <summary>
+    /// The Giga prefix.
+    /// </summary>
+    /// <remarks>
+    /// Giga is the SI unit prefix representing a factor of 10^9. It is commonly used in computing and electronics to denote large quantities, such as in data storage and processing speeds.
+    /// </remarks>
+    public static readonly T Giga = T.CreateSaturating(1e9);
+
+    /// <summary>
+    /// The Mega prefix.
+    /// </summary>
+    /// <remarks>
+    /// Mega is the SI unit prefix representing a factor of 10^6. It is used in various contexts, including data storage, telecommunications, and digital media capacities.
+    /// </remarks>
+    public static readonly T Mega = T.CreateSaturating(1e6);
+
+    /// <summary>
+    /// The Kilo prefix.
+    /// </summary>
+    /// <remarks>
+    /// Kilo is the SI unit prefix representing a factor of 10^3. It is commonly used to denote quantities such as weight, distance, and data storage capacity.
+    /// </remarks>
+    public static readonly T Kilo = T.CreateSaturating(1e3);
+
+    /// <summary>
+    /// The Hecto prefix.
+    /// </summary>
+    /// <remarks>
+    /// Hecto is the SI unit prefix representing a factor of 10^2. It is less commonly used than other prefixes but is occasionally encountered in some scientific and engineering contexts.
+    /// </remarks>
+    public static readonly T Hecto = T.CreateSaturating(1e2);
+
+    /// <summary>
+    /// The Deca prefix.
+    /// </summary>
+    /// <remarks>
+    /// Deca is the SI unit prefix representing a factor of 10^1. It is rarely used in modern scientific and engineering practices.
+    /// </remarks>
+    public static readonly T Deca = T.CreateSaturating(1e1);
+
+    /// <summary>
+    /// The Deci prefix.
+    /// </summary>
+    /// <remarks>
+    /// Deci is the SI unit prefix representing a factor of 10^-1. It is used in various scientific and engineering contexts, particularly in measurements of volume and length.
+    /// </remarks>
+    public static readonly T Deci = T.CreateSaturating(1e-1);
+
+    /// <summary>
+    /// The Centi prefix.
+    /// </summary>
+    /// <remarks>
+    /// Centi is the SI unit prefix representing a factor of 10^-2. It is commonly used in measurements of length and is equivalent to one hundredth of the base unit.
+    /// </remarks>
+    public static readonly T Centi = T.CreateSaturating(1e-2);
+
+    /// <summary>
+    /// The Milli prefix.
+    /// </summary>
+    /// <remarks>
+    /// Milli is the SI unit prefix representing a factor of 10^-3. It is widely used in measurements of weight, volume, and other quantities.
+    /// </remarks>
+    public static readonly T Milli = T.CreateSaturating(1e-3);
+
+    /// <summary>
+    /// The Micro prefix.
+    /// </summary>
+    /// <remarks>
+    /// Micro is the SI unit prefix representing a factor of 10^-6. It is commonly used in electronics, physics, and biology to denote small quantities.
+    /// </remarks>
+    public static readonly T Micro = T.CreateSaturating(1e-6);
+
+    /// <summary>
+    /// The Nano prefix.
+    /// </summary>
+    /// <remarks>
+    /// Nano is the SI unit prefix representing a factor of 10^-9. It is frequently used in nanotechnology and measurements at the atomic and molecular scale.
+    /// </remarks>
+    public static readonly T Nano = T.CreateSaturating(1e-9);
+
+    /// <summary>
+    /// The Pico prefix.
+    /// </summary>
+    /// <remarks>
+    /// Pico is the SI unit prefix representing a factor of 10^-12. It is commonly used in physics and engineering to denote very small quantities.
+    /// </remarks>
+    public static readonly T Pico = T.CreateSaturating(1e-12);
+
+    /// <summary>
+    /// The Femto prefix.
+    /// </summary>
+    /// <remarks>
+    /// Femto is the SI unit prefix representing a factor of 10^-15. It is used in physics, particularly in the study of subatomic particles and atomic scale measurements.
+    /// </remarks>
+    public static readonly T Femto = T.CreateSaturating(1e-15);
+
+    /// <summary>
+    /// The Atto prefix.
+    /// </summary>
+    /// <remarks>
+    /// Atto is the SI unit prefix representing a factor of 10^-18. It is used in physics and nanotechnology to denote extremely small scales.
+    /// </remarks>
+    public static readonly T Atto = T.CreateSaturating(1e-18);
+
+    /// <summary>
+    /// The Zepto prefix.
+    /// </summary>
+    /// <remarks>
+    /// Zepto is the SI unit prefix representing a factor of 10^-21. It is rarely used in practice but may be encountered in discussions related to extremely small scales.
+    /// </remarks>
+    public static readonly T Zepto = T.CreateSaturating(1e-21);
+
+    /// <summary>
+    /// The Yocto prefix.
+    /// </summary>
+    /// <remarks>
+    /// Yocto is the SI unit prefix representing a factor of 10^-24. It is one of the smallest SI prefixes and is rarely used in practical applications.
+    /// </remarks>
+    public static readonly T Yocto = T.CreateSaturating(1e-24);
+
+
+    #endregion
 }
