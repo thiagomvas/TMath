@@ -33,6 +33,25 @@ public static class TConstants<T> where T : INumber<T>
     public static readonly T InvE = T.CreateSaturating(0.36787_94411_71442_32159_55258_287m);
 
     /// <summary>
+    /// The value of e^2 (e squared), where e is Euler's Number.
+    /// </summary>
+    /// <remarks>
+    /// e^2 is the square of Euler's Number (e), a mathematical constant representing the base of the natural logarithm. 
+    /// It is an irrational number and plays a fundamental role in mathematical analysis and applications. The value of e^2 is approximately 7.38905.
+    /// </remarks>
+    public static readonly T ESquared = T.CreateSaturating(7.38905_60989_30650_22723_04274_606);
+
+    /// <summary>
+    /// The square root of Euler's Number (e).
+    /// </summary>
+    /// <remarks>
+    /// The square root of Euler's Number (e) is a mathematical constant denoted as √e. 
+    /// It is an irrational number and represents the positive square root of Euler's Number. 
+    /// The value of √e is approximately 1.64872 and has applications in various mathematical and scientific contexts.
+    /// </remarks>
+    public static readonly T SqrtE = T.CreateSaturating(1.64872_12707_00128_14684_86507_878);
+
+    /// <summary>
     /// The value of Pi (π).
     /// </summary>
     /// <remarks>
@@ -58,6 +77,15 @@ public static class TConstants<T> where T : INumber<T>
     /// particularly those involving areas and volumes of geometric shapes.
     /// </remarks>
     public static readonly T PiSquared = T.CreateSaturating(9.86960_44010_89358_61883_44909_999);
+
+    /// <summary>
+    /// The square root of Pi (π).
+    /// </summary>
+    /// <remarks>
+    /// The square root of Pi (π) is a mathematical constant denoted as √π. It represents the positive square root of the mathematical constant Pi. 
+    /// The value of √π is approximately 1.77245 and is involved in various mathematical and scientific calculations, particularly those related to circles and geometry.
+    /// </remarks>
+    public static readonly T SqrtPi = T.CreateSaturating(1.77245_38509_05516_02729_81674_833);
 
     /// <summary>
     /// The value of Pi/2 (π/2) representing 90 degrees in radians.
@@ -160,7 +188,6 @@ public static class TConstants<T> where T : INumber<T>
     /// </remarks>
     public static readonly T Ln10 = T.CreateSaturating(2.30258_50929_94045_68401_79914_547m);
 
-
     /// <summary>
     /// The Catalan constant.
     /// </summary>
@@ -214,8 +241,6 @@ public static class TConstants<T> where T : INumber<T>
     /// a multivalued function related to exponentiation. The constant is approximately equal to 0.56714.
     /// </remarks>
     public static readonly T Omega = T.CreateSaturating(0.56714_39323_73311_12146_51000_000m);
-
-
 
     #endregion
 
