@@ -240,6 +240,49 @@ public static class TConstants<T> where T : INumber<T>
     /// <remarks>Physical constant that describes the magnetic permeability of a vacuum.</remarks>
     public static readonly T VacuumPermeability = T.CreateSaturating(1.25663706212e-6);
 
-    #endregion 
+    #endregion
 
+    #region Astronomical
+
+    /// <summary>
+    /// The Astronomical Unit.
+    /// </summary>
+    /// <remarks>
+    /// The Astronomical Unit (AU) is a unit of length used in astronomy to define distances within our solar system. It is approximately 149.6 million kilometers, representing the mean distance between the Earth and the Sun.
+    /// </remarks>
+    public static readonly T AstronomicalUnit = T.CreateSaturating(149_597_870_700m);
+
+    /// <summary>
+    /// The Light Year.
+    /// </summary>
+    /// <remarks>
+    /// The Light Year is a unit of astronomical distance, representing the distance that light travels in one year in the vacuum of space. It is approximately 9.46 trillion kilometers.
+    /// </remarks>
+    public static readonly T LightYear = T.CreateSaturating(9_460_730_472_580_800_000m);
+
+    /// <summary>
+    /// The Parsec.
+    /// </summary>
+    /// <remarks>
+    /// The Parsec is a unit of astronomical distance, commonly used in astronomy to measure large-scale cosmic structures. It is approximately 3.09 quadrillion kilometers, or 3.26 light-years.
+    /// </remarks>
+    public static readonly T Parsec = T.CreateSaturating(30_856_775_814_671_900_000m);
+
+    /// <summary>
+    /// The Solar Mass.
+    /// </summary>
+    /// <remarks>
+    /// The Solar Mass is a unit of mass used in astronomy to express the mass of celestial objects, particularly stars. It is approximately equal to the mass of the Sun, which is about 1.98847 × 10^30 kilograms.
+    /// </remarks>
+    public static readonly T SolarMass = T.CreateSaturating(1.988_47e30);
+
+    /// <summary>
+    /// The Earth Mass.
+    /// </summary>
+    /// <remarks>
+    /// The Earth Mass is a unit of mass used in astronomy to compare the mass of other celestial bodies to that of the Earth. It is approximately 5.9722 × 10^24 kilograms.
+    /// </remarks>
+    public static readonly T EarthMass = T.CreateSaturating(5.972_2e24);
+
+    #endregion
 }
