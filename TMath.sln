@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMath", "TMath\TMath.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMath.Tests", "TMath.Tests\TMath.Tests.csproj", "{FA361212-F869-498B-8080-EFB75B5A2F2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath.Benchmarks", "TMath.Benchmarks\TMath.Benchmarks.csproj", "{2DBE7787-09E6-4A0A-BA7D-B08D95D1A809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMath.Benchmarks", "TMath.Benchmarks\TMath.Benchmarks.csproj", "{2DBE7787-09E6-4A0A-BA7D-B08D95D1A809}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5624A9A5-0099-402F-BE98-11B58A7D80AB} = {5624A9A5-0099-402F-BE98-11B58A7D80AB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath.ConsoleApp", "TMath.ConsoleApp\TMath.ConsoleApp.csproj", "{244E7C44-B386-499C-831C-51D14FFCFD18}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5624A9A5-0099-402F-BE98-11B58A7D80AB} = {5624A9A5-0099-402F-BE98-11B58A7D80AB}
 	EndProjectSection
@@ -30,6 +35,10 @@ Global
 		{2DBE7787-09E6-4A0A-BA7D-B08D95D1A809}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DBE7787-09E6-4A0A-BA7D-B08D95D1A809}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DBE7787-09E6-4A0A-BA7D-B08D95D1A809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244E7C44-B386-499C-831C-51D14FFCFD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244E7C44-B386-499C-831C-51D14FFCFD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244E7C44-B386-499C-831C-51D14FFCFD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244E7C44-B386-499C-831C-51D14FFCFD18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
