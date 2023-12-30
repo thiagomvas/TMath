@@ -18,11 +18,19 @@ namespace TMath.Numerics
         /// The default instance of <see cref="TGeneration"/> that always has the same seed.
         /// </summary>
         public static readonly TGeneration Default = new TGeneration(0);
+
+        /// <summary>
+        /// Creates a TGeneration instance with a random seed.
+        /// </summary>
         public TGeneration()
         {
             random = new Random();
         }
 
+        /// <summary>
+        /// Creates a TGeneration instance with the specified seed.
+        /// </summary>
+        /// <param name="seed">The seed used</param>
         public TGeneration(int seed)
         {
             random = new Random(seed);
@@ -47,10 +55,10 @@ namespace TMath.Numerics
                 (min, max) = (max, min);
             }
 
-            T range = max - min;
-            double randomValue = random.NextDouble();
+            double range = double.CreateSaturating(max - min);
+            double randomValue = range * random.NextDouble();
 
-            return min + range * T.CreateSaturating(randomValue);
+            return min + T.CreateSaturating(randomValue);
         }
 
 

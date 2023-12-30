@@ -28,6 +28,10 @@ Added DescriptiveStatistics&lt;T&gt;, a class for holding all the data that TSta
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="TConstants.cs~RF10559b3.TMP" />
+    </ItemGroup>
+
+    <ItemGroup>
       <None Include="..\README.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
