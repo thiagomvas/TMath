@@ -60,6 +60,7 @@ namespace TMath.Numerics.Models
         public T Percentile(int percentile) => TStatistics.Percentile(Data, percentile);
 
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"Data: {string.Join(',', Data)}\nMean: {Mean}\nMedian: {Median}\nVariance: {Variance}\nStandard Deviation: {StandardDeviation}\nMode: {Mode}";
