@@ -1,33 +1,29 @@
-name: Publish to NuGet on Release
+name: Publish to NuGet (Manual)
 
 on:
-  release:
-    types:
-      - created
   workflow_dispatch:
     inputs:
-      tag:
-        description: 'Specify the release tag'
+      version:
+        description: 'Package version'
         required: true
-      
+
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Verify commit exists in origin/main
-      run: |
-        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        git branch --remote --contains | grep origin/main
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
-    - name: Build
-      run: dotnet build --configuration Release /p:Version=${VERSION}
-    - name: Test
-      run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
-    - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-    - name: Push
-      run: dotnet nuget push TMath.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${secrets.NUGET_API_KEY}
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x  
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name : Build
+      run: dotnet build -c Release /p:Version=${{ github.event.inputs.version }} --output ./bin/Release
+
+    - name: Publish to NuGet
+      run: dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
