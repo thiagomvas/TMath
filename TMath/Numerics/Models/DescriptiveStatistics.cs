@@ -49,6 +49,7 @@ namespace TMath.Numerics.Models
             Variance = TStatistics.Variance(data);
             StandardDeviation = TStatistics.StandardDeviation(data);
             Mode = TStatistics.Mode(data);
+            Data = data;
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace TMath.Numerics.Models
 
         public override string ToString()
         {
-            return $"Data: {string.Join(',', Data)}Mean: {Mean}\nMedian: {Median}\nVariance: {Variance}\nStandard Deviation: {StandardDeviation}\nMode: {Mode}";
+            return $"Data: {string.Join(',', Data)}\nMean: {Mean}\nMedian: {Median}\nVariance: {Variance}\nStandard Deviation: {StandardDeviation}\nMode: {Mode}";
         }
     }
 }

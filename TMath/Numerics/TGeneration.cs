@@ -47,10 +47,10 @@ namespace TMath.Numerics
                 (min, max) = (max, min);
             }
 
-            T range = max - min;
-            double randomValue = random.NextDouble();
+            double range = double.CreateSaturating(max - min);
+            double randomValue = range * random.NextDouble();
 
-            return min + range * T.CreateSaturating(randomValue);
+            return min + T.CreateSaturating(randomValue);
         }
 
 
