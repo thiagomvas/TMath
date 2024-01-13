@@ -4,27 +4,6 @@ namespace TMath.Numerics.AdvancedMath
 {
     public static class TLinearAlgebra
     {
-        private static bool checkIfSolved<T>(T[][] matrix) where T : INumber<T>
-        {
-            int n = matrix.Length;
-            bool solved = true;
-
-            for (int y = 1; y < n; y++)
-            {
-                for (int x = 0; x < y; x++)
-                {
-                    if (!matrix[y][x].Equals(T.Zero))
-                    {
-                        solved = false;
-                        break;
-                    }
-                }
-            }
-
-            return solved;
-        }
-
-        // TO-DO: Fix for pivot = 0;
         public static void LUDecomposition<T>(T[][] matrix, out T[][] L, out T[][] U)
             where T : INumber<T>
         {
@@ -65,7 +44,7 @@ namespace TMath.Numerics.AdvancedMath
 
                     for (int column = i; column < n; column++)
                     {
-                        U[row][column] = TFunctions.Round(U[row][column] + coef * U[i][column], 10);
+                        U[row][column] = coef != T.Zero ? U[row][column] + coef * U[i][column] : T.Zero;
                     }
                 }
             }
