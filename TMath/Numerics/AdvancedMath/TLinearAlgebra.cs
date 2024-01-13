@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using TMath.Numerics.Solvers;
 
 namespace TMath.Numerics.AdvancedMath
 {
@@ -30,7 +31,7 @@ namespace TMath.Numerics.AdvancedMath
 
             for (int i = 0; i < n - 1; i++)
             {
-                if (checkIfSolved(U))
+                if (TLinearAlgebraSolvers.checkIfSolved(U))
                     break;
                 if (U[i][i].Equals(T.Zero))
                 {
@@ -47,6 +48,20 @@ namespace TMath.Numerics.AdvancedMath
                         U[row][column] = coef != T.Zero ? U[row][column] + coef * U[i][column] : T.Zero;
                     }
                 }
+            }
+        }
+        public static void PrintMatrix<T>(T[][] matrix, string? format = null)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    if(i == j) Console.ForegroundColor = ConsoleColor.Green;
+                    string formatted = string.Format($"{{0:{format}}}", matrix[i][j]) ?? matrix[i][j].ToString();
+                    Console.Write($"{formatted}\t");
+                    if (i == j) Console.ResetColor();
+                }
+                Console.WriteLine();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using TMath.Numerics.AdvancedMath;
+﻿using System.ComponentModel.DataAnnotations;
+using TMath.Numerics.AdvancedMath;
 namespace TMath.ConsoleApp
 {
     internal class Program
@@ -16,25 +17,14 @@ namespace TMath.ConsoleApp
             TLinearAlgebra.LUDecomposition(matrix, out double[][] L, out double[][] U);
 
             Console.WriteLine("Matrix: ");
-            Print2DArray(matrix);
+            TLinearAlgebra.PrintMatrix(matrix);
             Console.WriteLine("");
             Console.WriteLine("L: ");
-            Print2DArray(L);
+            TLinearAlgebra.PrintMatrix(L);
             Console.WriteLine("");
             Console.WriteLine("U: ");
-            Print2DArray(U);
+            TLinearAlgebra.PrintMatrix(U, "0.###");
         }
 
-        public static void Print2DArray<T>(T[][] matrix)
-        {
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix[i].Length; j++)
-                {
-                    Console.Write(matrix[i][j] + "\t");
-                }
-                Console.WriteLine();
-            }
-        }
     }
 }
