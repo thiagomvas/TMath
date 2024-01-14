@@ -1,4 +1,5 @@
 ﻿using TMath.Numerics;
+using TMath.Numerics.LinearAlgebra;
 using TMath.Numerics.Models;
 namespace TMath.ConsoleApp
 {
@@ -6,9 +7,33 @@ namespace TMath.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var data = TGeneration.Default.RandomArray<int>(1000, 0, 1);
-            DescriptiveStatistics<int> stats = new(data);
-            Console.WriteLine(stats);
-        }
+            var v1 = new TVector<double>(5);
+            for(int i = 0; i < v1.Size; i++)
+            {
+                v1[i] = i;
+			}   
+            var v2 = new TVector<double>(5);
+			for(int i = 0; i < v2.Size; i++)
+            {
+                v2[i] = i + 1;
+			}
+
+			var v3 = v1 + v2;
+			Console.WriteLine($"{v1} + {v2} = {v3}");
+			Console.WriteLine($"{v1} - {v2} = {v1 - v2}");
+			Console.WriteLine($"5 * {v1} = {5 * v1}");
+			Console.WriteLine($"{v1} * 5 = {v1 * 5}");
+			Console.WriteLine($"{v1} / 5 = {v1 / 5}");
+			Console.WriteLine($"{v1++}++ = {v1}");
+			Console.WriteLine($"{v1--}-- = {v1}");
+			Console.WriteLine($"|{v1}| = {v1.Length}");
+			Console.WriteLine($"{v1} == {v2} = {v1 == v2}");
+			Console.WriteLine($"{v1} != {v2} = {v1 != v2}");
+			Console.WriteLine($"{v1} > {v2} = {v1 > v2}");
+			Console.WriteLine($"{v1} < {v2} = {v1 < v2}");
+			Console.WriteLine($"{v1} >= {v2} = {v1 >= v2}");
+			Console.WriteLine($"{v1} <= {v2} = {v1 <= v2}");
+			Console.WriteLine($"{v1} + {v2} + {v3} = {v1 + v2 + v3}");
+		}
     }
 }
