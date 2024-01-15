@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Numerics;
-using TMath.Numerics.Interfaces;
+﻿using System.Numerics;
 
 namespace TMath.Numerics.LinearAlgebra
 {
@@ -21,69 +19,54 @@ namespace TMath.Numerics.LinearAlgebra
 		public T X;
 		public T Y;
 
-		public static TVector2<T> AdditiveIdentity => throw new NotImplementedException();
-
-		public static T MultiplicativeIdentity => throw new NotImplementedException();
-
-
-		public static TVector2<T> operator +(TVector2<T> left, TVector2<T> right)
+		#region Constructors
+		public TVector2(T x, T y)
 		{
-			throw new NotImplementedException();
+			X = x;
+			Y = y;
 		}
 
-		public static TVector2<T> operator -(TVector2<T> left, TVector2<T> right)
+		public TVector2()
 		{
-			throw new NotImplementedException();
+			X = T.Zero;
+			Y = T.Zero;
 		}
+		#endregion
 
-		public static TVector2<T> operator ++(TVector2<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> AdditiveIdentity => new(T.Zero, T.Zero);
 
-		public static TVector2<T> operator --(TVector2<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static T MultiplicativeIdentity => T.One;
 
-		public static TVector2<T> operator *(TVector2<T> left, T right)
-		{
-			throw new NotImplementedException();
-		}
+		public T Length => TFunctions.Sqrt<T, T>(X * X + Y * Y);
 
-		public static TVector2<T> operator /(TVector2<T> left, T right)
-		{
-			throw new NotImplementedException();
-		}
+		#region Operators
+		public static TVector2<T> operator +(TVector2<T> left, TVector2<T> right) => new(left.X + right.X, left.Y + right.Y);
 
-		public static bool operator ==(TVector2<T>? left, TVector2<T>? right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator -(TVector2<T> left, TVector2<T> right) => new(left.X - right.X, left.Y - right.Y);
 
-		public static bool operator !=(TVector2<T>? left, TVector2<T>? right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator ++(TVector2<T> value) => new(value.X + T.One, value.Y + T.One);
 
-		public static bool operator <(TVector2<T> left, TVector2<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator --(TVector2<T> value) => new(value.X - T.One, value.Y - T.One);
 
-		public static bool operator >(TVector2<T> left, TVector2<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator *(TVector2<T> left, T right) => new(left.X * right, left.Y * right);
 
-		public static bool operator <=(TVector2<T> left, TVector2<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator *(T left, TVector2<T> right) => new(left * right.X, left * right.Y);
 
-		public static bool operator >=(TVector2<T> left, TVector2<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static TVector2<T> operator /(TVector2<T> left, T right) => new(left.X / right, left.Y / right);
+		#endregion
+
+		#region Comparison Operators
+		public static bool operator ==(TVector2<T>? left, TVector2<T>? right) => left.X == right.X && left.Y == right.Y;
+
+		public static bool operator !=(TVector2<T>? left, TVector2<T>? right) => left.X != right.X || left.Y != right.Y;
+
+		public static bool operator <(TVector2<T> left, TVector2<T> right) => left.Length < right.Length;
+
+		public static bool operator >(TVector2<T> left, TVector2<T> right) => left.Length > right.Length;
+
+		public static bool operator <=(TVector2<T> left, TVector2<T> right) => left.Length <= right.Length;
+
+		public static bool operator >=(TVector2<T> left, TVector2<T> right) => left.Length >= right.Length;
+		#endregion
 	}
 }
