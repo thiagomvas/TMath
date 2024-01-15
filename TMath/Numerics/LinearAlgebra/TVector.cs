@@ -17,6 +17,7 @@ namespace TMath.Numerics.LinearAlgebra
 		IDecrementOperators<TVector<T>>,
 		IAdditiveIdentity<TVector<T>, TVector<T>>,
 		IMultiplicativeIdentity<TVector<T>, T>,
+		IUnaryNegationOperators<TVector<T>, TVector<T>>,
 		ITVector<TVector<T>>,
 		IEnumerable<T>
 		where T : INumber<T>, new()
@@ -141,6 +142,12 @@ namespace TMath.Numerics.LinearAlgebra
 		public static TVector<T> operator *(T left, TVector<T> right)
 		{
 			T[] val = right.values.Select(x => x * left).ToArray();
+			return new TVector<T>(val);
+		}
+
+		public static TVector<T> operator -(TVector<T> value)
+		{
+			T[] val = value.values.Select(x => -x).ToArray();
 			return new TVector<T>(val);
 		}
 

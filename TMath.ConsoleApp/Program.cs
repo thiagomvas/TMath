@@ -1,6 +1,5 @@
-﻿using TMath.Numerics;
+﻿
 using TMath.Numerics.LinearAlgebra;
-using TMath.Numerics.Models;
 namespace TMath.ConsoleApp
 {
     internal class Program
@@ -17,6 +16,8 @@ namespace TMath.ConsoleApp
             {
                 v2[i] = i + 1;
 			}
+
+			// TO-DO: Implement -Vector operators.
 
 			var v3 = v1 + v2;
 			Console.WriteLine($"{v1} + {v2} = {v3}");
