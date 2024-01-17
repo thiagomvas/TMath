@@ -32,6 +32,13 @@ namespace TMath.Numerics.LinearAlgebra
 			Y = y;
 			Z = z;
 		}
+
+		public TVector3(T[] values)
+		{
+			X = values[0];
+			Y = values[1];
+			Z = values[2];
+		}
 		public TVector3()
 		{
 			X = T.Zero;
@@ -39,6 +46,10 @@ namespace TMath.Numerics.LinearAlgebra
 			Z = T.Zero;
 		}
 		#endregion
+
+		public T DotProduct(TVector3<T> other) => X * other.X + Y * other.Y + Z * other.Z;
+		public TVector3<T> CrossProduct(TVector3<T> other) => new(Y * other.Z - Z * other.Y, Z * other.X - X * other.Z, X * other.Y - Y * other.X);
+		public TVector3<T> Normalize() => this == TVector3<T>.Zero ? new(T.Zero, T.Zero, T.Zero ) : this / Length;
 
 		public T Length => TFunctions.Sqrt<T, T>(X * X + Y * Y + Z * Z);
 
@@ -79,6 +90,6 @@ namespace TMath.Numerics.LinearAlgebra
 		public static TVector3<T> operator -(TVector3<T> value) => new(-value.X, -value.Y, -value.Z);
 		#endregion
 
-		public override string ToString() => "$<{X}, {Y}, {Z}>";
+		public override string ToString() => $"<{X}, {Y}, {Z}>";
 	}
 }
