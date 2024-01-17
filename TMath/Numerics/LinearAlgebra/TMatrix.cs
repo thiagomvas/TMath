@@ -18,6 +18,14 @@ namespace TMath.Numerics.LinearAlgebra
 		where T : INumber<T>
 	{
 		public T[,] Values;
+		public T this[int i, int j]
+		{
+			get { return Values[i, j]; }
+			set { Values[i, j] = value; }
+		}
+
+		public int NumOfElements => Rows * Columns;
+
 		public int Rows { get; init; }
 		public int Columns { get; init; }
 
@@ -27,6 +35,8 @@ namespace TMath.Numerics.LinearAlgebra
 
 		public TMatrix(int rows, int columns)
 		{
+			if(rows <= 0 || columns <= 0)
+				throw new ArgumentException("Rows and columns must be greater than 0.");
 			Values = new T[rows, columns];
 			Rows = rows;
 			Columns = columns;
@@ -34,6 +44,8 @@ namespace TMath.Numerics.LinearAlgebra
 		public TMatrix(int rows, int columns, T[] values)
 		{
 			Values = new T[rows, columns];
+			if (rows <= 0 || columns <= 0)
+				throw new ArgumentException("Rows and columns must be greater than 0.");
 			for (int i = 0; i < values.Length; i++)
 			{
 				Values[i / columns, i % columns] = values[i];
