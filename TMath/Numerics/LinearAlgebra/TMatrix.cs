@@ -7,11 +7,11 @@ namespace TMath.Numerics.LinearAlgebra
 		IAdditionOperators<TMatrix<T>, TMatrix<T>, TMatrix<T>>,
 		ISubtractionOperators<TMatrix<T>, TMatrix<T>, TMatrix<T>>,
 		IMultiplyOperators<TMatrix<T>, T, TMatrix<T>>,
+		IMultiplyOperators<TMatrix<T>, TMatrix<T>, TMatrix<T>>,
 		IDivisionOperators<TMatrix<T>, T, TMatrix<T>>,
 		IEqualityOperators<TMatrix<T>, TMatrix<T>, bool>,
 		IIncrementOperators<TMatrix<T>>,
 		IDecrementOperators<TMatrix<T>>,
-		IAdditiveIdentity<TMatrix<T>, TMatrix<T>>,
 		IMultiplicativeIdentity<TMatrix<T>, T>,
 		IUnaryNegationOperators<TMatrix<T>, TMatrix<T>>
 
@@ -23,9 +23,7 @@ namespace TMath.Numerics.LinearAlgebra
 
 		public bool IsSquareMatrix => Rows == Columns;
 
-		public static TMatrix<T> AdditiveIdentity => throw new NotImplementedException();
-
-		public static T MultiplicativeIdentity => throw new NotImplementedException();
+		public static T MultiplicativeIdentity => T.One;
 
 		public TMatrix(int rows, int columns)
 		{
@@ -60,6 +58,14 @@ namespace TMath.Numerics.LinearAlgebra
 			return result;
         }
 
+		public static TMatrix<T> Identity(int size)
+		{
+			TMatrix<T> result = new(size, size);
+			for (int i = 0; i < size; i++)
+				result.Values[i, i] = T.One;
+			return result;
+		}
+
 		public override string ToString()
 		{
 			StringBuilder builder = new();
@@ -85,7 +91,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for(int j = 0; j < left.Columns; j++)
 				{
-					result.Values[i, j] += right.Values[i, j];
+					result.Values[i, j] = left.Values[i, j] + right.Values[i, j];
 				}
 			}
 
@@ -103,7 +109,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for (int j = 0; j < left.Columns; j++)
 				{
-					result.Values[i, j] -= right.Values[i, j];
+					result.Values[i, j] = left.Values[i, j] - right.Values[i, j];
 				}
 			}
 
@@ -118,7 +124,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for (int j = 0; j < left.Columns; j++)
 				{
-					result.Values[i, j] *= right;
+					result.Values[i, j] = left.Values[i, j] * right;
 				}
 			}
 
@@ -133,7 +139,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for (int j = 0; j < left.Columns; j++)
 				{
-					result.Values[i, j] /= right;
+					result.Values[i, j] = left.Values[i, j] / right;
 				}
 			}
 
@@ -180,7 +186,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for (int j = 0; j < matrix.Columns; j++)
 				{
-					result.Values[i, j] += T.One;
+					result.Values[i, j] = matrix.Values[i, j] + T.One;
 				}
 			}
 			return result;
@@ -195,7 +201,7 @@ namespace TMath.Numerics.LinearAlgebra
 			{
 				for (int j = 0; j < matrix.Columns; j++)
 				{
-					result.Values[i, j] -= T.One;
+					result.Values[i, j] = matrix.Values[i, j] - T.One;
 				}
 			}
 
@@ -211,6 +217,28 @@ namespace TMath.Numerics.LinearAlgebra
 				for (int j = 0; j < matrix.Columns; j++)
 				{
 					result.Values[i, j] = -matrix.Values[i, j];
+				}
+			}
+
+			return result;
+		}
+
+		public static TMatrix<T> operator *(TMatrix<T> left, TMatrix<T> right)
+		{
+
+			if (left.Columns != right.Rows)
+				throw new ArgumentException("The number of columns in the left matrix must be equal to the number of rows in the right matrix.");
+
+			TMatrix<T> result = new(left.Rows, right.Columns);
+
+			for (int i = 0; i < left.Rows; i++)
+			{
+				for (int j = 0; j < right.Columns; j++)
+				{
+					for (int k = 0; k < left.Columns; k++)
+					{
+						result.Values[i, j] += left.Values[i, k] * right.Values[k, j];
+					}
 				}
 			}
 
