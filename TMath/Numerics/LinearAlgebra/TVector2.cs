@@ -32,6 +32,11 @@ namespace TMath.Numerics.LinearAlgebra
 			Y = y;
 		}
 
+		public TVector2(T[] values)
+		{
+			X = values[0];
+			Y = values[1];
+		}
 		public TVector2()
 		{
 			X = T.Zero;
