@@ -23,6 +23,8 @@ namespace TMath.Numerics.LinearAlgebra
 		public static TVector2<T> Zero => new(T.Zero, T.Zero);
 		public static TVector2<T> One => new(T.One, T.One);
 
+		
+
 		#region Constructors
 		public TVector2(T x, T y)
 		{
@@ -42,6 +44,12 @@ namespace TMath.Numerics.LinearAlgebra
 		public static T MultiplicativeIdentity => T.One;
 
 		public T Length => TFunctions.Sqrt<T, T>(X * X + Y * Y);
+		public T DotProduct(TVector2<T> other) => X * other.X + Y * other.Y;
+
+		public T CrossProduct(TVector2<T> other) => X * other.Y - Y * other.X;
+
+		public TVector2<T> Normalize => this == TVector2<T>.Zero ? new(T.Zero, T.Zero) : this / Length;
+
 
 		#region Operators
 		public static TVector2<T> operator +(TVector2<T> left, TVector2<T> right) => new(left.X + right.X, left.Y + right.Y);
