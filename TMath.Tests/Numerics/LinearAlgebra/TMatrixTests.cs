@@ -300,16 +300,41 @@ namespace TMath.Tests.Numerics.LinearAlgebra
 			Assert.That(result, Is.False);
 		}
 
+		[Test]
 		public void Matrix_ConstructorWithNegSize_ExpectException()
 		{
 			// Assert
 			Assert.Throws<ArgumentException>(() => new TMatrix<double>(-1, -1));
 		}
 
+		[Test]
 		public void Matrix_ConstructorWithSize0_ExpectException()
 		{
 			// Assert
 			Assert.Throws<ArgumentException>(() => new TMatrix<double>(0, 0));
+		}
+
+		[Test]
+		[TestCase(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9}, new int[] {1, 4, 7, 2, 5, 8, 3, 6, 9 })]
+		public void Matrix_Transpose(int[] m, int[] expected)
+		{
+			// Arrange
+			var matrixM = new TMatrix<int>(3, 3, m);
+			var expectedMatrix = new TMatrix<int>(3, 3, expected);
+
+			// Act
+			var result = matrixM.Transpose();
+
+			// Assert
+			Assert.That(result[0, 0], Is.EqualTo(expectedMatrix[0, 0]));
+			Assert.That(result[0, 1], Is.EqualTo(expectedMatrix[0, 1]));
+			Assert.That(result[0, 2], Is.EqualTo(expectedMatrix[0, 2]));
+			Assert.That(result[1, 0], Is.EqualTo(expectedMatrix[1, 0]));
+			Assert.That(result[1, 1], Is.EqualTo(expectedMatrix[1, 1]));
+			Assert.That(result[1, 2], Is.EqualTo(expectedMatrix[1, 2]));
+			Assert.That(result[2, 0], Is.EqualTo(expectedMatrix[2, 0]));
+			Assert.That(result[2, 1], Is.EqualTo(expectedMatrix[2, 1]));
+			Assert.That(result[2, 2], Is.EqualTo(expectedMatrix[2, 2]));
 		}
 	}
 }

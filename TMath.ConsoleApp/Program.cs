@@ -14,26 +14,28 @@ namespace TMath.ConsoleApp
 			Console.WriteLine(n);
 
 			Console.WriteLine("=======================================");
-			Console.WriteLine("Matrix M + N:");
-			Console.WriteLine(m + n);
-			Console.WriteLine("Matrix M - N:");
-			Console.WriteLine(m - n);
-			Console.WriteLine("Matrix M * 2:");
-			Console.WriteLine(m * 2);
-			Console.WriteLine("Matrix M / 2:");
-			Console.WriteLine(m / 2);
-			Console.WriteLine("M++");
-			Console.WriteLine(++m);
-			Console.WriteLine("M--");
-			Console.WriteLine(--m);
-			Console.WriteLine("M == N:");
-			Console.WriteLine(m == n);
-			Console.WriteLine("M != N:");
-			Console.WriteLine(m != n);
-			Console.WriteLine("Identity Matrix:");
-			Console.WriteLine(m.Identity());
-			Console.WriteLine("M * N");
-			Console.WriteLine(m * n);
+			//Console.WriteLine("Matrix M + N:");
+			//Console.WriteLine(m + n);
+			//Console.WriteLine("Matrix M - N:");
+			//Console.WriteLine(m - n);
+			//Console.WriteLine("Matrix M * 2:");
+			//Console.WriteLine(m * 2);
+			//Console.WriteLine("Matrix M / 2:");
+			//Console.WriteLine(m / 2);
+			//Console.WriteLine("M++");
+			//Console.WriteLine(++m);
+			//Console.WriteLine("M--");
+			//Console.WriteLine(--m);
+			//Console.WriteLine("M == N:");
+			//Console.WriteLine(m == n);
+			//Console.WriteLine("M != N:");
+			//Console.WriteLine(m != n);
+			//Console.WriteLine("Identity Matrix:");
+			//Console.WriteLine(m.Identity());
+			//Console.WriteLine("M * N");
+			//Console.WriteLine(m * n);
+			Console.WriteLine("M Transpose:");
+			Console.WriteLine(m.Transpose());
 
 
 		}

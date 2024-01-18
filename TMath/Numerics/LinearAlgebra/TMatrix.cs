@@ -105,6 +105,19 @@ namespace TMath.Numerics.LinearAlgebra
 			return result;
         }
 
+		public TMatrix<T> Transpose()
+		{
+			TMatrix<T> result = new(Columns, Rows);
+			for(int i = 0; i < Rows; i++)
+			{
+				for(int j = 0; j < Columns; j++)
+				{
+					result.Values[j, i] = Values[i, j];
+				}
+			}
+			return result;
+		}
+
 		/// <summary>
 		/// Creates an identity matrix with the specified size.
 		/// </summary>
@@ -117,6 +130,7 @@ namespace TMath.Numerics.LinearAlgebra
 				result.Values[i, i] = T.One;
 			return result;
 		}
+
 
 		/// <summary>
 		/// Converts the matrix to a formatted text string.
