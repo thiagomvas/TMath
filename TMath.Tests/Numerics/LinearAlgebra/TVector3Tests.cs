@@ -204,7 +204,7 @@ namespace TMath.Tests.Numerics.LinearAlgebra
 			TVector3<double> expectedResult = new(expected);
 
 			// Act
-			TVector3<double> result = vector1.Normalize();
+			TVector3<double> result = vector1.Normalize;
 
 			// Assert
 			Assert.That(result.X, Is.EqualTo(expectedResult.X).Within(0.0001));

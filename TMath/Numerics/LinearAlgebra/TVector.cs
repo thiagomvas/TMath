@@ -42,6 +42,7 @@ namespace TMath.Numerics.LinearAlgebra
 
 		public TVector(int size)
 		{
+			if(size <= 0) throw new ArgumentException("Size must be greater than 0", nameof(size));
 			values = new T[size];
 		}
 
