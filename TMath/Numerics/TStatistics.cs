@@ -260,7 +260,13 @@ namespace TMath.Numerics
 			return TFunctions.Pow<T,double>(Convert.ToDouble(product), 1d / data.Count());
 		}
 
-        public static T Largest<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the largest value in a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The largest value in the data set</returns>
+		public static T Largest<T>(IEnumerable<T> data) where T : INumber<T>
         {
 			if (data.Count() == 0) return T.Zero;
 			if (data.Count() == 1) return data.First();
@@ -270,7 +276,15 @@ namespace TMath.Numerics
 			return largest;
 		}
 
-        public static T Smallest<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the smallest value in a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>
+        /// Returns the smallest value in the data set
+        /// </returns>
+		public static T Smallest<T>(IEnumerable<T> data) where T : INumber<T>
         {
 			if (data.Count() == 0) return T.Zero;
 			if (data.Count() == 1) return data.First();
@@ -280,14 +294,28 @@ namespace TMath.Numerics
 			return largest;
 		}
 
-        public static T Range<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the range of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>
+        /// Returns the range of the data set
+        /// </returns>
+		public static T Range<T>(IEnumerable<T> data) where T : INumber<T>
         {
             if(data.Count() == 0) return T.Zero;
             if(data.Count() == 1) return T.Zero;
             return Largest(data) - Smallest(data);
         }
 
-        public static T Sum<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the sum of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sum of the data set</returns>
+		public static T Sum<T>(IEnumerable<T> data) where T : INumber<T>
         {
 			if (data.Count() == 0) return T.Zero;
 			if (data.Count() == 1) return data.First();
@@ -297,12 +325,24 @@ namespace TMath.Numerics
 			return sum;
 		}
 
-        public static T SampleStandardDeviation<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the sample standard deviation of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sample standard deviation of the data set</returns>
+		public static T SampleStandardDeviation<T>(IEnumerable<T> data) where T : INumber<T>
         {
             return TFunctions.Sqrt<T, T>(SampleVariance(data));
 		}
 
-        public static T SampleVariance<T>(IEnumerable<T> data) where T : INumber<T>
+		/// <summary>
+		/// Calculates the sample variance of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sample variance of the data set</returns>
+		public static T SampleVariance<T>(IEnumerable<T> data) where T : INumber<T>
         {
             if(data.Count() <= 1) return T.Zero;
             T mean = Mean(data);
