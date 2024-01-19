@@ -227,5 +227,21 @@ namespace TMath
             T n = value % T.One;
             return value - n;
         }
+
+        /// <summary>
+        /// Returns the smallest value of 2 numbers.
+        /// </summary>
+        /// <param name="a">The first number</param>
+        /// <param name="b">The second number</param>
+        /// <returns>The smallest value between <paramref name="a"/> and <paramref name="b"/></returns>
+        public static T Min<T>(T a, T b) where T : INumber<T> => a < b ? a : b;
+
+		/// <summary>
+		/// Returns the biggest value of 2 numbers.
+		/// </summary>
+		/// <param name="a">The first number</param>
+		/// <param name="b">The second number</param>
+		/// <returns>The biggest value between <paramref name="a"/> and <paramref name="b"/></returns>
+		public static T Max<T>(T a, T b) where T : INumber<T> => a > b ? a : b;
     }
 }
