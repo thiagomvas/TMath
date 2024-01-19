@@ -154,7 +154,7 @@ namespace TMath.Numerics
             T sum = T.Zero;
             foreach (T d in data)
                 sum += (d - mean) * (d - mean);
-            return sum / T.CreateSaturating(data.Count() - 1);
+            return sum / T.CreateSaturating(data.Count());
         }
 
         /// <summary>
@@ -244,5 +244,72 @@ namespace TMath.Numerics
             return sorted[index - 1];
         }
 
+		/// <summary>
+		/// Calculates the geometric mean of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The target type to return as the result</typeparam>
+		/// <param name="data"></param>
+		/// <returns></returns>
+		public static T GeometricMean<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T product = T.One;
+			foreach (T d in data)
+				product *= d;
+			return TFunctions.Pow<T,double>(Convert.ToDouble(product), 1d / data.Count());
+		}
+
+        public static T Largest<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T largest = data.First();
+			foreach (T d in data)
+				if (d > largest) largest = d;
+			return largest;
+		}
+
+        public static T Smallest<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T largest = data.First();
+			foreach (T d in data)
+				if (d < largest) largest = d;
+			return largest;
+		}
+
+        public static T Range<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if(data.Count() == 0) return T.Zero;
+            if(data.Count() == 1) return T.Zero;
+            return Largest(data) - Smallest(data);
+        }
+
+        public static T Sum<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T sum = T.Zero;
+			foreach (T d in data)
+				sum += d;
+			return sum;
+		}
+
+        public static T SampleStandardDeviation<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            return TFunctions.Sqrt<T, T>(SampleVariance(data));
+		}
+
+        public static T SampleVariance<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if(data.Count() <= 1) return T.Zero;
+            T mean = Mean(data);
+            T sum = T.Zero;
+            foreach (T d in data)
+				sum += (d - mean) * (d - mean);
+            return sum / T.CreateSaturating(data.Count() - 1);
+        }
     }
 }
