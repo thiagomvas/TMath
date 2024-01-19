@@ -118,6 +118,27 @@ namespace TMath.Numerics.LinearAlgebra
 			return result;
 		}
 
+		public TMatrix<T> SwapRows(int line1, int line2)
+		{
+			TMatrix<T> result = new(Rows, Columns);
+			for(int i = 0; i < Rows; i++)
+			{
+				for(int j = 0; j < Columns; j++)
+				{
+
+					result.Values[i, j] = Values[i, j];
+				}
+			}
+
+			for(int i = 0; i < Rows; i++)
+			{
+				T temp = result[line1, i];
+				result[line1, i] = result[line2, i];
+				result[line2, i] = temp;
+			}
+			return result;
+		}
+
 		/// <summary>
 		/// Creates an identity matrix with the specified size.
 		/// </summary>

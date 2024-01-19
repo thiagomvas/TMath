@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using TMath.Numerics.LinearAlgebra;
 
 namespace TMath.Numerics.Solvers
 {
@@ -15,13 +16,28 @@ namespace TMath.Numerics.Solvers
                 {
                     if (!matrix[y][x].Equals(T.Zero))
                     {
-                        solved = false;
-                        break;
+                        return false;
                     }
                 }
             }
 
-            return solved;
+            return true;
+        }
+
+        internal static bool CheckIfSolved<T>(TMatrix<T> matrix) where T : INumber<T>
+        {
+            for (int y = 0; y < matrix.Rows; y++)
+            {
+                for(int x = 0; x < y; x++)
+                {
+                    if (!matrix[y, x].Equals(T.Zero))
+                    {
+						return false;
+					}
+                }
+            }
+
+            return true;
         }
     }
 }
