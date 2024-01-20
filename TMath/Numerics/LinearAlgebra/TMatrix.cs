@@ -118,6 +118,38 @@ namespace TMath.Numerics.LinearAlgebra
 			return result;
 		}
 
+		/// <summary>
+		/// Creates a submatrix of this matrix by removing the specified row and column.
+		/// </summary>
+		/// <param name="rowToRemove">The row to remove</param>
+		/// <param name="colToRemove">The column to remove</param>
+		/// <returns>A matrix with dimensions reduced by one by removing a column and row</returns>
+		public TMatrix<T> Submatrix(int rowToRemove, int colToRemove)
+		{
+			int size = this.Rows;
+			TMatrix<T> submatrix = new TMatrix<T>(size - 1, size - 1);
+
+			int subRow = 0;
+			for (int row = 0; row < size; row++)
+			{
+				if (row == rowToRemove)
+					continue;
+
+				int subCol = 0;
+				for (int col = 0; col < size; col++)
+				{
+					if (col == colToRemove)
+						continue;
+
+					submatrix[subRow, subCol] = this[row, col];
+					subCol++;
+				}
+				subRow++;
+			}
+
+			return submatrix;
+		}
+
 		public TMatrix<T> SwapRows(int line1, int line2)
 		{
 			TMatrix<T> result = new(Rows, Columns);
