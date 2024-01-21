@@ -134,6 +134,11 @@ namespace TMath.Numerics.AdvancedMath
 			return result;
 		}
 
-
+		public static TMatrix<T> RowEchelon<T>(TMatrix<T> matrix)
+			where T : INumber<T>
+		{
+			LUDecomposition(matrix, out var u, out _, out _);
+			return u;
+		}
 	}
 }
