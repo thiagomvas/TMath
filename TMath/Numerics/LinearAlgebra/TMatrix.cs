@@ -86,6 +86,20 @@ namespace TMath.Numerics.LinearAlgebra
 			Columns = columns;
 		}
 
+		public TMatrix(TMatrix<T> target)
+		{
+			Rows = target.Rows;
+			Columns = target.Columns;
+			Values = new T[Rows, Columns];
+			for (int i = 0; i < target.Rows; i++)
+			{
+				for (int j = 0; j < target.Columns; j++)
+				{
+					Values[i, j] = target.Values[i, j];
+				}
+			}
+		}
+
 		/// <summary>
 		/// Creates an identity matrix with a size of this matrix.
 		/// </summary>
@@ -201,6 +215,46 @@ namespace TMath.Numerics.LinearAlgebra
 				builder.Append("\n");
 			}
 			return builder.ToString();
+		}
+
+		/// <summary>
+		/// Creates a new matrix with  all the values in the matrix rounded to a specified number of decimal places
+		/// </summary>
+		/// <param name="decimals">The amount of decimals in each value</param>
+		/// <returns>
+		/// A matrix with all the values rounded to the specified number of decimal places.
+		/// /returns>
+		public TMatrix<T> RoundValues(int decimals = 5)
+		{
+			TMatrix<T> result = new(this);
+			for (int i = 0; i < Rows; i++)
+			{
+				for (int j = 0; j < Columns; j++)
+					result.Values[i, j] = TFunctions.Round(Values[i, j], decimals);
+			}
+			return result;
+		}
+
+		/// <summary>
+		/// Converts the matrix to a LaTeX string.
+		/// </summary>
+		/// <param name="matrixtype">The type of latex matrix (pmatrix, bmatrix, vmatrix, etc) </param>
+		/// <returns>A string representing this matrix in LaTeX form</returns>
+		public string ToLaTeX(string matrixtype = "pmatrix")
+		{
+			StringBuilder sb = new();
+			var matrix = this;
+			sb.Append($@"\begin{{{matrixtype}}}");
+			for (int i = 0; i < Rows; i++)
+			{
+				for (int j = 0; j < Columns - 1; j++)
+				{
+					sb.Append($"{matrix[i, j]} &");
+				}
+				sb.Append($@"{matrix[i, Columns - 1]} \\");
+			}
+			sb.Append($@"\end{{{matrixtype}}}");
+			return sb.ToString();
 		}
 
 		/// <summary>
