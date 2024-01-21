@@ -140,5 +140,26 @@ namespace TMath.Numerics.AdvancedMath
 			LUDecomposition(matrix, out var u, out _, out _);
 			return u;
 		}
+
+		public static T Rank<T>(TMatrix<T> matrix)
+			where T : INumber<T>
+		{
+			TMatrix<T> echelon = RowEchelon(matrix); 
+			T rank = T.Zero;
+
+			for (int i = 0; i < echelon.Rows; i++)
+			{
+				for (int j = 0; j < echelon.Columns; j++)
+				{
+					if (echelon[i, j] != T.Zero)
+					{
+						rank++;
+						break;
+					}
+				}
+			}
+
+			return rank;
+		}
 	}
 }
