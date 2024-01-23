@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMath.Numerics.LinearAlgebra;
+using TMath.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {
-	public class TVector2Tests
+    public class TVector2Tests
 	{
 		[Test]
 		[TestCase(new double[] {1, 2}, new double[] {4, 5}, new double[] { 5, 7})]

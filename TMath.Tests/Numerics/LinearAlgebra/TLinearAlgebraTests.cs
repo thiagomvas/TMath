@@ -1,9 +1,8 @@
-﻿using TMath.Numerics.AdvancedMath;
-using TMath.Numerics.LinearAlgebra;
+﻿using TMath.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {
-	public class TLinearAlgebraTests
+    public class TLinearAlgebraTests
 	{
 		[Test]
 		public void PLU_ShouldEqual_OriginalMatrix()

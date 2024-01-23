@@ -1,5 +1,5 @@
 ﻿using System.Numerics;
-using TMath.Numerics.LinearAlgebra;
+using TMath.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Numerics.Solvers
 {

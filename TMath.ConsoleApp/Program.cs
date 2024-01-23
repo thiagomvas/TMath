@@ -1,5 +1,5 @@
-﻿using TMath.Numerics.AdvancedMath;
-using TMath.Numerics.LinearAlgebra;
+﻿using TMath.Numerics.AdvancedMath.LinearAlgebra;
+
 namespace TMath.ConsoleApp
 {
     internal class Program
@@ -23,24 +23,17 @@ namespace TMath.ConsoleApp
             Console.WriteLine("========= MATRIX P =========");
             Console.WriteLine(p);
             Console.WriteLine("========= MATRIX P * L * U = M =========");
-            Console.WriteLine(p * l * u);
+            Console.WriteLine((p * l * u));
 			Console.WriteLine("========= INVERSE =========");
 			Console.WriteLine(TLinearAlgebra.Inverse(matrix));
 			Console.WriteLine("========= ROW ECHELON =========");
 			Console.WriteLine(TLinearAlgebra.RowEchelon(matrix));
             Console.WriteLine("========= MATRIX A * A^-1 ========="); 
-			TMatrix<double> inverse = TLinearAlgebra.Inverse(matrix);
-			// Act
-			TMatrix<double> result = matrix * inverse;
-			for (int i = 0; i < result.Rows; i++)
-			{
-				for (int j = 0; j < result.Columns; j++)
-				{
-					result[i, j] = TFunctions.Round(result[i, j], 5);
-
-				}
-			}
-			Console.WriteLine(result);
+			Console.WriteLine((matrix * TLinearAlgebra.Inverse(matrix)).RoundValues(5));
+			Console.WriteLine("========= MATRIX IN LATEX =========");
+            Console.WriteLine(matrix.ToLaTeX("vmatrix"));
+            Console.WriteLine("========= SUBMATRIX =========");   
+            Console.WriteLine(matrix.Submatrix(1, 1, 3, 2));
 		}
 	}
 }
