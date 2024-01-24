@@ -34,6 +34,41 @@ namespace TMath.Numerics.Models
         public T Mode { get; private set; }
 
         /// <summary>
+        /// Gets the sum of the data.
+        /// </summary>
+        public T Sum { get; private set; }
+
+        /// <summary>
+        /// Gets the largest value in the data.
+        /// </summary>
+        public T Largest { get; private set; }
+
+        /// <summary>
+        /// Gets the smallest value in the data.
+        /// </summary>
+        public T Smallest { get; private set; }
+
+        /// <summary>
+        /// Gets the range of the data.
+        /// </summary>
+        public T Range { get; private set; }
+
+        /// <summary>
+        /// Gets the geometric mean of the data.
+        /// </summary>
+        public T GeometricMean { get; private set; }
+
+        /// <summary>
+        /// Gets the sample standard deviation of the data.
+        /// </summary>
+        public T SampleStandardDeviation { get; private set; }
+
+        /// <summary>
+        /// Gets the sample variance of the data.
+        /// </summary>
+        public T SampleVariance { get; private set; }
+
+        /// <summary>
         /// Gets the raw data provided to calculate statistics.
         /// </summary>
         public IEnumerable<T> Data { get; private set; }
@@ -50,6 +85,13 @@ namespace TMath.Numerics.Models
             StandardDeviation = TStatistics.StandardDeviation(data);
             Mode = TStatistics.Mode(data);
             Data = data;
+            Sum = TStatistics.Sum(data);
+            Largest = TStatistics.Largest(data);
+            Smallest = TStatistics.Smallest(data);
+            Range = TStatistics.Range(data);
+            GeometricMean = TStatistics.GeometricMean(data);
+            SampleStandardDeviation = TStatistics.SampleStandardDeviation(data);
+            SampleVariance = TStatistics.SampleVariance(data);
         }
 
         /// <summary>
@@ -61,9 +103,9 @@ namespace TMath.Numerics.Models
 
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return $"Data: {string.Join(',', Data)}\nMean: {Mean}\nMedian: {Median}\nVariance: {Variance}\nStandard Deviation: {StandardDeviation}\nMode: {Mode}";
-        }
+		public override string ToString()
+		{
+			return $"Mean: {Mean}\nMedian: {Median}\nVariance: {Variance}\nStandard Deviation: {StandardDeviation}\nMode: {Mode}\nSum: {Sum}\nLargest: {Largest}\nSmallest: {Smallest}\nRange: {Range}\nGeometric Mean: {GeometricMean}\nSample Standard Deviation: {SampleStandardDeviation}\nSample Variance: {SampleVariance}";
+		}
     }
 }

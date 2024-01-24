@@ -143,26 +143,42 @@ namespace TMath
         /// <returns>The radian value converted into degrees</returns>
         public static T Rad2Deg<T>(T radians) where T : INumber<T> => radians * IntToT<T>(180) / TConstants<T>.Pi;
 
-        /// <summary>
-        /// Calculates a to the power of b.
-        /// </summary>
-        /// <param name="a">The base</param>
-        /// <param name="b">The exponent</param>
-        /// <typeparam name="T">A generic type that inherits <see cref="INumber{TSelf}"/> and <see cref="IPowerFunctions{TSelf}"/></typeparam>
-        /// <returns>a to the power of b</returns>
-        public static T Pow<T>(T a, T b) where T : INumber<T>, IPowerFunctions<T> => T.Pow(a, b);
+		/// <summary>
+		/// Calculates a to the power of b.
+		/// </summary>
+		/// <param name="a">The base</param>
+		/// <param name="b">The exponent</param>
+		/// <typeparam name="T">A generic type that inherits <see cref="INumber{TSelf}"/> and <see cref="IPowerFunctions{TSelf}"/></typeparam>
+		/// <returns>a to the power of b</returns>
+		public static T Pow<T>(T a, T b) where T : INumber<T>, IPowerFunctions<T> => T.Pow(a, b);
 
 
-        /// <summary>
-        /// Calculates a to the power of b.
-        /// </summary>
-        /// <param name="a">The base number.</param>
-        /// <param name="b">The power of the base number.</param>
-        /// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
-        /// <remarks>
-        /// When using integer types, do keep in mind that it will also return an integer type by casting it.
-        /// </remarks>
-        public static T Pow<T>(T a, int b) where T : INumber<T>
+		/// <summary>
+		/// Calculates a to the power of b.
+		/// </summary>
+		/// <param name="a">The base</param>
+		/// <param name="b">The exponent</param>
+		/// <typeparam name="TTarget">A generic type that inherits <see cref="INumber{TSelf}"/></typeparam>
+		/// <typeparam name="TSource">A generic type that inherits <see cref="INumber{TSelf}"/></typeparam>
+		/// <returns>a to the power of b</returns>
+		/// <remarks>
+		/// This function is slower than <see cref="Pow{T}(T, T)"/> and should only be used when the type T does not implement <see cref="IPowerFunctions{TSelf}"/>.
+		/// </remarks>
+		public static TTarget Pow<TTarget,TSource>(TSource a, TSource b) 
+            where TTarget : INumber<TTarget>
+            where TSource : INumber<TSource> => TTarget.CreateSaturating(double.Pow(Convert.ToDouble(a), Convert.ToDouble(b)));
+
+
+		/// <summary>
+		/// Calculates a to the power of b.
+		/// </summary>
+		/// <param name="a">The base number.</param>
+		/// <param name="b">The power of the base number.</param>
+		/// <returns><paramref name="a"/> to the power of <paramref name="b"></paramref></returns>
+		/// <remarks>
+		/// When using integer types, do keep in mind that it will also return an integer type by casting it.
+		/// </remarks>
+		public static T Pow<T>(T a, int b) where T : INumber<T>
         {
             if (b < 0) return T.One / Pow(a, Abs(b));
             if (b == 0) return T.One; 

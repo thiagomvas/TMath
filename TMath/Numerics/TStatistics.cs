@@ -154,7 +154,7 @@ namespace TMath.Numerics
             T sum = T.Zero;
             foreach (T d in data)
                 sum += (d - mean) * (d - mean);
-            return sum / T.CreateSaturating(data.Count() - 1);
+            return sum / T.CreateSaturating(data.Count());
         }
 
         /// <summary>
@@ -244,5 +244,112 @@ namespace TMath.Numerics
             return sorted[index - 1];
         }
 
+		/// <summary>
+		/// Calculates the geometric mean of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The target type to return as the result</typeparam>
+		/// <param name="data"></param>
+		/// <returns></returns>
+		public static T GeometricMean<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T product = T.One;
+			foreach (T d in data)
+				product *= d;
+			return TFunctions.Pow<T,double>(Convert.ToDouble(product), 1d / data.Count());
+		}
+
+		/// <summary>
+		/// Calculates the largest value in a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The largest value in the data set</returns>
+		public static T Largest<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T largest = data.First();
+			foreach (T d in data)
+				if (d > largest) largest = d;
+			return largest;
+		}
+
+		/// <summary>
+		/// Calculates the smallest value in a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>
+        /// Returns the smallest value in the data set
+        /// </returns>
+		public static T Smallest<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T largest = data.First();
+			foreach (T d in data)
+				if (d < largest) largest = d;
+			return largest;
+		}
+
+		/// <summary>
+		/// Calculates the range of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>
+        /// Returns the range of the data set
+        /// </returns>
+		public static T Range<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if(data.Count() == 0) return T.Zero;
+            if(data.Count() == 1) return T.Zero;
+            return Largest(data) - Smallest(data);
+        }
+
+		/// <summary>
+		/// Calculates the sum of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sum of the data set</returns>
+		public static T Sum<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+			if (data.Count() == 0) return T.Zero;
+			if (data.Count() == 1) return data.First();
+			T sum = T.Zero;
+			foreach (T d in data)
+				sum += d;
+			return sum;
+		}
+
+		/// <summary>
+		/// Calculates the sample standard deviation of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sample standard deviation of the data set</returns>
+		public static T SampleStandardDeviation<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            return TFunctions.Sqrt<T, T>(SampleVariance(data));
+		}
+
+		/// <summary>
+		/// Calculates the sample variance of a set of data.
+		/// </summary>
+		/// <typeparam name="T">The numeric type of the data</typeparam>
+		/// <param name="data">An <see cref="IEnumerable{T}"/>> containing all the data</param>
+		/// <returns>The sample variance of the data set</returns>
+		public static T SampleVariance<T>(IEnumerable<T> data) where T : INumber<T>
+        {
+            if(data.Count() <= 1) return T.Zero;
+            T mean = Mean(data);
+            T sum = T.Zero;
+            foreach (T d in data)
+				sum += (d - mean) * (d - mean);
+            return sum / T.CreateSaturating(data.Count() - 1);
+        }
     }
 }

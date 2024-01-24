@@ -1,5 +1,7 @@
-﻿using TMath.Numerics.AdvancedMath.LinearAlgebra;
-
+using TMath.Numerics.AdvancedMath.LinearAlgebra;
+using TMath.Numerics;
+using TMath.Numerics.LinearAlgebra;
+using TMath.Numerics.Models;
 namespace TMath.ConsoleApp
 {
     internal class Program
