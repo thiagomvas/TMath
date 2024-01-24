@@ -287,20 +287,28 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
 
 
         /// <summary>
-        /// Performs row echelon form transformation on the given matrix.
+        /// Computes the row echelon form of the given matrix using LU decomposition.
         /// </summary>
         /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
         /// <param name="matrix">The input matrix.</param>
         /// <returns>The matrix in row echelon form.</returns>
-        /// <remarks>
-        /// This method uses LU decomposition to compute the row echelon form.
-        /// </remarks>
         public static TMatrix<T> RowEchelon<T>(TMatrix<T> matrix)
             where T : INumber<T>
         {
             LUDecomposition(matrix, out var u, out _, out _);
             return u;
         }
+
+        /// <summary>
+        /// Computes the row echelon form of the given matrix using LU decomposition.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input matrix.</param>
+        /// <param name="steps">A list of steps describing the process of row echelon form transformation.</param>
+        /// <returns>The matrix in row echelon form.</returns>
+        /// <remarks>
+        /// The steps parameter records the intermediate steps taken during the transformation.
+        /// </remarks>
         public static TMatrix<T> RowEchelon<T>(TMatrix<T> matrix, out List<TMatrixStep<T>> steps)
             where T : INumber<T>
         {
@@ -338,6 +346,17 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return rank;
         }
 
+        /// <summary>
+        /// Computes the rank of the given matrix using row echelon form.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input matrix.</param>
+        /// <param name="steps">A list of steps describing the process of computing the rank.</param>
+        /// <returns>The rank of the matrix.</returns>
+        /// <remarks>
+        /// The method uses row echelon form to compute the rank.
+        /// The steps parameter records the intermediate steps taken during the computation.
+        /// </remarks>
         public static T Rank<T>(TMatrix<T> matrix, out List<TMatrixStep<T>> steps)
     where T : INumber<T>
         {

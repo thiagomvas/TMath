@@ -8,7 +8,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
     /// <summary>
     /// Represents a generic vector in N-dimensional space with arithmetic and comparison operations.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the vector, constrained to <see cref="INumber{T}"/> and <see cref="new"/>.</typeparam>
+    /// <typeparam name="T">The type of elements in the vector, constrained to <see cref="INumber{T}"/>.</typeparam>
     public class TVector<T>
         : IAdditionOperators<TVector<T>, TVector<T>, TVector<T>>,
         ISubtractionOperators<TVector<T>, TVector<T>, TVector<T>>,
@@ -26,12 +26,18 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
         where T : INumber<T>, new()
     {
 
-        private T[] values;
+        private readonly T[] values;
         /// <summary>
         /// The number of elements in this vector.
         /// </summary>
         public int Size => values.Length;
 
+        /// <summary>
+        /// Gets or sets the element at the specified index in the vector.
+        /// </summary>
+        /// <param name="i">The zero-based index of the element to get or set.</param>
+        /// <returns>The element at the specified index.</returns>
+        /// <value>The value to set at the specified index.</value>
         public T this[int i]
         {
             get { return values[i]; }
@@ -40,12 +46,21 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
 
         #region Constructors
 
+        /// <summary>
+        /// Generates a new vector with all elements set to zero.
+        /// </summary>
+        /// <param name="size">How many elements are in this vector</param>
+        /// <exception cref="ArgumentException">Thrown when size is less or equal to 0</exception>
         public TVector(int size)
         {
             if (size <= 0) throw new ArgumentException("Size must be greater than 0", nameof(size));
             values = new T[size];
         }
 
+        /// <summary>
+        /// Generates a new vector with all elements set to <paramref name="values"/>.
+        /// </summary>
+        /// <param name="values">The values to set as the elements in this vector</param>
         public TVector(T[] values)
         {
             this.values = values;
@@ -238,6 +253,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return new TVector<T>(val);
         }
 
+        ///<inheritdoc/>
         public override string ToString()
         {
             return $"<{string.Join(", ", values.Select(x => x.ToString("", CultureInfo.InvariantCulture)))}>";

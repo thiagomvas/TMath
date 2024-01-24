@@ -23,6 +23,13 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
     {
         private readonly T[,] Values;
 
+        /// <summary>
+        /// Gets or sets the element at the specified row and column index in the matrix.
+        /// </summary>
+        /// <param name="i">The zero-based row index.</param>
+        /// <param name="j">The zero-based column index.</param>
+        /// <returns>The element at the specified position.</returns>
+        /// <value>The value to set at the specified position.</value>
         public T this[int i, int j]
         {
             get { return Values[i, j]; }
@@ -124,6 +131,13 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return result;
         }
 
+        /// <summary>
+        /// Transposes the matrix by swapping its rows and columns.
+        /// </summary>
+        /// <returns>The transposed matrix.</returns>
+        /// <remarks>
+        /// The transposed matrix has the number of rows and columns swapped compared to the original matrix.
+        /// </remarks>
         public TMatrix<T> Transpose()
         {
             TMatrix<T> result = new(Columns, Rows);
@@ -208,6 +222,12 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return submatrix;
         }
 
+        /// <summary>
+        /// Swaps two specified rows in the matrix.
+        /// </summary>
+        /// <param name="line1">The index of the first row to swap.</param>
+        /// <param name="line2">The index of the second row to swap.</param>
+        /// <returns>A new matrix with the specified rows swapped.</returns>
         public TMatrix<T> SwapRows(int line1, int line2)
         {
             TMatrix<T> result = new(Rows, Columns);
@@ -267,7 +287,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
         /// <param name="decimals">The amount of decimals in each value</param>
         /// <returns>
         /// A matrix with all the values rounded to the specified number of decimal places.
-        /// /returns>
+        /// </returns>
         public TMatrix<T> RoundValues(int decimals = 5)
         {
             TMatrix<T> result = new(this);
