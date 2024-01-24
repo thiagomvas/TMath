@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework.Internal;
-using TMath.Numerics.LinearAlgebra;
+using TMath.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {
-	public class TMatrixTests
+    public class TMatrixTests
 	{
 		private TMatrix<T> runOperation<T>(TMatrix<T> m, TMatrix<T> n, Func<TMatrix<T>, TMatrix<T>, TMatrix<T>> operation)
 			where T : INumber<T>

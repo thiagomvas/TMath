@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMath.Numerics.LinearAlgebra;
+﻿
+using TMath.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {
