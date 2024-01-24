@@ -3,8 +3,21 @@ using TMath.Numerics.Solvers;
 
 namespace TMath.Numerics.AdvancedMath.LinearAlgebra
 {
+    /// <summary>
+    /// Provides a collection of linear algebra operations for matrices.
+    /// </summary>
     public static class TLinearAlgebra
     {
+        /// <summary>
+        /// Computes the determinant of the given square matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input square matrix.</param>
+        /// <returns>The determinant of the matrix.</returns>
+        /// <exception cref="ArgumentException">Thrown when the input matrix is not square.</exception>
+        /// <remarks>
+        /// The method recursively calculates the determinant using the Laplace expansion.
+        /// </remarks>
         public static T Determinant<T>(TMatrix<T> matrix) where T : INumber<T>
         {
             int size = matrix.Rows;
@@ -25,6 +38,19 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return result; ;
         }
 
+        /// <summary>
+        /// Performs LU decomposition on the given square matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input square matrix.</param>
+        /// <param name="U">The upper triangular matrix resulting from the decomposition.</param>
+        /// <param name="L">The lower triangular matrix resulting from the decomposition.</param>
+        /// <param name="P">The permutation matrix resulting from partial pivoting.</param>
+        /// <exception cref="ArgumentException">Thrown when the input matrix is not square.</exception>
+        /// <remarks>
+        /// LU decomposition factors a square matrix into the product of a lower triangular matrix (L),
+        /// an upper triangular matrix (U), and a permutation matrix (P) to facilitate solving linear systems.
+        /// </remarks>
         public static void LUDecomposition<T>(TMatrix<T> matrix, out TMatrix<T> U, out TMatrix<T> L, out TMatrix<T> P) where T : INumber<T>
         {
 
@@ -71,6 +97,19 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
                 pivot++;
             }
         }
+
+        /// <summary>
+        /// Computes the inverse of the given square and invertible matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input square and invertible matrix.</param>
+        /// <returns>The inverse of the matrix.</returns>
+        /// <exception cref="ArgumentException">
+        /// Thrown when the input matrix is not square or when it is not invertible (determinant is zero).
+        /// </exception>
+        /// <remarks>
+        /// The method uses the Gauss-Jordan elimination method to find the inverse of the matrix.
+        /// </remarks>
         public static TMatrix<T> Inverse<T>(TMatrix<T> matrix) where T : INumber<T>
         {
             if (matrix.Rows != matrix.Columns)
@@ -135,6 +174,15 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return result;
         }
 
+        /// <summary>
+        /// Performs row echelon form transformation on the given matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input matrix.</param>
+        /// <returns>The matrix in row echelon form.</returns>
+        /// <remarks>
+        /// This method uses LU decomposition to compute the row echelon form.
+        /// </remarks>
         public static TMatrix<T> RowEchelon<T>(TMatrix<T> matrix)
             where T : INumber<T>
         {
@@ -142,6 +190,15 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return u;
         }
 
+        /// <summary>
+        /// Computes the rank of the given matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input matrix.</param>
+        /// <returns>The rank of the matrix.</returns>
+        /// <remarks>
+        /// The rank is determined by finding the number of non-zero rows in the row echelon form.
+        /// </remarks>
         public static T Rank<T>(TMatrix<T> matrix)
             where T : INumber<T>
         {
