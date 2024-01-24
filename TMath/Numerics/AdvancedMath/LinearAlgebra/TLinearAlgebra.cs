@@ -35,7 +35,48 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
                 T sign = col % 2 == 0 ? T.One : -T.One;
                 result += matrix[0, col] * sign * Determinant(matrix.Submatrix(0, col));
             }
-            return result; ;
+            return result;
+        }
+
+        /// <summary>
+        /// Computes the determinant of the given square matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input square matrix.</param>
+        /// <param name="steps">A list of steps describing the process of determinant calculation.</param>
+        /// <returns>The determinant of the matrix.</returns>
+        /// <exception cref="ArgumentException">Thrown when the input matrix is not square.</exception>
+        /// <remarks>
+        /// The method recursively calculates the determinant using the Laplace expansion.
+        /// The method also records the steps taken during the decomposition process.
+        /// </remarks>
+        public static T Determinant<T>(TMatrix<T> matrix, out List<TMatrixStep<T>> steps) where T : INumber<T>
+        {
+            steps = new List<TMatrixStep<T>>();
+            int size = matrix.Rows;
+            if (matrix.Rows != matrix.Columns)
+                throw new ArgumentException("Matrix must be square", nameof(matrix));
+            if (size == 1)
+            {
+                steps.Add(new TMatrixStep<T>(matrix, "Determinant of a 1x1 matrix is the element itself"));
+                return matrix[0, 0];
+            }
+
+            T result = T.Zero;
+
+            for (int col = 0; col < size; col++)
+            {
+                T sign = col % 2 == 0 ? T.One : -T.One;
+                TMatrix<T> submatrix = matrix.Submatrix(0, col);
+                T subDeterminant = Determinant(submatrix, out List<TMatrixStep<T>> substeps);
+                result += matrix[0, col] * sign * subDeterminant;
+
+                steps.Add(new TMatrixStep<T>(new TMatrix<T>(matrix),
+                    $"Determinant += {matrix[0, col]} * {sign} * Determinant(Submatrix starting from column {col})"));
+
+                steps.AddRange(substeps);
+            }
+            return result;
         }
 
         /// <summary>
@@ -85,6 +126,74 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
                 {
                     T coef = U[row, pivot] / U[pivot, pivot];
                     L[row, pivot] = coef;
+
+                    for (int col = 0; col < U.Columns; col++)
+                    {
+                        U[row, col] = U[row, col] - coef * U[pivot, col];
+                        if (U[row, col] < TConstants<T>.Nano && U[row, col] > -TConstants<T>.Nano)
+                        {
+                            U[row, col] = T.Zero;
+                        }
+                    }
+                }
+                pivot++;
+            }
+        }
+
+        /// <summary>
+        /// Performs LU decomposition on the given square matrix.
+        /// </summary>
+        /// <typeparam name="T">The numeric type of the matrix elements.</typeparam>
+        /// <param name="matrix">The input square matrix.</param>
+        /// <param name="U">The upper triangular matrix resulting from the decomposition.</param>
+        /// <param name="L">The lower triangular matrix resulting from the decomposition.</param>
+        /// <param name="P">The permutation matrix resulting from partial pivoting.</param>
+        /// <param name="steps">A list of steps describing the decomposition process.</param>
+        /// <exception cref="ArgumentException">Thrown when the input matrix is not square.</exception>
+        /// <remarks>
+        /// LU decomposition factors a square matrix into the product of a lower triangular matrix (L),
+        /// an upper triangular matrix (U), and a permutation matrix (P) to facilitate solving linear systems.
+        /// The method also records the steps taken during the decomposition process.
+        /// </remarks>
+        public static void LUDecomposition<T>(TMatrix<T> matrix, out TMatrix<T> U, out TMatrix<T> L, out TMatrix<T> P, out List<TMatrixStep<T>> steps) where T : INumber<T>
+        {
+            steps = new();
+            if (matrix.Rows != matrix.Columns)
+                throw new ArgumentException("Matrix must be square", nameof(matrix));
+
+            U = new TMatrix<T>(matrix.Rows, matrix.Columns);
+
+            L = new TMatrix<T>(matrix.Rows, matrix.Columns);
+            P = new TMatrix<T>(matrix.Rows, matrix.Columns);
+
+            for (int i = 0; i < matrix.Rows; i++)
+            {
+                L[i, i] = T.One;
+                P[i, i] = T.One;
+                for (int j = 0; j < matrix.Columns; j++)
+                {
+                    U[i, j] = matrix[i, j];
+                }
+            }
+
+            int pivot = 0;
+            while (!TLinearAlgebraSolvers.CheckIfSolved(U) && pivot < matrix.Rows)
+            {
+                if (U[pivot, pivot] == T.Zero)
+                {
+                    U = U.SwapRows(pivot, pivot + 1);
+                    P = P.SwapRows(pivot, pivot + 1);
+                    steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), $"Swap rows {pivot} and {pivot + 1}"));
+                }
+
+                for (int row = pivot + 1; row < U.Rows; row++)
+                {
+                    T coef = U[row, pivot] / U[pivot, pivot];
+                    L[row, pivot] = coef;
+
+                    steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), 
+                        $"l{row} <-- L{row} {(T.IsNegative(coef) ? "+" : "-")} {coef} * L{pivot}"));
+
                     for (int col = 0; col < U.Columns; col++)
                     {
                         U[row, col] = U[row, col] - coef * U[pivot, col];
@@ -174,6 +283,9 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             return result;
         }
 
+        // TO-DO: Add Inverse method with steps
+
+
         /// <summary>
         /// Performs row echelon form transformation on the given matrix.
         /// </summary>
@@ -187,6 +299,12 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             where T : INumber<T>
         {
             LUDecomposition(matrix, out var u, out _, out _);
+            return u;
+        }
+        public static TMatrix<T> RowEchelon<T>(TMatrix<T> matrix, out List<TMatrixStep<T>> steps)
+            where T : INumber<T>
+        {
+            LUDecomposition(matrix, out var u, out _, out _, out steps);
             return u;
         }
 
@@ -205,6 +323,28 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             TMatrix<T> echelon = RowEchelon(matrix);
             T rank = T.Zero;
 
+            for (int i = 0; i < echelon.Rows; i++)
+            {
+                for (int j = 0; j < echelon.Columns; j++)
+                {
+                    if (echelon[i, j] != T.Zero)
+                    {
+                        rank++;
+                        break;
+                    }
+                }
+            }
+
+            return rank;
+        }
+
+        public static T Rank<T>(TMatrix<T> matrix, out List<TMatrixStep<T>> steps)
+    where T : INumber<T>
+        {
+            TMatrix<T> echelon = RowEchelon(matrix, out var substeps);
+            T rank = T.Zero;
+            steps = [.. substeps];
+            steps.Add(new(new(echelon), "Count all the rows with at least one element different than 0"));
             for (int i = 0; i < echelon.Rows; i++)
             {
                 for (int j = 0; j < echelon.Columns; j++)

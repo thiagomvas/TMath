@@ -1,6 +1,4 @@
-﻿using TMath.Numerics.LinearAlgebra;
-
-namespace TMath.Numerics.Interfaces
+﻿namespace TMath.Numerics.Interfaces
 {
 	public interface ITVector<T>
 	{
