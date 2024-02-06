@@ -540,6 +540,8 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
         /// <exception cref="ArgumentException">If the number of columns in the left matrix is different than the number of rows in the right matrix</exception>
         public static TMatrix<T> operator *(TMatrix<T> left, TMatrix<T> right)
         {
+            if (right.Columns == left.Rows)
+                return right * left;
 
             if (left.Columns != right.Rows)
                 throw new ArgumentException("The number of columns in the left matrix must be equal to the number of rows in the right matrix.");

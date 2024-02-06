@@ -100,10 +100,10 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
 
             U = new TMatrix<T>(matrix.Rows, matrix.Columns);
 
-            L = new TMatrix<T>(matrix.Rows, matrix.Columns);
-            P = new TMatrix<T>(matrix.Rows, matrix.Columns);
+			P = TMatrix<T>.Identity(matrix.Rows);
+			L = TMatrix<T>.Identity(matrix.Rows);
 
-            for (int i = 0; i < matrix.Rows; i++)
+			for (int i = 0; i < matrix.Rows; i++)
             {
                 L[i, i] = T.One;
                 P[i, i] = T.One;
@@ -114,7 +114,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             }
 
             int pivot = 0;
-            while (!TLinearAlgebraSolvers.CheckIfSolved(U) && pivot < matrix.Rows)
+            while (!TLinearAlgebraSolvers.CheckIfSolved(U.Submatrix(0, 0, U.Rows - 1, U.Rows - 1)) && pivot < matrix.Rows)
             {
                 if (U[pivot, pivot] == T.Zero)
                 {
@@ -158,13 +158,11 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
         public static void LUDecomposition<T>(TMatrix<T> matrix, out TMatrix<T> U, out TMatrix<T> L, out TMatrix<T> P, out List<TMatrixStep<T>> steps) where T : INumber<T>
         {
             steps = new();
-            if (matrix.Rows != matrix.Columns)
-                throw new ArgumentException("Matrix must be square", nameof(matrix));
 
             U = new TMatrix<T>(matrix.Rows, matrix.Columns);
 
-            L = new TMatrix<T>(matrix.Rows, matrix.Columns);
-            P = new TMatrix<T>(matrix.Rows, matrix.Columns);
+            P = TMatrix<T>.Identity(matrix.Rows);
+            L = TMatrix<T>.Identity(matrix.Rows);
 
             for (int i = 0; i < matrix.Rows; i++)
             {
@@ -177,7 +175,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             }
 
             int pivot = 0;
-            while (!TLinearAlgebraSolvers.CheckIfSolved(U) && pivot < matrix.Rows)
+            while (!TLinearAlgebraSolvers.CheckIfSolved(U.Submatrix(0, 0, U.Rows - 1, U.Rows - 1)) && pivot < matrix.Rows)
             {
                 if (U[pivot, pivot] == T.Zero)
                 {
@@ -192,7 +190,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
                     L[row, pivot] = coef;
 
                     steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), 
-                        $"l{row} <-- L{row} {(T.IsNegative(coef) ? "+" : "-")} {coef} * L{pivot}"));
+                        $"l{row} <-- l{row} {(T.IsNegative(coef) ? "+" : "-")} {coef} * l{pivot}"));
 
                     for (int col = 0; col < U.Columns; col++)
                     {
