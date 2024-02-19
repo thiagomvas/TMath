@@ -179,9 +179,17 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             {
                 if (U[pivot, pivot] == T.Zero)
                 {
-                    U = U.SwapRows(pivot, pivot + 1);
-                    P = P.SwapRows(pivot, pivot + 1);
-                    steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), $"Swap rows {pivot} and {pivot + 1}"));
+                    int swapWith = pivot;
+
+                    while (U[swapWith, pivot] == T.Zero)
+                    {
+						swapWith++;
+					}
+
+                    U = U.SwapRows(pivot, swapWith);
+                    P = P.SwapRows(pivot, swapWith);
+
+                    steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), $"Swap rows {pivot} and {swapWith}"));
                 }
 
                 for (int row = pivot + 1; row < U.Rows; row++)
