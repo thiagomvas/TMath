@@ -30,6 +30,10 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Numerics\AdvancedMath\NumberTheory\" />
+    </ItemGroup>
+
 	<PropertyGroup>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>

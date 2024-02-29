@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMath.Numerics.AdvancedMath.NumberTheory;
-
+using TMath.Numerics.AdvancedMath;
 using static TMath.Tests.TestUtils;
 
 namespace TMath.Tests.Numerics.AdvancedMath
 {
-	public class TNumberTheoryTests
+    public class TNumberTheoryTests
 	{
 		[Test]
 		[TestCase(new ulong[] {1, 2, 3}, 1ul)]
