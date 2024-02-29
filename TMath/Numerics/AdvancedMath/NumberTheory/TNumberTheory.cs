@@ -11,7 +11,19 @@ using static TMath.TFunctions;
 namespace TMath.Numerics.AdvancedMath.NumberTheory
 {
 	public static class TNumberTheory
-	{ 
+	{
+		/// <summary>
+		/// Calculates the Greatest Common Divisor (GCD) of a collection of numbers.
+		/// </summary>
+		/// <remarks>
+		/// The GCD is the largest positive integer that divides each number in the collection without a remainder.
+		/// Requires numbers to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of numbers in the collection implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="source">Collection of numbers for GCD calculation.</param>
+		/// <returns>The Greatest Common Divisor of the numbers in the collection.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when the input collection is null.</exception>
+		/// <exception cref="ArgumentException">Thrown when the input collection is empty.</exception>
 
 		public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
 		{
@@ -24,6 +36,19 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			return source.Aggregate(GCD);
 		}
 
+		/// <summary>
+		/// Calculates the Least Common Multiple (LCM) of a collection of numbers.
+		/// </summary>
+		/// <remarks>
+		/// The LCM is the smallest positive integer that is divisible by each number in the collection.
+		/// Requires numbers to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of numbers in the collection implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="source">Collection of numbers for LCM calculation.</param>
+		/// <returns>The Least Common Multiple of the numbers in the collection.</returns>
+		/// <exception cref="ArgumentNullException">Thrown when the input collection is null.</exception>
+		/// <exception cref="ArgumentException">Thrown when the input collection is empty.</exception>
+
 		public static T LCM<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
 		{
 			if (source == null)
@@ -34,6 +59,18 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 
 			return source.Distinct().Aggregate((a, b) => a * b / GCD(a, b));
 		}
+
+		/// <summary>
+		/// Retrieves the dividers of a given number.
+		/// </summary>
+		/// <remarks>
+		/// The dividers are the positive integers that divide the given number without a remainder.
+		/// Requires the number to be greater than 0 and to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The number for which to retrieve the dividers.</param>
+		/// <returns>Enumerable collection of dividers of the given number.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when the input number is less than or equal to 0.</exception>
 
 		public static IEnumerable<T> Dividers<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
@@ -51,6 +88,17 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 
 			return dividers.AsEnumerable();
 		}
+
+		/// <summary>
+		/// Calculates Euler's Totient function for a given number.
+		/// </summary>
+		/// <remarks>
+		/// Euler's Totient function, denoted as φ(n), is the count of positive integers less than or equal to n that are coprime to n.
+		/// Requires the number to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The number for which to calculate Euler's Totient.</param>
+		/// <returns>The result of Euler's Totient function for the given number.</returns>
 
 		public static T EulersTotient<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
@@ -72,6 +120,16 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			}
 			return result;
 		}
+		/// <summary>
+		/// Checks if a given number is a perfect number.
+		/// </summary>
+		/// <remarks>
+		/// A perfect number is a positive integer that is equal to the sum of its proper divisors (excluding itself).
+		/// Requires the number to be greater than 0 and to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The number to check for perfection.</param>
+		/// <returns>True if the number is a perfect number, otherwise false.</returns>
 
 		public static bool IsPerfectNumber<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
@@ -80,6 +138,20 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 
 			return number == Dividers(number).Aggregate((a, b) => a + b) - number;
 		}
+
+		/// <summary>
+		/// Generates the Collatz Conjecture sequence for a given number.
+		/// </summary>
+		/// <remarks>
+		/// The Collatz Conjecture is a sequence defined for a positive integer:
+		/// If the number is even, divide it by 2; if it's odd, multiply it by 3 and add 1.
+		/// The sequence continues until the number becomes 1.
+		/// Requires the number to be greater than 0 and to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The starting number for the Collatz Conjecture sequence.</param>
+		/// <returns>Enumerable collection representing the Collatz Conjecture sequence for the given number.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when the input number is less than or equal to 0.</exception>
 
 		public static IEnumerable<T> CollatzConjecture<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
@@ -101,6 +173,17 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			return vals.AsEnumerable();
 		}
 
+		/// <summary>
+		/// Checks if a given number is a prime number.
+		/// </summary>
+		/// <remarks>
+		/// A prime number is a positive integer greater than 1 that has no positive divisors other than 1 and itself.
+		/// Requires the number to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The number to check for primality.</param>
+		/// <returns>True if the number is prime, otherwise false.</returns>
+
 		public static bool IsPrime<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
 			T two = T.One + T.One;
@@ -117,6 +200,18 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			}
 			return true;
 		}
+
+		/// <summary>
+		/// Generates a sequence of prime numbers up to a given limit.
+		/// </summary>
+		/// <remarks>
+		/// Generates all prime numbers up to the specified limit using the Sieve of Eratosthenes algorithm.
+		/// Requires the number to be greater than 0 and to implement <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/> interfaces.
+		/// </remarks>
+		/// <typeparam name="T">Type of the number implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
+		/// <param name="number">The limit up to which to generate prime numbers.</param>
+		/// <returns>Enumerable collection of prime numbers up to the specified limit.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when the input number is less than or equal to 0.</exception>
 
 		public static IEnumerable<T> GeneratePrimesUpTo<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
