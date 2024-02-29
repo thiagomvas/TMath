@@ -198,6 +198,36 @@ namespace TMath.Numerics
             return result;
         }
 
+        public static IEnumerable<T> NumberSequence<T>(T min, T max) where T : INumber<T>
+        {
+			if (min > max)
+            {
+				(min, max) = (max, min);
+			}
+
+			T current = min;
+			while (current <= max)
+            {
+				yield return current;
+				current += T.One;
+			}
+		}
+
+        public static IEnumerable<T> NumberSequence<T>(T min, T max, T step) where T : INumber<T>
+        {
+            if (min > max)
+            {
+                (min, max) = (max, min);
+            }
+
+            T current = min;
+            while (current <= max)
+            {
+				yield return current;
+				current += step;
+			}
+        }
+
         /// <summary>
         /// Generates a sequence of primes starting at 2.
         /// </summary>
