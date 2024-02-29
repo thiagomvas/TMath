@@ -8,8 +8,7 @@ namespace TMath.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var n = 25;
-            Console.WriteLine($"Collatz Conjecture of {n}: {string.Join(',',NumberTheory.CollatzConjecture(n))}");
+            Console.WriteLine(string.Join(", ", NumberTheory.GeneratePrimesUpTo(542)));
         }
     }
 }

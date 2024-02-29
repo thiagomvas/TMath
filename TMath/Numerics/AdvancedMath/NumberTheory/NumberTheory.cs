@@ -119,7 +119,7 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 					index++;
 				}
 			}
-			return nums.Where(x => x > T.Zero);
+			return nums.Where(x => x > T.One);
 
 		}
 
