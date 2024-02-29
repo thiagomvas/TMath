@@ -12,18 +12,34 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 {
 	public static class TNumberTheory
 	{ 
-		public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>
+
+		public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
 		{
+			if (source == null)
+				throw new ArgumentNullException(nameof(source), "Collection must not be null");
+
+			if (!source.Any())
+				throw new ArgumentException("Collection must not be empty", nameof(source));
+
 			return source.Aggregate(GCD);
 		}
 
-		public static T LCM<T>(IEnumerable<T> source) where T : INumber<T>
+		public static T LCM<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
 		{
+			if (source == null)
+				throw new ArgumentNullException(nameof(source), "Collection must not be null");
+
+			if (!source.Any())
+				throw new ArgumentException("Collection must not be empty", nameof(source));
+
 			return source.Distinct().Aggregate((a, b) => a * b / GCD(a, b));
 		}
 
-		public static IEnumerable<T> Dividers<T>(T number) where T : INumber<T>
+		public static IEnumerable<T> Dividers<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
+			if (number < T.One)
+				throw new ArgumentOutOfRangeException(nameof(number), "Number must be greater than 0");
+
 			List<T> dividers = new();
 			for(T i = T.One; i <= number / IntToT<T>(2); i++)
 			{
@@ -36,7 +52,7 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			return dividers.AsEnumerable();
 		}
 
-		public static T EulersTotient<T>(T number) where T : INumber<T>
+		public static T EulersTotient<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
 			T result = number;
 			for(T i = IntToT<T>(2); i * i <= number; i++)
@@ -59,11 +75,18 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 
 		public static bool IsPerfectNumber<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
+			if (number < T.One)
+				return false;
+
 			return number == Dividers(number).Aggregate((a, b) => a + b) - number;
 		}
 
 		public static IEnumerable<T> CollatzConjecture<T>(T number) where T : INumber<T>, IBinaryInteger<T>
 		{
+
+			if (number < T.One)
+				throw new ArgumentOutOfRangeException(nameof(number), "Number must be greater than 0");
+
 			List<T> vals = new() { number };
 			T Two = T.One + T.One;
 			T Three = Two + T.One;
@@ -99,6 +122,7 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 		{
 			if(number < T.One)
 				throw new ArgumentOutOfRangeException(nameof(number), "Number must be greater than 0");
+
 			T[] nums = TGeneration.NumberSequence<T>(T.One, number).ToArray();
 
 			T p = T.One + T.One;
