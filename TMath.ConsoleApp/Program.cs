@@ -8,7 +8,7 @@ namespace TMath.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(string.Join(", ", NumberTheory.GeneratePrimesUpTo(542)));
+            Console.WriteLine(string.Join(", ", TNumberTheory.GeneratePrimesUpTo(542)));
         }
     }
 }

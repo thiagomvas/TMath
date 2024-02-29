@@ -10,7 +10,7 @@ using static TMath.TFunctions;
 
 namespace TMath.Numerics.AdvancedMath.NumberTheory
 {
-	public static class NumberTheory
+	public static class TNumberTheory
 	{ 
 		public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>
 		{

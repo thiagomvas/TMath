@@ -21,7 +21,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			ulong actual = NumberTheory.GCD(nums);
+			ulong actual = TNumberTheory.GCD(nums);
 
 			// Assert
 			Assert.That(actual, Is.EqualTo(expected));
@@ -38,7 +38,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			ulong actual = NumberTheory.LCM(nums);
+			ulong actual = TNumberTheory.LCM(nums);
 
 			//Assert
 			Assert.That(actual, Is.EqualTo(expected));
@@ -55,7 +55,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			ulong[] actual = NumberTheory.Dividers(number).ToArray();
+			ulong[] actual = TNumberTheory.Dividers(number).ToArray();
 
 			// Assert
 			Assert.That(EnumerableAreEqual(actual, expected), Is.True);
@@ -72,7 +72,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			ulong actual = NumberTheory.EulersTotient(number);
+			ulong actual = TNumberTheory.EulersTotient(number);
 
 			// Assert
 			Assert.That(actual, Is.EqualTo(expected));
@@ -90,7 +90,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			bool actual = NumberTheory.IsPerfectNumber(number);
+			bool actual = TNumberTheory.IsPerfectNumber(number);
 
 			// Assert
 			Assert.That(actual, Is.EqualTo(expected));
@@ -109,7 +109,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			int[] actual = NumberTheory.CollatzConjecture(number).ToArray();
+			int[] actual = TNumberTheory.CollatzConjecture(number).ToArray();
 
 			// Assert
 			Assert.That(EnumerableAreEqual(actual, expected), Is.True);
@@ -129,7 +129,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 			// Arrange
 
 			// Act
-			bool actual = NumberTheory.IsPrime(number);
+			bool actual = TNumberTheory.IsPrime(number);
 
 			// Assert
 			Assert.That(actual, Is.EqualTo(expected));
@@ -152,7 +152,7 @@ namespace TMath.Tests.Numerics.AdvancedMath
 				467, 479, 487, 491, 499, 503, 509, 521, 523, 541];
 
 			// Act
-			int[] actual = NumberTheory.GeneratePrimesUpTo(542).ToArray();
+			int[] actual = TNumberTheory.GeneratePrimesUpTo(542).ToArray();
 
 			// Assert
 			Assert.That(EnumerableAreEqual(actual, expected), Is.True);
