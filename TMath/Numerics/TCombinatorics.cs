@@ -3,6 +3,9 @@ using TMath.Numerics.Core;
 using static TMath.TFunctions;
 namespace TMath.Numerics
 {
+	/// <summary>
+	/// A mathematical utility class providing combinatorics functions for generic numeric and collection types.
+	/// </summary>
 	public static class TCombinatorics
 	{
 		/// <summary>
