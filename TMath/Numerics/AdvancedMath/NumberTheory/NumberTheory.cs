@@ -95,6 +95,34 @@ namespace TMath.Numerics.AdvancedMath.NumberTheory
 			return true;
 		}
 
+		public static IEnumerable<T> GeneratePrimesUpTo<T>(T number) where T : INumber<T>, IBinaryInteger<T>
+		{
+			if(number < T.One)
+				throw new ArgumentOutOfRangeException(nameof(number), "Number must be greater than 0");
+			T[] nums = TGeneration.NumberSequence<T>(T.One, number).ToArray();
+
+			T p = T.One + T.One;
+
+			int index = 1;
+
+			while(p * p <= number)
+			{
+				p = nums[index];
+				for(T i = T.One + T.One; i * p <= number; i++)
+				{
+					nums[int.CreateSaturating((i * p) - T.One)] = T.Zero;
+				}
+
+				index++;
+				while (nums[index] == T.Zero)
+				{
+					index++;
+				}
+			}
+			return nums.Where(x => x > T.Zero);
+
+		}
+
 		private static T GCD<T>(T a, T b) where T : INumber<T>
 		{
 			while(b != T.Zero)
