@@ -45,9 +45,10 @@ namespace TMath.Numerics
 		/// <typeparam name="T">Type of elements in the collection.</typeparam>
 		/// <param name="elements">The collection of elements to generate permutations from.</param>
 		/// <param name="k">The number of elements to select for each permutation.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the permutations.</param>
 		/// <returns>Enumerable collection of all permutations of k elements from the given collection.</returns>
 
-		public static IEnumerable<IEnumerable<T>> GeneratePermutations<T>(IEnumerable<T> elements, int k)
+		public static IEnumerable<IEnumerable<T>> GeneratePermutations<T>(IEnumerable<T> elements, int k, bool allowDuplicates = false)
 		{
 			if (k == 0)
 			{
@@ -58,7 +59,7 @@ namespace TMath.Numerics
 				int i = 0;
 				foreach (var element in elements)
 				{
-					var nextElements = elements.Where((e, index) => index != i);
+					var nextElements = allowDuplicates ? elements : elements.Where((e, index) => index != i); 
 					foreach (var permutation in GeneratePermutations(nextElements, k - 1))
 					{
 						yield return new T[] { element }.Concat(permutation);
@@ -108,7 +109,7 @@ namespace TMath.Numerics
 		/// <param name="k">The number of elements to select for each combination.</param>
 		/// <returns>Enumerable collection of all combinations of k elements from the given collection.</returns>
 
-		public static IEnumerable<IEnumerable<T>> GenerateCombinations<T>(IEnumerable<T> elements, int k)
+		public static IEnumerable<IEnumerable<T>> GenerateCombinations<T>(IEnumerable<T> elements, int k, bool allowDuplicates = false)
 		{
 			if (k == 0)
 			{
@@ -119,7 +120,12 @@ namespace TMath.Numerics
 				int i = 0;
 				foreach (var element in elements)
 				{
-					var nextElements = elements.Where((e, index) => index > i);
+					var nextElements = elements.Where((e, index) => index >= i);
+
+					if (!allowDuplicates)
+					{
+						nextElements = nextElements.Where(e => !e.Equals(element));
+					}
 					foreach (var combination in GenerateCombinations(nextElements, k - 1))
 					{
 						yield return new T[] { element }.Concat(combination);
