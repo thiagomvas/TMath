@@ -117,10 +117,17 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
             while (!TLinearAlgebraSolvers.CheckIfSolved(U.Submatrix(0, 0, U.Rows - 1, U.Rows - 1)) && pivot < matrix.Rows)
             {
                 if (U[pivot, pivot] == T.Zero)
-                {
-                    U = U.SwapRows(pivot, pivot + 1);
-                    P = P.SwapRows(pivot, pivot + 1);
-                }
+				{
+					int swapWith = pivot;
+
+					while (U[swapWith, pivot] == T.Zero)
+					{
+						swapWith++;
+					}
+
+					U = U.SwapRows(pivot, swapWith);
+					P = P.SwapRows(pivot, swapWith);
+				}
 
                 for (int row = pivot + 1; row < U.Rows; row++)
                 {
