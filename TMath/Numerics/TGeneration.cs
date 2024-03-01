@@ -258,7 +258,7 @@ namespace TMath.Numerics
         /// <param name="length">The amount of primes in the array</param>
         /// <returns>An array of primes</returns>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="length"/> &lt; 0</exception>
-        public T[] PrimeSequence<T>(int length) where T : INumber<T>
+        public static T[] PrimeSequence<T>(int length) where T : INumber<T>
         {
             if(length < 0) throw new ArgumentOutOfRangeException("Length must be greater than 0.");
             if(length == 0) return new T[0];

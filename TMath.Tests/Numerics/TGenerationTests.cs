@@ -33,7 +33,7 @@ namespace TMath.Tests.Numerics
                 expected = new double[0];
 
             // Act
-            double[] actual = TGeneration.Default.FunctionSequence(function, start, end, step);
+            double[] actual = TGeneration.FunctionSequence(function, start, end, step);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
@@ -59,7 +59,7 @@ namespace TMath.Tests.Numerics
             }
 
             // Act
-            double[] actual = TGeneration.Default.FunctionSequence(function, length);
+            double[] actual = TGeneration.FunctionSequence(function, length);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
@@ -88,7 +88,7 @@ namespace TMath.Tests.Numerics
             }
 
             // Act
-            double[] actual = TGeneration.Default.FunctionSequence(function, start, end);
+            double[] actual = TGeneration.FunctionSequence(function, start, end);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
@@ -110,7 +110,7 @@ namespace TMath.Tests.Numerics
             // Act
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.FunctionSequence(function, length));
+            Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.FunctionSequence(function, length));
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace TMath.Tests.Numerics
             int[] expected = length == 0 ? new int[0] : primes.ToArray();
 
             // Act
-            int[] actual = TGeneration.Default.PrimeSequence<int>(length);
+            int[] actual = TGeneration.PrimeSequence<int>(length);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
@@ -143,6 +143,6 @@ namespace TMath.Tests.Numerics
         }
 
         [Test]
-        public void PrimeSequence_WithNegativeLength() => Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.Default.PrimeSequence<int>(-1));
+        public void PrimeSequence_WithNegativeLength() => Assert.Throws<ArgumentOutOfRangeException>(() => TGeneration.PrimeSequence<int>(-1));
     }
 }
