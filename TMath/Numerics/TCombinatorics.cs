@@ -18,10 +18,11 @@ namespace TMath.Numerics
 		/// <typeparam name="T">Type of numbers implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
 		/// <param name="n">The total number of elements in the set.</param>
 		/// <param name="k">The number of elements to select for each permutation.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the permutations.</param>
 		/// <returns>The number of permutations for selecting k elements from a set of n elements.</returns>
 
-		public static T Permutations<T>(T n, T k) where T : INumber<T>, IBinaryInteger<T>
-			=> Factorial(n) / Factorial(n - k);
+		public static T Permutations<T>(T n, T k, bool allowDuplicates = false) where T : INumber<T>, IBinaryInteger<T>
+			=> allowDuplicates ? Pow<T, T>(n, k) : Factorial(n) / Factorial(n - k);
 
 		/// <summary>
 		/// Calculates the number of permutations for selecting k elements from a collection of distinct elements.
@@ -34,10 +35,12 @@ namespace TMath.Numerics
 		/// <typeparam name="TTarget">Type of the count used for permutations, implementing <see cref="INumber{TTarget}"/> and <see cref="IBinaryInteger{TTarget}"/>.</typeparam>
 		/// <param name="elements">The collection of distinct elements.</param>
 		/// <param name="k">The number of elements to select for each permutation.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the permutations.</param>
 		/// <returns>The number of permutations for selecting k elements from the collection.</returns>
 
-		public static TTarget Permutations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
-			=> Factorial(Helpers.Count<TTarget, TSource>(elements)) / Factorial(Helpers.Count<TTarget, TSource>(elements) - k);
+		public static TTarget Permutations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
+			=> allowDuplicates ? Pow<TTarget, int>(elements.Count(), int.CreateSaturating(k))
+							   : Factorial(Helpers.Count<TTarget, TSource>(elements)) / Factorial(Helpers.Count<TTarget, TSource>(elements) - k);
 
 		/// <summary>
 		/// Generates all permutations of k elements from a given collection.
@@ -80,10 +83,16 @@ namespace TMath.Numerics
 		/// <typeparam name="T">Type of numbers implementing <see cref="INumber{T}"/> and <see cref="IBinaryInteger{T}"/>.</typeparam>
 		/// <param name="n">The total number of elements in the set.</param>
 		/// <param name="k">The number of elements to select for each combination.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the combinations.</param>
 		/// <returns>The number of combinations for selecting k elements from a set of n elements.</returns>
 
-		public static T Combinations<T>(T n, T k) where T : INumber<T>, IBinaryInteger<T>
-			=> Factorial(n) / (Factorial(k) * Factorial(n - k));
+		public static T Combinations<T>(T n, T k, bool allowDuplicates = false) where T : INumber<T>, IBinaryInteger<T>
+		{
+			if (allowDuplicates)
+				return Factorial(n + k - T.One) / (Factorial(k) * Factorial(n - T.One));
+			else
+				return Factorial(n) / (Factorial(k) * Factorial(n - k));
+		}
 
 		/// <summary>
 		/// Calculates the number of combinations for selecting k elements from a collection of distinct elements.
@@ -96,10 +105,16 @@ namespace TMath.Numerics
 		/// <typeparam name="TTarget">Type of the count used for combinations, implementing <see cref="INumber{TTarget}"/> and <see cref="IBinaryInteger{TTarget}"/>.</typeparam>
 		/// <param name="elements">The collection of distinct elements.</param>
 		/// <param name="k">The number of elements to select for each combination.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the combinations.</param>
 		/// <returns>The number of combinations for selecting k elements from the collection.</returns>
 
-		public static TTarget Combinations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
-			=> Factorial(Helpers.Count<TTarget, TSource>(elements)) / (Factorial(k) * Factorial(Helpers.Count<TTarget, TSource>(elements) - k));
+		public static TTarget Combinations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
+		{
+			if (allowDuplicates)
+				return Factorial(Helpers.Count<TTarget, TSource>(elements) + k - TTarget.One) / (Factorial(k) * Factorial(Helpers.Count<TTarget, TSource>(elements) - TTarget.One));
+			else
+				return Factorial(Helpers.Count<TTarget, TSource>(elements)) / (Factorial(k) * Factorial(Helpers.Count<TTarget, TSource>(elements) - k));
+		}
 
 		/// <summary>
 		/// Generates all combinations of k elements from a given collection.
@@ -107,6 +122,7 @@ namespace TMath.Numerics
 		/// <typeparam name="T">Type of elements in the collection.</typeparam>
 		/// <param name="elements">The collection of elements to generate combinations from.</param>
 		/// <param name="k">The number of elements to select for each combination.</param>
+		/// <param name="allowDuplicates">Whether to allow duplicate elements in the combinations.</param>
 		/// <returns>Enumerable collection of all combinations of k elements from the given collection.</returns>
 
 		public static IEnumerable<IEnumerable<T>> GenerateCombinations<T>(IEnumerable<T> elements, int k, bool allowDuplicates = false)
