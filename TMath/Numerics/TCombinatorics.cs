@@ -62,8 +62,8 @@ namespace TMath.Numerics
 				int i = 0;
 				foreach (var element in elements)
 				{
-					var nextElements = allowDuplicates ? elements : elements.Where((e, index) => index != i); 
-					foreach (var permutation in GeneratePermutations(nextElements, k - 1))
+					var nextElements = allowDuplicates ? elements : elements.Where((e, index) => index != i);
+					foreach (var permutation in GeneratePermutations(nextElements, k - 1, allowDuplicates))
 					{
 						yield return new T[] { element }.Concat(permutation);
 					}
@@ -71,7 +71,6 @@ namespace TMath.Numerics
 				}
 			}
 		}
-
 
 		/// <summary>
 		/// Calculates the number of combinations for selecting k elements from a set of n elements.
@@ -142,7 +141,7 @@ namespace TMath.Numerics
 					{
 						nextElements = nextElements.Where(e => !e.Equals(element));
 					}
-					foreach (var combination in GenerateCombinations(nextElements, k - 1))
+					foreach (var combination in GenerateCombinations(nextElements, k - 1, allowDuplicates))
 					{
 						yield return new T[] { element }.Concat(combination);
 					}
