@@ -125,7 +125,7 @@ namespace TMath.Numerics
         /// <param name="function">The function to apply to generate the sequence.</param>
         /// <param name="length">The length of the resulting array.</param>
         /// <returns>An array representing the sequence of results from the specified function.</returns>
-        public T[] FunctionSequence<T>(Func<T,T> function, T length) where T : INumber<T>
+        public static T[] FunctionSequence<T>(Func<T,T> function, T length) where T : INumber<T>
         {
             if (length < T.Zero) throw new ArgumentOutOfRangeException(nameof(length), "Length must be greater than 0.");
             if (length == T.Zero) return new T[0];
@@ -149,7 +149,7 @@ namespace TMath.Numerics
         /// <param name="start">The starting point of the sequence.</param>
         /// <param name="end">The ending point of the sequence.</param>
         /// <returns>An array representing the sequence of results from the specified function.</returns>
-        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end) where T : INumber<T>
+        public static T[] FunctionSequence<T>(Func<T, T> function, T start, T end) where T : INumber<T>
         {
             // If min is bigger than max, swap them
             if (start > end)
@@ -177,7 +177,7 @@ namespace TMath.Numerics
         /// <param name="end">The ending point of the sequence.</param>
         /// <param name="step">The step size between elements in the sequence.</param>
         /// <returns>An array representing the sequence of results from the specified function.</returns>
-        public T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
+        public static T[] FunctionSequence<T>(Func<T, T> function, T start, T end, T step) where T : INumber<T>
         {
             if (start == end && start == T.Zero) return new T[0];
 
@@ -198,6 +198,59 @@ namespace TMath.Numerics
             return result;
         }
 
+		/// <summary>
+		/// Generates a sequence of numbers within the specified range.
+		/// </summary>
+		/// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
+		/// <param name="min">The minimum value in the sequence.</param>
+		/// <param name="max">The maximum value in the sequence.</param>
+		/// <returns>An IEnumerable of type T representing the number sequence.</returns>
+		/// <remarks>
+		/// This method generates a sequence of numbers starting from the minimum value
+		/// up to the maximum value (inclusive). The sequence is incremented by the value of T.One.
+		/// </remarks>
+		public static IEnumerable<T> NumberSequence<T>(T min, T max) where T : INumber<T>
+        {
+			if (min > max)
+            {
+				(min, max) = (max, min);
+			}
+
+			T current = min;
+			while (current <= max)
+            {
+				yield return current;
+				current += T.One;
+			}
+		}
+
+		/// <summary>
+		/// Generates a sequence of numbers within the specified range with a specified step.
+		/// </summary>
+		/// <typeparam name="T">The numeric type implementing the <see cref="INumber{TSelf}"/> interface.</typeparam>
+		/// <param name="min">The minimum value in the sequence.</param>
+		/// <param name="max">The maximum value in the sequence.</param>
+		/// <param name="step">The step between consecutive numbers in the sequence.</param>
+		/// <returns>An IEnumerable of type T representing the number sequence.</returns>
+		/// <remarks>
+		/// This method generates a sequence of numbers starting from the minimum value
+		/// up to the maximum value (inclusive), with each number incremented by the specified step.
+		/// </remarks>
+		public static IEnumerable<T> NumberSequence<T>(T min, T max, T step) where T : INumber<T>
+        {
+            if (min > max)
+            {
+                (min, max) = (max, min);
+            }
+
+            T current = min;
+            while (current <= max)
+            {
+				yield return current;
+				current += step;
+			}
+        }
+
         /// <summary>
         /// Generates a sequence of primes starting at 2.
         /// </summary>
@@ -205,7 +258,7 @@ namespace TMath.Numerics
         /// <param name="length">The amount of primes in the array</param>
         /// <returns>An array of primes</returns>
         /// <exception cref="ArgumentOutOfRangeException">If <paramref name="length"/> &lt; 0</exception>
-        public T[] PrimeSequence<T>(int length) where T : INumber<T>
+        public static T[] PrimeSequence<T>(int length) where T : INumber<T>
         {
             if(length < 0) throw new ArgumentOutOfRangeException("Length must be greater than 0.");
             if(length == 0) return new T[0];
