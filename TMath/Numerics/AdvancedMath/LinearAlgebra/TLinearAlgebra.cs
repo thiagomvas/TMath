@@ -205,7 +205,7 @@ namespace TMath.Numerics.AdvancedMath.LinearAlgebra
                     L[row, pivot] = coef;
 
                     steps.Add(new TMatrixStep<T>(new TMatrix<T>(U), 
-                        $"l{row} <-- l{row} {(T.IsNegative(coef) ? "+" : "-")} {coef} * l{pivot}"));
+                        $"l{row} <-- l{row} {(T.IsNegative(coef) ? "+" : "-")} {TFunctions.Abs(coef)} * l{pivot}"));
 
                     for (int col = 0; col < U.Columns; col++)
                     {
