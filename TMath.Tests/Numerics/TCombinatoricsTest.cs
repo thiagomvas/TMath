@@ -65,6 +65,24 @@ namespace TMath.Tests.Numerics
 		}
 
 		[Test]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 4)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 3)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 2)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
+		public void GeneratePermutations_LengthShouldBeEqualToFormula_WithDuplicates(int[] elements, int k)
+		{
+			// Arrange
+			int expected = TCombinatorics.Permutations(elements, k, true);
+
+			// Act
+			int actual = TCombinatorics.GeneratePermutations(elements, k, true).Count();
+
+			// Assert
+			Assert.That(actual, Is.EqualTo(expected));
+		}
+
+		[Test]
 		public void GeneratePermutations_ShouldHaveCorrectElements()
 		{
 			// Arrange
@@ -136,6 +154,25 @@ namespace TMath.Tests.Numerics
 
 			// Act
 			int actual = TCombinatorics.GenerateCombinations(elements, k).Count();
+
+			// Assert
+			Assert.That(actual, Is.EqualTo(expected));
+		}
+
+
+		[Test]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 4)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 3)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 2)]
+		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
+		public void GenerateCombinations_LengthShouldBeEqualToFormula_WithDuplicates(int[] elements, int k)
+		{
+			// Arrange
+			int expected = TCombinatorics.Combinations(elements, k, true);
+
+			// Act
+			int actual = TCombinatorics.GenerateCombinations(elements, k, true).Count();
 
 			// Assert
 			Assert.That(actual, Is.EqualTo(expected));
