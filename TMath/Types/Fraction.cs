@@ -139,13 +139,22 @@ namespace TMath.Types
 
 		public override string ToString()
 		{
-
+			Simplify();
+			if (Numerator == T.Zero)
+				return "0";
+			if(Denominator == T.One)
+				return Numerator.ToString();
 			return $"{Numerator}/{Denominator}";
 		}
 
 		public string ToString(string? format, IFormatProvider? formatProvider)
 		{
 			Simplify();
+			if(Numerator == T.Zero)
+				return "0";
+			if(Denominator == T.One)
+				return Numerator.ToString(format, formatProvider);
+
 			return $"{Numerator.ToString(format, formatProvider)}/{Denominator.ToString(format, formatProvider)}";
 		}
 
