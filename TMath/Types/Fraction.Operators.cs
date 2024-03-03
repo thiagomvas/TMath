@@ -10,79 +10,72 @@ namespace TMath.Types
 	public partial class Fraction<T> : INumber<Fraction<T>>
 		where T : INumber<T>
 	{
-		public static Fraction<T> operator +(Fraction<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator +(Fraction<T> value) => new(+value.Numerator, +value.Denominator);
 
 		public static Fraction<T> operator +(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			if (left.Denominator == right.Denominator)
+				return new(left.Numerator + right.Numerator, left.Numerator);
+
+			return new Fraction<T>(left.Numerator * right.Denominator + right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
 		}
 
-		public static Fraction<T> operator -(Fraction<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator -(Fraction<T> value) => new(-value.Numerator, value.Denominator);
 
 		public static Fraction<T> operator -(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			if (left.Denominator == right.Denominator)
+				return new(left.Numerator - right.Numerator, left.Numerator);
+
+			return new Fraction<T>(left.Numerator * right.Denominator - right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
 		}
 
-		public static Fraction<T> operator ++(Fraction<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator ++(Fraction<T> value) => new Fraction<T>(value.Numerator + value.Denominator, value.Denominator).Simplify();
 
-		public static Fraction<T> operator --(Fraction<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator --(Fraction<T> value) => new Fraction<T>(value.Numerator - value.Denominator, value.Denominator);
 
-		public static Fraction<T> operator *(Fraction<T> left, Fraction<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator *(Fraction<T> left, Fraction<T> right) => new Fraction<T>(left.Numerator * right.Numerator, left.Denominator * right.Denominator).Simplify();
 
-		public static Fraction<T> operator /(Fraction<T> left, Fraction<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator /(Fraction<T> left, Fraction<T> right) => new Fraction<T>(left.Numerator * right.Denominator, left.Denominator * right.Numerator).Simplify();
 
-		public static Fraction<T> operator %(Fraction<T> left, Fraction<T> right)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> operator %(Fraction<T> left, Fraction<T> right) => new Fraction<T>(left.Numerator * right.Denominator % (right.Numerator * left.Denominator), left.Denominator * right.Denominator).Simplify();
 
 		public static bool operator ==(Fraction<T>? left, Fraction<T>? right)
 		{
-			throw new NotImplementedException();
+			if(left is null && right is null)
+				return true;
+			if(left is null || right is null)
+				return false;
+			return left.Numerator * right.Denominator == right.Numerator * left.Denominator;
 		}
 
 		public static bool operator !=(Fraction<T>? left, Fraction<T>? right)
 		{
-			throw new NotImplementedException();
+			if(left is null && right is null)
+				return false;
+			if(left is null || right is null)
+				return true;
+			return left.Numerator * right.Denominator != right.Numerator * left.Denominator;
 		}
 
 		public static bool operator <(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			return left.Numerator * right.Denominator < right.Numerator * left.Denominator;
 		}
 
 		public static bool operator >(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			return left.Numerator * right.Denominator > right.Numerator * left.Denominator;
 		}
 
 		public static bool operator <=(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			return left.Numerator * right.Denominator <= right.Numerator * left.Denominator;
 		}
 
 		public static bool operator >=(Fraction<T> left, Fraction<T> right)
 		{
-			throw new NotImplementedException();
+			return left.Numerator * right.Denominator >= right.Numerator * left.Denominator;
 		}
 	}
 }

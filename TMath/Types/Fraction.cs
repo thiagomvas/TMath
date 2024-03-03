@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using TMath.Numerics.AdvancedMath;
 
 namespace TMath.Types
 {
@@ -13,35 +14,49 @@ namespace TMath.Types
 		where T : INumber<T>
 	{
 
-		public T Numerator { get; }
-		public T Denominator { get; }
+		public T Numerator { get; private set; }
+		public T Denominator { get; private set; }
 
 		public Fraction(T numerator, T denominator)
 		{
 			Numerator = numerator;
-			if(denominator.Equals(T.Zero))
+			if(denominator == T.Zero)
 				throw new DivideByZeroException();
+			if(denominator < T.Zero)
+			{
+				Numerator = -numerator;
+				Denominator = -denominator;
+			}
+			Denominator = denominator;
 		}
 
 		public Fraction<T> Simplify()
 		{
-			throw new NotImplementedException();
+			T gcd;
+			T a = Numerator, b = Denominator;
+			while(b != T.Zero)
+			{
+				T temp = b;
+				b = a % b; 
+				a = temp;
+			}
+			gcd = TFunctions.Abs(a);
+			Numerator /= gcd;
+			Denominator /= gcd;
+			return this;
 		}
 
-		public static Fraction<T> One => throw new NotImplementedException();
+		public static Fraction<T> One => new Fraction<T>(T.One, T.One);
 
-		public static int Radix => throw new NotImplementedException();
+		public static int Radix => 2;
 
-		public static Fraction<T> Zero => throw new NotImplementedException();
+		public static Fraction<T> Zero => new(T.Zero, T.One);
 
-		public static Fraction<T> AdditiveIdentity => throw new NotImplementedException();
+		public static Fraction<T> AdditiveIdentity => Zero;
 
-		public static Fraction<T> MultiplicativeIdentity => throw new NotImplementedException();
+		public static Fraction<T> MultiplicativeIdentity => One;
 
-		public static Fraction<T> Abs(Fraction<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Fraction<T> Abs(Fraction<T> value) => new(TFunctions.Abs(value.Numerator), TFunctions.Abs(value.Numerator));
 
 
 
@@ -60,10 +75,7 @@ namespace TMath.Types
 			throw new NotImplementedException();
 		}
 
-		public string ToString(string? format, IFormatProvider? formatProvider)
-		{
-			throw new NotImplementedException();
-		}
+		public string ToString(string? format, IFormatProvider? formatProvider) => $"{Numerator}/{Denominator}";
 
 		public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
 		{
