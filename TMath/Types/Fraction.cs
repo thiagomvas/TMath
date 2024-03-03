@@ -32,6 +32,7 @@ namespace TMath.Types
 
 		public Fraction<T> Simplify()
 		{
+			if (Numerator == T.Zero) return this;
 			T gcd;
 			T a = Numerator, b = Denominator;
 			while(b != T.Zero)
@@ -56,7 +57,7 @@ namespace TMath.Types
 
 		public static Fraction<T> MultiplicativeIdentity => One;
 
-		public static Fraction<T> Abs(Fraction<T> value) => new(TFunctions.Abs(value.Numerator), TFunctions.Abs(value.Numerator));
+		public static Fraction<T> Abs(Fraction<T> value) => new(TFunctions.Abs(value.Numerator), value.Numerator);
 
 
 
