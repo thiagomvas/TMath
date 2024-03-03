@@ -40,9 +40,10 @@ namespace TMath.Types
 			Denominator = denominator;
 		}
 
+
 		public Fraction<T> SimplifyAsNew()
 		{
-			if (Numerator == T.Zero) return new Fraction<T>(Numerator, Denominator);
+			if (Numerator == T.Zero) return Zero;
 			T gcd;
 			T a = Numerator, b = Denominator;
 			while(b != T.Zero)
@@ -57,7 +58,11 @@ namespace TMath.Types
 
 		public Fraction<T> Simplify()
 		{
-			if (Numerator == T.Zero) return this;
+			if (Numerator == T.Zero)
+			{
+				Numerator = T.Zero;
+				Denominator = T.One;
+			}
 			T gcd;
 			T a = Numerator, b = Denominator;
 			while(b != T.Zero)
@@ -71,7 +76,6 @@ namespace TMath.Types
 			Denominator /= gcd;
 			return this;
 		}
-
 		public static Fraction<T> One => new Fraction<T>(T.One, T.One);
 
 		public static int Radix => 2;
