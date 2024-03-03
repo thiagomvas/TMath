@@ -15,7 +15,7 @@ namespace TMath.Types
 		public static Fraction<T> operator +(Fraction<T> left, Fraction<T> right)
 		{
 			if (left.Denominator == right.Denominator)
-				return new(left.Numerator + right.Numerator, left.Numerator);
+				return new Fraction<T>(left.Numerator + right.Numerator, left.Denominator).Simplify();
 
 			return new Fraction<T>(left.Numerator * right.Denominator + right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
 		}
@@ -25,7 +25,7 @@ namespace TMath.Types
 		public static Fraction<T> operator -(Fraction<T> left, Fraction<T> right)
 		{
 			if (left.Denominator == right.Denominator)
-				return new(left.Numerator - right.Numerator, left.Numerator);
+				return new(left.Numerator - right.Numerator, left.Denominator);
 
 			return new Fraction<T>(left.Numerator * right.Denominator - right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
 		}
