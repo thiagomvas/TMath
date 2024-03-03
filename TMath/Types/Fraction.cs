@@ -29,6 +29,31 @@ namespace TMath.Types
 			}
 			Denominator = denominator;
 		}
+		public Fraction(T numerator, T denominator, bool allowZeroDenominator)
+		{
+			Numerator = numerator;
+			if (denominator < T.Zero)
+			{
+				Numerator = -numerator;
+				Denominator = -denominator;
+			}
+			Denominator = denominator;
+		}
+
+		public Fraction<T> SimplifyAsNew()
+		{
+			if (Numerator == T.Zero) return new Fraction<T>(Numerator, Denominator);
+			T gcd;
+			T a = Numerator, b = Denominator;
+			while(b != T.Zero)
+			{
+				T temp = b;
+				b = a % b; 
+				a = temp;
+			}
+			gcd = TFunctions.Abs(a);
+			return new Fraction<T>(Numerator / gcd, Denominator / gcd);
+		}
 
 		public Fraction<T> Simplify()
 		{
