@@ -12,11 +12,13 @@ namespace TMath.Types
 	{
 		public static implicit operator Fraction<T>(T value)
 		{
+			Console.WriteLine("Implicit");
 			return new Fraction<T>(value);
 		}
 
 		public static explicit operator T(Fraction<T> value)
 		{
+			Console.WriteLine("Explicit");
 			return value.Numerator / value.Denominator;
 		}
 

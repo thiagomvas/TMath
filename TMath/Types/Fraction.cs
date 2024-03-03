@@ -19,47 +19,40 @@ namespace TMath.Types
 
 		public Fraction(T numerator, T denominator)
 		{
-			Numerator = numerator;
-			if(denominator == T.Zero)
-				throw new DivideByZeroException();
-			if(denominator < T.Zero)
+			if (T.IsNegative(denominator))
 			{
 				Numerator = -numerator;
 				Denominator = -denominator;
 			}
-			Denominator = denominator;
-			Simplify();
+			else
+			{
+				Numerator = numerator;
+				if (denominator == T.Zero)
+					throw new DivideByZeroException();
+				Denominator = denominator;
+			}
+			
 		}
 		public Fraction(T numerator, T denominator, bool allowZeroDenominator)
 		{
-			Numerator = numerator;
-			if (denominator < T.Zero)
+			if (T.IsNegative(denominator))
 			{
 				Numerator = -numerator;
 				Denominator = -denominator;
 			}
-			Denominator = denominator;
-			Simplify();
+			else
+			{
+				Numerator = numerator;
+				if (denominator == T.Zero)
+					throw new DivideByZeroException();
+				Denominator = denominator;
+			}
 		}
 
 		public Fraction(T numerator) : this(numerator, T.One) { }
 
 
 		public Fraction<T> SimplifyAsNew()
-		{
-			if (Numerator == T.Zero) return Zero;
-			T gcd;
-			T a = Numerator, b = Denominator;
-			while(b != T.Zero)
-			{
-				T temp = b;
-				b = a % b; 
-				a = temp;
-			}
-			gcd = TFunctions.Abs(a);
-			return new Fraction<T>(Numerator / gcd, Denominator / gcd);
-		}
-		public Fraction<T> Simplify()
 		{
 			if (Numerator == T.Zero)
 			{
@@ -69,13 +62,35 @@ namespace TMath.Types
 			T gcd;
 			var epsilon = T.CreateSaturating(1e-9);
 			T a = Numerator, b = Denominator;
-			while(b - epsilon > T.Zero)
+			while (b - epsilon > T.Zero)
+			{
+				T temp = b;
+				b = a % b;
+				a = temp;
+			}
+			gcd = TFunctions.Abs(a);
+			return new Fraction<T>(Numerator / gcd, Denominator / gcd);
+		}
+		public Fraction<T> Simplify()
+		{
+
+			if (Numerator == T.Zero)
+			{
+				Numerator = T.Zero;
+				Denominator = T.One;
+			}
+			T gcd;
+			var epsilon = T.CreateSaturating(1e-9);
+			T a = Numerator, b = Denominator;
+			while(T.Abs(b) - epsilon > T.Zero)
 			{
 				T temp = b;
 				b = a % b; 
 				a = temp;
 			}
-			gcd = TFunctions.Abs(a);
+			gcd = T.Abs(a);
+			if (gcd == T.One)
+				return this;
 			Numerator /= gcd;
 			Denominator /= gcd;
 			return this;
@@ -125,25 +140,18 @@ namespace TMath.Types
 		public override string ToString()
 		{
 
-			if (Numerator == T.Zero)
-				return "0";
-			if (Denominator == T.One)
-				return Numerator.ToString();
 			return $"{Numerator}/{Denominator}";
 		}
 
 		public string ToString(string? format, IFormatProvider? formatProvider)
 		{
-			if (Numerator == T.Zero)
-				return "0";
-			if(Denominator == T.One)
-				return Numerator.ToString(format, formatProvider);
+			Simplify();
 			return $"{Numerator.ToString(format, formatProvider)}/{Denominator.ToString(format, formatProvider)}";
 		}
 
 		public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
 		{
-			string formattedFraction = this.ToString();
+			string formattedFraction = this.ToString(format.ToString(), provider);
 
 			if (formattedFraction.Length <= destination.Length)
 			{

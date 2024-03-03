@@ -10,7 +10,7 @@ namespace TMath.Types
 	public partial class Fraction<T> : INumber<Fraction<T>>
 		where T : INumber<T>
 	{
-		public static Fraction<T> operator +(Fraction<T> value) => new(+value.Numerator, +value.Denominator);
+		public static Fraction<T> operator +(Fraction<T> value) => new Fraction<T>(+value.Numerator, +value.Denominator).Simplify();
 
 		public static Fraction<T> operator +(Fraction<T> left, Fraction<T> right)
 		{
@@ -20,19 +20,23 @@ namespace TMath.Types
 			return new Fraction<T>(left.Numerator * right.Denominator + right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
 		}
 
-		public static Fraction<T> operator -(Fraction<T> value) => new(-value.Numerator, value.Denominator);
+		public static Fraction<T> operator -(Fraction<T> value) => new Fraction<T>(-value.Numerator, value.Denominator).Simplify();
 
 		public static Fraction<T> operator -(Fraction<T> left, Fraction<T> right)
 		{
-			if (left.Denominator == right.Denominator)
-				return new(left.Numerator - right.Numerator, left.Denominator);
-
-			return new Fraction<T>(left.Numerator * right.Denominator - right.Numerator * left.Denominator, left.Denominator * right.Denominator).Simplify();
+			return new Fraction<T>(left.Numerator * right.Denominator - right.Numerator * left.Denominator, left.Denominator * right.Denominator);
 		}
+		public static Fraction<T> operator -(Fraction<T> left, T right)
+		{
+			var foo = new Fraction<T>(left.Numerator - right * left.Denominator, left.Denominator);
+			return new Fraction<T>(left.Numerator - right * left.Denominator, left.Denominator);
+		}
+
+
 
 		public static Fraction<T> operator ++(Fraction<T> value) => new Fraction<T>(value.Numerator + value.Denominator, value.Denominator).Simplify();
 
-		public static Fraction<T> operator --(Fraction<T> value) => new Fraction<T>(value.Numerator - value.Denominator, value.Denominator);
+		public static Fraction<T> operator --(Fraction<T> value) => new Fraction<T>(value.Numerator - value.Denominator, value.Denominator).Simplify();
 
 		public static Fraction<T> operator *(Fraction<T> left, Fraction<T> right) => new Fraction<T>(left.Numerator * right.Numerator, left.Denominator * right.Denominator).Simplify();
 
