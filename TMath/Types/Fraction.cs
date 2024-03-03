@@ -28,6 +28,7 @@ namespace TMath.Types
 				Denominator = -denominator;
 			}
 			Denominator = denominator;
+			Simplify();
 		}
 		public Fraction(T numerator, T denominator, bool allowZeroDenominator)
 		{
@@ -38,7 +39,10 @@ namespace TMath.Types
 				Denominator = -denominator;
 			}
 			Denominator = denominator;
+			Simplify();
 		}
+
+		public Fraction(T numerator) : this(numerator, T.One) { }
 
 
 		public Fraction<T> SimplifyAsNew()
@@ -55,7 +59,6 @@ namespace TMath.Types
 			gcd = TFunctions.Abs(a);
 			return new Fraction<T>(Numerator / gcd, Denominator / gcd);
 		}
-
 		public Fraction<T> Simplify()
 		{
 			if (Numerator == T.Zero)
@@ -64,8 +67,9 @@ namespace TMath.Types
 				Denominator = T.One;
 			}
 			T gcd;
+			var epsilon = T.CreateSaturating(1e-9);
 			T a = Numerator, b = Denominator;
-			while(b != T.Zero)
+			while(b - epsilon > T.Zero)
 			{
 				T temp = b;
 				b = a % b; 
@@ -92,24 +96,63 @@ namespace TMath.Types
 
 		public int CompareTo(object? obj)
 		{
-			throw new NotImplementedException();
+			if (obj == null)
+				return 1; // A non-null object is always greater than null.
+
+			if (obj is Fraction<T> otherFraction)
+			{
+				return CompareTo(otherFraction);
+			}
+
+			throw new ArgumentException($"Object must be of type {nameof(Fraction<T>)}");
 		}
 
 		public int CompareTo(Fraction<T>? other)
 		{
-			throw new NotImplementedException();
+			if(IsNaN(this) || IsNaN(other))
+				throw new ArgumentException("Cannot compare NaN values");
+			if(IsInfinity(this) && IsInfinity(other))
+				return 0;
+			if(IsInfinity(this))
+				return IsPositiveInfinity(this) ? 1 : -1;
+			if(IsInfinity(other))
+				return IsPositiveInfinity(other) ? -1 : 1;
+			return (Numerator * other.Denominator).CompareTo(other.Numerator * Denominator);
 		}
 
-		public bool Equals(Fraction<T>? other)
+		public bool Equals(Fraction<T>? other) => this == other;
+
+		public override string ToString()
 		{
-			throw new NotImplementedException();
+
+			if (Numerator == T.Zero)
+				return "0";
+			if (Denominator == T.One)
+				return Numerator.ToString();
+			return $"{Numerator}/{Denominator}";
 		}
 
-		public string ToString(string? format, IFormatProvider? formatProvider) => $"{Numerator}/{Denominator}";
+		public string ToString(string? format, IFormatProvider? formatProvider)
+		{
+			if (Numerator == T.Zero)
+				return "0";
+			if(Denominator == T.One)
+				return Numerator.ToString(format, formatProvider);
+			return $"{Numerator.ToString(format, formatProvider)}/{Denominator.ToString(format, formatProvider)}";
+		}
 
 		public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
 		{
-			throw new NotImplementedException();
+			string formattedFraction = this.ToString();
+
+			if (formattedFraction.Length <= destination.Length)
+			{
+				formattedFraction.AsSpan().CopyTo(destination);
+				charsWritten = formattedFraction.Length;
+				return true;
+			}
+			charsWritten = 0;
+			return false;
 		}
 	}
 }
