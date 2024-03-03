@@ -27,7 +27,7 @@ namespace TMath.Numerics.AdvancedMath
         /// <exception cref="ArgumentNullException">Thrown when the input collection is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the input collection is empty.</exception>
 
-        public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
+        public static T GCD<T>(IEnumerable<T> source) where T : INumber<T>
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source), "Collection must not be null");
@@ -51,7 +51,7 @@ namespace TMath.Numerics.AdvancedMath
         /// <exception cref="ArgumentNullException">Thrown when the input collection is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the input collection is empty.</exception>
 
-        public static T LCM<T>(IEnumerable<T> source) where T : INumber<T>, IBinaryInteger<T>
+        public static T LCM<T>(IEnumerable<T> source) where T : INumber<T>
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source), "Collection must not be null");
