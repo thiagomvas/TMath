@@ -10,15 +10,19 @@ namespace TMath.Types
 	public partial class Fraction<T> : INumber<Fraction<T>>
 		where T : INumber<T>
 	{
+		/// <summary>
+		/// Implicitly converts a value to a fraction.
+		/// </summary>
 		public static implicit operator Fraction<T>(T value)
 		{
-			Console.WriteLine("Implicit");
 			return new Fraction<T>(value);
 		}
 
+		/// <summary>
+		/// Explicitly converts a value to a fraction.
+		/// </summary>
 		public static explicit operator T(Fraction<T> value)
 		{
-			Console.WriteLine("Explicit");
 			return value.Numerator / value.Denominator;
 		}
 

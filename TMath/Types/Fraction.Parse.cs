@@ -12,6 +12,7 @@ namespace TMath.Types
 	public partial class Fraction<T> : INumber<Fraction<T>>
 		where T : INumber<T>
 	{
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider)
 		{
 			if (s == null)
@@ -30,6 +31,7 @@ namespace TMath.Types
 		
 		}
 
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(string s, NumberStyles style, IFormatProvider? provider)
 		{
 			if(string.IsNullOrWhiteSpace(s))
@@ -44,14 +46,19 @@ namespace TMath.Types
 			return new Fraction<T>(num, den);
 		}
 
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(ReadOnlySpan<char> s, IFormatProvider? provider) => Parse(s, default, provider);
 
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(string s, IFormatProvider? provider) => Parse(s, default, provider);
 
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(ReadOnlySpan<char> s) => Parse(s, default, CultureInfo.CurrentCulture);
+		/// <inheritdoc/>
 		public static Fraction<T> Parse(string s) => Parse(s, default, CultureInfo.CurrentCulture);
 
 
+		/// <inheritdoc/>
 		public static bool TryParse(ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider, [MaybeNullWhen(false)] out Fraction<T> result)
 		{
 			try
@@ -66,6 +73,7 @@ namespace TMath.Types
 			}
 		}
 
+		/// <inheritdoc/>
 		public static bool TryParse([NotNullWhen(true)] string? s, NumberStyles style, IFormatProvider? provider, [MaybeNullWhen(false)] out Fraction<T> result)
 		{
 			try
@@ -80,6 +88,7 @@ namespace TMath.Types
 			}
 		}
 
+		/// <inheritdoc/>
 		public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out Fraction<T> result)
 		{
 			try
@@ -94,6 +103,7 @@ namespace TMath.Types
 			}
 		}
 
+		/// <inheritdoc/>
 		public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out Fraction<T> result)
 		{
 			try
@@ -108,8 +118,10 @@ namespace TMath.Types
 			}
 		}
 
+		/// <inheritdoc/>
 		public static bool TryParse(ReadOnlySpan<char> s, [MaybeNullWhen(false)] out Fraction<T> result) => TryParse(s, default, CultureInfo.CurrentCulture, out result);
 
+		/// <inheritdoc/>
 		public static bool TryParse([NotNullWhen(true)] string? s, [MaybeNullWhen(false)] out Fraction<T> result) => TryParse(s, default, CultureInfo.CurrentCulture, out result);
 	}
 }
