@@ -13,14 +13,36 @@ namespace TMath.Types
 		where T : INumber<T>
 	{
 
-		public static T[] Coefficients { get; private set; }
+		// From x^0 to x^n
+		public T[] Coefficients { get; private set; }
+
+		public int Degree => Coefficients.Length - 1;
+
+		#region Constructors
+		public Polynomial(IEnumerable<T> coefficients)
+		{
+			Coefficients = coefficients.ToArray();
+		}
+
+		public Polynomial(params T[] coefficients)
+		{
+			Coefficients = coefficients;
+		}
+		#endregion
 
 		public Polynomial<T> Integral => throw new NotImplementedException();
 		public Polynomial<T> Derivative => throw new NotImplementedException();
 
-		public T EvaluateAt(T value)
+		public Func<T, T> AsFunc() => EvaluateAt;
+		public T EvaluateAt(T x)
 		{
-			throw new NotImplementedException();
+			T result = Coefficients[0];
+			for (int i = 1; i < Coefficients.Length; i++)
+			{
+				result += Coefficients[i] * x;
+				x *= x;
+			}
+			return result;
 		}
 
 		public IEnumerable<T> FindRealRoots()
@@ -68,4 +90,5 @@ namespace TMath.Types
 			throw new NotImplementedException();
 		}
 
+	}
 }
