@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
+using TMath.Numerics.Core;
 
 namespace TMath.Types
 {
@@ -15,6 +10,7 @@ namespace TMath.Types
 
 		// From x^0 to x^n
 		public T[] Coefficients { get; private set; }
+		public string Variable { get; set; } = "x";
 
 		public int Degree => Coefficients.Length - 1;
 
@@ -30,8 +26,39 @@ namespace TMath.Types
 		}
 		#endregion
 
-		public Polynomial<T> Integral => throw new NotImplementedException();
-		public Polynomial<T> Derivative => throw new NotImplementedException();
+		public Polynomial<T> GetIntegral() => GetIntegral(T.Zero);
+		public Polynomial<T> GetIntegral(T integralConstant)
+		{
+			var integralCoefficients = new T[Coefficients.Length + 1];
+			integralCoefficients[0] = integralConstant;
+
+			for (int i = 0; i < Coefficients.Length; i++)
+			{
+				integralCoefficients[i + 1] = Coefficients[i] / (TFunctions.IntToT<T>(i) + T.One);
+			}
+			return new Polynomial<T>(integralCoefficients);
+		}
+
+		public Polynomial<T> GetDerivative(int order)
+		{
+			Polynomial<T> result = this;
+			for (int i = 0; i < order; i++)
+			{
+				result = result.GetDerivative();
+			}
+			return result;
+		}
+
+		public Polynomial<T> GetDerivative()
+		{
+			if (Degree <= 0) return Zero;
+			var derivativeCoefficients = new T[Coefficients.Length - 1];
+			for (int i = 1; i < Coefficients.Length; i++)
+			{
+				derivativeCoefficients[i - 1] = Coefficients[i] * TFunctions.IntToT<T>(i);
+			}
+			return new Polynomial<T>(derivativeCoefficients);
+		}
 
 		public Func<T, T> AsFunc() => EvaluateAt;
 		public T EvaluateAt(T x)
@@ -50,40 +77,81 @@ namespace TMath.Types
 			throw new NotImplementedException();
 		}
 
-		public static Polynomial<T> One => throw new NotImplementedException();
+		public static Polynomial<T> One => new Polynomial<T>(T.One);
 
-		public static int Radix => throw new NotImplementedException();
+		public static int Radix => 2;
 
-		public static Polynomial<T> Zero => throw new NotImplementedException();
+		public static Polynomial<T> Zero => new Polynomial<T>(T.Zero);
 
-		public static Polynomial<T> AdditiveIdentity => throw new NotImplementedException();
+		public static Polynomial<T> AdditiveIdentity => Zero;
 
-		public static Polynomial<T> MultiplicativeIdentity => throw new NotImplementedException();
+		public static Polynomial<T> MultiplicativeIdentity => One;
 
-		public static Polynomial<T> Abs(Polynomial<T> value)
-		{
-			throw new NotImplementedException();
-		}
+		public static Polynomial<T> Abs(Polynomial<T> value) => new(value.Coefficients.Select(TFunctions.Abs).ToArray());
 
 		public int CompareTo(object? obj)
 		{
-			throw new NotImplementedException();
+			if(obj == null)
+				return 1;
+
+			if (obj is Polynomial<T> otherPolynomial)
+			{
+				return CompareTo(otherPolynomial);
+			}
+
+			throw new ArgumentException("Object is not a Polynomial<T>");
 		}
 
 		public int CompareTo(Polynomial<T>? other)
 		{
-			throw new NotImplementedException();
+			if (other == null)
+			{
+				return 1; // If the other polynomial is null, this polynomial is considered greater.
+			}
+
+			return Degree.CompareTo(other.Degree);
 		}
 
 		public bool Equals(Polynomial<T>? other)
 		{
-			throw new NotImplementedException();
+			if (other == null)
+				return false;
+
+			if (ReferenceEquals(this, other))
+				return true;
+
+			if (Degree != other.Degree)
+				return false;
+
+			return Helpers.EnumerableAreEqual(Coefficients, other.Coefficients);
 		}
 
 		public string ToString(string? format, IFormatProvider? formatProvider)
 		{
-			throw new NotImplementedException();
-		}
+			if(Coefficients.Length == 0)
+				return "0";
+
+			StringBuilder sb = new();
+
+            for (int i = Coefficients.Length - 1; i >= 0; i--)
+            {
+				if(i > 1)
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}^{i}");
+				else if(i == 1)
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}");
+				else
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}");
+
+				if(i > 0)
+				{
+					if (Coefficients[i - 1] < T.Zero)
+						sb.Append(" - ");
+					else
+						sb.Append(" + "); 
+				}
+            }
+			return sb.ToString();
+        }
 
 		public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
 		{
