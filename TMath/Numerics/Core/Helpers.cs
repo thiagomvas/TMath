@@ -32,5 +32,22 @@ namespace TMath.Numerics.Core
 
 			return a.SequenceEqual(b);
 		}
+
+		public static IEnumerable<T> GetLargerEnumerable<T>(IEnumerable<T> a, IEnumerable<T> b)
+		{
+			if (a.Count() >= b.Count())
+				return a;
+			else
+				return b;
+		}
+
+		public static IEnumerable<T> GetSmallerEnumerable<T>(IEnumerable<T> a, IEnumerable<T> b)
+		{
+			if (a.Count() < b.Count())
+				return a;
+			else
+				return b;
+		}
+
 	}
 }
