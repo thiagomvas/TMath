@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using System.Text;
 using TMath.Numerics.Core;
 
@@ -126,21 +127,54 @@ namespace TMath.Types
 			return Helpers.EnumerableAreEqual(Coefficients, other.Coefficients);
 		}
 
+		public override string ToString()
+		{
+			if (Coefficients.Length == 0)
+				return "0";
+
+			StringBuilder sb = new();
+
+			for (int i = Coefficients.Length - 1; i >= 0; i--)
+			{
+				if (i > 1)
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}^{i}");
+				else if (i == 1)
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}");
+				else
+					sb.Append($"{TFunctions.Abs(Coefficients[i])}");
+
+				if (i > 0)
+				{
+					if (Coefficients[i - 1] < T.Zero)
+						sb.Append(" - ");
+					else
+						sb.Append(" + ");
+				}
+			}
+			return sb.ToString();
+		}
+
 		public string ToString(string? format, IFormatProvider? formatProvider)
 		{
-			if(Coefficients.Length == 0)
+
+			if (Coefficients.Length == 0)
 				return "0";
+
+			if (format == null)
+			{
+				return ToString();
+			}
 
 			StringBuilder sb = new();
 
             for (int i = Coefficients.Length - 1; i >= 0; i--)
             {
 				if(i > 1)
-					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}^{i}");
+					sb.Append($"{TFunctions.Abs(Coefficients[i]).ToString(format, formatProvider)}*{Variable}^{i}");
 				else if(i == 1)
-					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}");
+					sb.Append($"{TFunctions.Abs(Coefficients[i]).ToString(format, formatProvider)}*{Variable}");
 				else
-					sb.Append($"{TFunctions.Abs(Coefficients[i])}");
+					sb.Append($"{TFunctions.Abs(Coefficients[i]).ToString(format, formatProvider)}");
 
 				if(i > 0)
 				{
@@ -155,7 +189,18 @@ namespace TMath.Types
 
 		public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
 		{
-			throw new NotImplementedException();
+			var formatString = format.ToString();
+			var formattedString = ToString(formatString, provider);
+
+			if (formattedString.Length > destination.Length)
+			{
+				charsWritten = 0;
+				return false;
+			}
+
+			formattedString.AsSpan().CopyTo(destination);
+			charsWritten = formattedString.Length;
+			return true;
 		}
 
 	}
