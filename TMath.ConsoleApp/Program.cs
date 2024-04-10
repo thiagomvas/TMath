@@ -2,20 +2,15 @@ using System.Numerics;
 using TMath.Numerics;
 using TMath.Numerics.AdvancedMath;
 using TMath.Numerics.AdvancedMath.LinearAlgebra;
+using TMath.Types;
 namespace TMath.ConsoleApp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = [1, 2, 3, 4, 5, 6, 7, 8];
-            int k = 4;
-            bool dup = true;
-			Console.WriteLine(TCombinatorics.Permutations(arr, k, dup));
-            var perms = TCombinatorics.GeneratePermutations(arr, k, dup);
-            Console.WriteLine(perms.Count());
-			foreach (var perm in perms)
-                Console.WriteLine(string.Join(',', perm));
+            var p = Polynomial<int>.Parse("1x^0 + 2x^1 + 3x^2 + 4x^10 + 5x^4 + 6x^5 + 7x^6 + 8x^7 + 9x^8 + 10x^9");
+            Console.WriteLine(p);
         }
     }
 }
