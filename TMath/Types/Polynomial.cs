@@ -72,12 +72,6 @@ namespace TMath.Types
 			}
 			return result;
 		}
-
-		public IEnumerable<T> FindRealRoots()
-		{
-			throw new NotImplementedException();
-		}
-
 		public static Polynomial<T> One => new Polynomial<T>(T.One);
 
 		public static int Radix => 2;
@@ -136,7 +130,9 @@ namespace TMath.Types
 
 			for (int i = Coefficients.Length - 1; i >= 0; i--)
 			{
-				if (i > 1)
+				if(i == Coefficients.Length - 1)
+					sb.Append($"{Coefficients[i]}*{Variable}^{i}");
+				else if (i > 1)
 					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}^{i}");
 				else if (i == 1)
 					sb.Append($"{TFunctions.Abs(Coefficients[i])}*{Variable}");
