@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMath.Numerics.AdvancedMath;
+using TMath.Deprecated.Numerics.AdvancedMath;
 using static TMath.Tests.TestUtils;
 
 namespace TMath.Tests.Numerics.AdvancedMath

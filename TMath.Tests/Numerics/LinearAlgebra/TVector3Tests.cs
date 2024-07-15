@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMath.Numerics.AdvancedMath.LinearAlgebra;
+using TMath.Deprecated.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {

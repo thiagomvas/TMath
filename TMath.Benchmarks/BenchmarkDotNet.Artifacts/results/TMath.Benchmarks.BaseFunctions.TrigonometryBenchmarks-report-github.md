@@ -1,24 +1,25 @@
 ```
 
-BenchmarkDotNet v0.13.11, Windows 10 (10.0.19044.3086/21H2/November2021Update)
+BenchmarkDotNet v0.13.11, Windows 10 (10.0.19045.4529/22H2/2022Update)
 Intel Core i5-7300HQ CPU 2.50GHz (Kaby Lake), 1 CPU, 4 logical and 4 physical cores
-.NET SDK 8.0.100
-  [Host]     : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2 [AttachedDebugger]
-  DefaultJob : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+.NET SDK 8.0.206
+  [Host]     : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2 [AttachedDebugger]
+  DefaultJob : .NET 8.0.6 (8.0.624.26715), X64 RyuJIT AVX2
 
 
 ```
-| Method   | Mean      | Error     | StdDev    | Op/s          | Allocated |
-|--------- |----------:|----------:|----------:|--------------:|----------:|
-| TSin     |  7.114 ns | 0.1679 ns | 0.1488 ns | 140,575,001.5 |         - |
-| MathSin  |  6.732 ns | 0.1309 ns | 0.1225 ns | 148,549,469.9 |         - |
-| TCos     |  6.922 ns | 0.1673 ns | 0.1565 ns | 144,468,386.0 |         - |
-| MathCos  |  6.931 ns | 0.1292 ns | 0.1208 ns | 144,277,415.0 |         - |
-| TTan     | 14.436 ns | 0.2340 ns | 0.2075 ns |  69,271,448.4 |         - |
-| MathTan  | 14.318 ns | 0.3021 ns | 0.2826 ns |  69,843,174.0 |         - |
-| TAsin    | 57.921 ns | 0.4341 ns | 0.4061 ns |  17,264,900.0 |         - |
-| MathAsin | 56.864 ns | 0.5783 ns | 0.5410 ns |  17,585,908.2 |         - |
-| TAcos    | 55.769 ns | 0.6573 ns | 0.6148 ns |  17,931,154.0 |         - |
-| MathAcos | 57.533 ns | 0.4521 ns | 0.4229 ns |  17,381,395.3 |         - |
-| TAtan    |  7.770 ns | 0.1330 ns | 0.1244 ns | 128,695,536.4 |         - |
-| MathAtan |  8.899 ns | 0.1302 ns | 0.1218 ns | 112,371,461.8 |         - |
+| Method    | Mean      | Error     | StdDev    | Op/s          | Allocated |
+|---------- |----------:|----------:|----------:|--------------:|----------:|
+| TSin      |  7.392 ns | 0.0617 ns | 0.0547 ns | 135,277,824.9 |         - |
+| MathSin   |  7.079 ns | 0.0711 ns | 0.0665 ns | 141,269,250.4 |         - |
+| TCos      |  7.249 ns | 0.0804 ns | 0.0713 ns | 137,955,326.0 |         - |
+| MathCos   |  7.263 ns | 0.0668 ns | 0.0592 ns | 137,692,161.5 |         - |
+| TTan      | 15.342 ns | 0.3347 ns | 0.3287 ns |  65,182,446.5 |         - |
+| MathTan   | 14.920 ns | 0.1935 ns | 0.1616 ns |  67,024,028.1 |         - |
+| TTanOther | 20.614 ns | 0.3121 ns | 0.2767 ns |  48,511,677.0 |         - |
+| TAsin     | 62.236 ns | 0.5422 ns | 0.5071 ns |  16,067,802.4 |         - |
+| MathAsin  | 59.211 ns | 0.5031 ns | 0.4201 ns |  16,888,879.4 |         - |
+| TAcos     | 60.282 ns | 0.4895 ns | 0.4579 ns |  16,588,568.8 |         - |
+| MathAcos  | 60.967 ns | 0.8661 ns | 0.7233 ns |  16,402,354.1 |         - |
+| TAtan     |  8.278 ns | 0.1302 ns | 0.1218 ns | 120,806,171.5 |         - |
+| MathAtan  |  8.358 ns | 0.1471 ns | 0.1376 ns | 119,641,640.2 |         - |

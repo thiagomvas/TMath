@@ -1,4 +1,4 @@
-﻿using TMath.Numerics;
+﻿using TMath.Deprecated.Numerics;
 
 namespace TMath.Tests.Numerics
 {

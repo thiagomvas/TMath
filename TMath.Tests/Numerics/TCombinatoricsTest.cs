@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMath.Numerics;
-
+using TMath.Deprecated.Numerics;
 using static TMath.Tests.TestUtils;
 
 namespace TMath.Tests.Numerics
 {
-	public class TCombinatoricsTest
+    public class TCombinatoricsTest
 	{
 		[Test]
 		[TestCase(5, 5, 120)]

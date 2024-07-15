@@ -1,9 +1,9 @@
-﻿using TMath.Numerics;
+﻿using TMath.Deprecated.Numerics;
 using TMath.Numerics.Models;
 
 namespace TMath.Tests.Numerics
 {
-	public class TStatisticsTests
+    public class TStatisticsTests
 	{
 		[Test]
 		[TestCase(new double[] { }, 0d)]

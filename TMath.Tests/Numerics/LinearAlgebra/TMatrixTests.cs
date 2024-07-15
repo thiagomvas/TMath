@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework.Internal;
-using TMath.Numerics.AdvancedMath.LinearAlgebra;
+using TMath.Deprecated.Numerics.AdvancedMath.LinearAlgebra;
 
 namespace TMath.Tests.Numerics.LinearAlgebra
 {

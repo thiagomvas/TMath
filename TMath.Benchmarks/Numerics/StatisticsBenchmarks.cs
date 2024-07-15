@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
-using TMath.Numerics;
-using TMath.Numerics.Models;
+using TMath.Deprecated.Numerics;
+using TMath.Deprecated.Numerics.Models;
 
 namespace TMath.Benchmarks.Modules
 {
