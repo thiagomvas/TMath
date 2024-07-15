@@ -10,7 +10,7 @@ namespace TMath;
 /// however, be aware of rounding errors.
 /// </remarks>
 /// <typeparam name="T">The type to pass these constants in</typeparam>
-public static class TConstants<T> where T : INumber<T>
+public static class TConstants<T> where T : INumberBase<T>
 {
     #region Mathematics
 
@@ -130,9 +130,16 @@ public static class TConstants<T> where T : INumber<T>
     /// One degree in radians is approximately equal to 0.01745. 
     /// This constant is used in converting between degrees and radians in trigonometric calculations.
     /// </remarks>
-    /// <seealso cref="TFunctions.Rad2Deg{T}(T)"/>
-    /// <seealso cref="TFunctions.ToRadians{T}(T)"/>
     public static readonly T Degree = T.CreateSaturating(0.01745_32925_19943_29576_92369_077);
+
+    /// <summary>
+    /// The value of 1 radian in degrees.
+    /// </summary>
+    /// <remarks>
+    /// One radian in degrees is approximately equal to 57.2958. 
+    /// This constant is used in converting between radians and degrees in trigonometric calculations.
+    /// </remarks>
+    public static readonly T Rad2Deg = T.CreateSaturating(57.295779513082320876798154814105170332405472466564321549160243861);
 
     /// <summary>
     /// The value of the Golden Ratio, a number that satisfies Phi = 1 + 1 / Phi.
