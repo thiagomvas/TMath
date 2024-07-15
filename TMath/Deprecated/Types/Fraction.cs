@@ -14,6 +14,7 @@ namespace TMath.Types
 	/// Represents a fraction with a numerator and a denominator of type T.
 	/// </summary>
 	/// <typeparam name="T">The type of numbers for the numerator and denominator.</typeparam>
+	[Obsolete("This class is deprecated and will be removed in the future. Please use the Fraction class from the TMath.Numerics namespace.")]
 	public partial class Fraction<T> : INumber<Fraction<T>>
 		where T : INumber<T>
 	{

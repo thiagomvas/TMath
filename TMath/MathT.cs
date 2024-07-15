@@ -604,5 +604,42 @@ public static class MathT
         return result;
     }
 
+    public static T Modulus<T>(T a, T b) where T : IComparisonOperators<T, T, bool>, INumberBase<T>
+    {
+        T sign = T.IsNegative(a * b) ? -T.One : T.One;
+        a = T.Abs(a);
+        b = T.Abs(b);
+        while (a >= b)
+        {
+            a -= b;
+            sign *= sign;
+        }
+        return a * sign;
+    }
+
+    public static T GCD<T>(T a, T b) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    {
+        if (T.IsZero(a)) return b;
+        if (T.IsZero(b)) return a;
+
+        while (b > T.CreateSaturating(1e-18))
+        {
+            (a, b) = (b, Modulus(a, b));
+        }
+        return a;
+    }
+    public static T GCD<T>(params T[] values) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    {
+        if (values.Length == 0) return T.Zero;
+        if (values.Length == 1) return values[0];
+
+        T result = values[0];
+        for (int i = 1; i < values.Length; i++)
+        {
+            result = GCD(result, values[i]);
+        }
+        return result;
+    }
+
     #endregion
 }
