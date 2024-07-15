@@ -86,7 +86,7 @@ public static class MathT
     /// <param name="x">The number to calculate the exponential of.</param>
     /// <param name="n">The number of fractions in the series. Must be greater than 1</param>
     /// <returns>The exponential of the number.</returns>
-    public static T ExpPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    public static T ExpPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
     {
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
@@ -145,12 +145,88 @@ public static class MathT
     public static T Sin<T>(T x) where T : ITrigonometricFunctions<T> => T.Sin(x);
 
     /// <summary>
+    /// Calculates the sine of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The sine of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    public static T SinPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    {
+        if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
+
+        T result = x;
+        T prev = result;
+        T term = x;    
+
+        T factorial = T.One;
+        T two = T.One + T.One;
+
+        bool subtract = true;
+        for (T i = two + T.One; i <= T.CreateSaturating(2 * n + 1); i += two)
+        {
+            prev = result;
+            factorial *= i * (i - T.One);
+            term *= x * x;
+
+
+            if (subtract) result -= term / factorial;
+            else result += term / factorial;
+            subtract = !subtract;
+
+            // Prevent NaN
+            if (T.IsNaN(result))
+                return prev;
+        }
+        return result;
+    }
+
+
+    /// <summary>
     /// Calculates the cosine of an angle.
     /// </summary>
     /// <typeparam name="T">The type of the angle.</typeparam>
     /// <param name="x">The angle in radians.</param>
     /// <returns>The cosine of the angle.</returns>
     public static T Cos<T>(T x) where T : ITrigonometricFunctions<T> => T.Cos(x);
+
+    /// <summary>
+    /// Calculates the cosine of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The cosine of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    public static T CosPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    {
+        if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
+
+        T result = T.One;
+        T prev = result;
+        T term = T.One;    
+
+        T factorial = T.One;
+        T two = T.One + T.One;
+
+        bool subtract = true;
+        for (T i = two; i <= T.CreateSaturating(2 * n); i += two)
+        {
+            prev = result;
+            factorial *= i * (i - T.One);
+            term *= x * x;
+
+            if (subtract) result -= term / factorial;
+            else result += term / factorial;
+            subtract = !subtract;
+
+            // Prevent NaN
+            if (T.IsNaN(result))
+                return prev;
+        }
+        return result;
+    }
 
     /// <summary>
     /// Calculates the tangent of an angle.
@@ -161,12 +237,37 @@ public static class MathT
     public static T Tan<T>(T x) where T : ITrigonometricFunctions<T> => T.Tan(x);
 
     /// <summary>
+    /// Calculates the tangent of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The tangent of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    /// <remarks>Uses the formula sin(x) / cos(x)</remarks>
+    public static T TanPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+        => SinPS(x, n) / CosPS(x, n);
+    
+
+    /// <summary>
     /// Calculates the secant of an angle.
     /// </summary>
     /// <typeparam name="T">The type of the angle.</typeparam>
     /// <param name="x">The angle in radians.</param>
     /// <returns>The secant of the angle.</returns>
     public static T Sec<T>(T x) where T : ITrigonometricFunctions<T> => T.One / T.Cos(x);
+
+    /// <summary>
+    /// Calculates the secant of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The secant of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    /// <remarks>Uses the formula 1 / cos(x)</remarks>
+    public static T SecPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+        => T.One / CosPS(x, n);
 
     /// <summary>
     /// Calculates the cosecant of an angle.
@@ -177,12 +278,36 @@ public static class MathT
     public static T Csc<T>(T x) where T : ITrigonometricFunctions<T> => T.One / T.Sin(x);
 
     /// <summary>
+    /// Calculates the cosecant of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The cosecant of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    /// <remarks>Uses the formula 1 / sin(x)</remarks>
+    public static T CscPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+        => T.One / SinPS(x, n);
+
+    /// <summary>
     /// Calculates the cotangent of an angle.
     /// </summary>
     /// <typeparam name="T">The type of the angle.</typeparam>
     /// <param name="x">The angle in radians.</param>
     /// <returns>The cotangent of the angle.</returns>
     public static T Cot<T>(T x) where T : ITrigonometricFunctions<T> => T.One / T.Tan(x);
+
+    /// <summary>
+    /// Calculates the cotangent of an angle using the Power Series.
+    /// </summary>
+    /// <typeparam name="T">The type of the angle.</typeparam>
+    /// <param name="x">The angle in radians.</param>
+    /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
+    /// <returns>The cotangent of the angle.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
+    /// <remarks>Uses the formula cos(x) / sin(x)</remarks>
+    public static T CotPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+        => CosPS(x, n) / SinPS(x, n);
 
     /// <summary>
     /// Calculates the arcsine of a number.
@@ -253,7 +378,7 @@ public static class MathT
     /// <param name="n">The number of fractions in the series. Must be greater than 1</param>
     /// <returns>The hyperbolic sine of the number.</returns>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static T SinhPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    public static T SinhPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
     {
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
@@ -296,7 +421,7 @@ public static class MathT
     /// <param name="n">The number of fractions in the series. Must be greater than 1</param>
     /// <returns>The hyperbolic sine of the number.</returns>
     /// <exception cref="ArgumentOutOfRangeException"/>
-    public static T CoshPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
+    public static T CoshPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
     {
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
@@ -339,7 +464,7 @@ public static class MathT
     /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
     /// <returns>The hyperbolic tangent of the number.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
-    public static T TanhPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => SinhPS(x, n) / CoshPS(x, n);
+    public static T TanhPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => SinhPS(x, n) / CoshPS(x, n);
 
     /// <summary>
     /// Calculates the hyperbolic secant of a number.
@@ -370,7 +495,7 @@ public static class MathT
     /// <returns>The hyperbolic secant of the number.</returns>
     /// <remarks>Uses the formula 1 / Cosh(x).</remarks>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
-    public static T SechPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / CoshPS(x, n);
+    public static T SechPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / CoshPS(x, n);
 
     /// <summary>
     /// Calculates the hyperbolic cosecant of a number.
@@ -400,7 +525,7 @@ public static class MathT
     /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
     /// <returns>The hyperbolic cosecant of the number.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
-    public static T CschPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / SinhPS(x, n);
+    public static T CschPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / SinhPS(x, n);
 
     /// <summary>
     /// Calculates the hyperbolic cotangent of a number.
@@ -429,7 +554,7 @@ public static class MathT
     /// <param name="n">The number of fractions in the series. Must be greater than 1.</param>
     /// <returns>The hyperbolic cotangent of the number.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
-    public static T CothPS<T>(T x, int n) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / TanhPS(x, n);
+    public static T CothPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool> => T.One / TanhPS(x, n);
 
 
     /// <summary>

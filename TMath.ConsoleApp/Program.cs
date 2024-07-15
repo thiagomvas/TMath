@@ -1,4 +1,5 @@
 using TMath;
 
-Console.WriteLine(MathT.Coth(5d));
-Console.WriteLine(MathT.CothPS(5d, 100));
+double val = 39 * TConstants<double>.Degree;
+Console.WriteLine(MathT.Cos(val));   // Normal
+Console.WriteLine(MathT.CosPS(val)); // Taylor
