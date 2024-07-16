@@ -81,5 +81,22 @@ namespace TMath.Numerics
             GeometricMean = TStatistics.GeometricMean(values);
             HarmonicMean = TStatistics.HarmonicMean(values);
         }
+
+        public DataStats(IEnumerable<T> values)
+        {
+            var arr = values.ToArray();
+            Values = arr;
+            Mean = TStatistics.Mean(arr);
+            Median = TStatistics.Median(arr);
+            Mode = TStatistics.Mode(arr);
+            Range = TStatistics.Range(arr);
+            Variance = TStatistics.Variance(arr);
+            StandardDeviation = TStatistics.StandardDeviation(arr);
+            SampleVariance = TStatistics.SampleVariance(arr);
+            SampleStandardDeviation = TStatistics.SampleStandardDeviation(arr);
+            GeometricMean = TStatistics.GeometricMean(arr);
+            HarmonicMean = TStatistics.HarmonicMean(arr);
+
+        }
     }
 }
