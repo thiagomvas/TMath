@@ -36,7 +36,7 @@ namespace TMath
             int n = values.Length;
             if (n % 2 == 0)
             {
-                return (values[n / 2 - 1] + values[n / 2]) / T.CreateSaturating(2);
+                return (values[n / 2 - 1] + values[n / 2]) / TConstants<T>.Two;
             }
             return values[n / 2];
         }

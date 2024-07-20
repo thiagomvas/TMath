@@ -73,7 +73,7 @@ namespace TMath.Deprecated.Numerics
             T[] sorted = data.ToArray();
             Array.Sort(sorted);
             if (sorted.Length % 2 == 0)
-                return (sorted[sorted.Length / 2] + sorted[sorted.Length / 2 - 1]) / TFunctions.IntToT<T>(2);
+                return (sorted[sorted.Length / 2] + sorted[sorted.Length / 2 - 1]) / TConstants<T>.Two;
             else return sorted[sorted.Length / 2];
         }
 

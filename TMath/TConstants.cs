@@ -610,4 +610,8 @@ public static class TConstants<T> where T : INumberBase<T>
 
 
     #endregion
+
+    #region Internal
+    internal static readonly T Two = T.CreateSaturating(2);
+    #endregion
 }
