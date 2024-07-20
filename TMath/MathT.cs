@@ -31,7 +31,7 @@ public static class MathT
             return (x / x) / Pow(x, -p);
         }
         T result = x;
-        for (int i = 0; i < p; i++)
+        for (int i = 1; i < p; i++)
         {
             result *= x;
         }
@@ -53,7 +53,12 @@ public static class MathT
     /// <typeparam name="T">The type of the number.</typeparam>
     /// <param name="x">The number to calculate the square root of.</param>
     /// <returns>The square root of the number.</returns>
-    public static T Sqrt<T>(T x) where T : IRootFunctions<T> => T.Sqrt(x);
+    public static T Sqrt<T>(T x) where T : IRootFunctions<T>
+    {
+        if (T.IsNegative(x))
+            throw new ArgumentException("Value must be positive.");
+        return T.Sqrt(x);
+    }
 
     /// <summary>
     /// Calculates the cube root of a number.
@@ -154,6 +159,7 @@ public static class MathT
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
     public static T SinPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
     {
+        x = Modulus(x, TConstants<T>.TwoPi);
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
         T result = x;
@@ -201,6 +207,7 @@ public static class MathT
     /// <exception cref="ArgumentOutOfRangeException">Thrown if n is less than 1.</exception>
     public static T CosPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
     {
+        x = Modulus(x, TConstants<T>.TwoPi);
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
         T result = T.One;
@@ -383,15 +390,21 @@ public static class MathT
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
         T result = x;  
-        T term = x;    
+        T term = x;
+        T prev = result;
 
         T factorial = T.One;
         T two = T.One + T.One;
         for (T i = two + T.One; i <= T.CreateSaturating(2 * n + 1); i += two)
         {
+            prev = result;
+
             factorial *= i * (i - T.One);
             term *= x * x;
             result += term / factorial;
+
+            if (T.IsNaN(result))
+                return prev;
         }
         return result;
     }
@@ -426,15 +439,20 @@ public static class MathT
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
         T result = T.One;  
-        T term = T.One;    
+        T term = T.One;
+        T prev = result;
 
         T factorial = T.One;
         T two = T.One + T.One;
         for (T i = two; i <= T.CreateSaturating(2 * n); i += two)
         {
+            prev = result;
             factorial *= i * (i - T.One);
             term *= x * x;
             result += term / factorial;
+
+            if (T.IsNaN(result))
+                return prev;
         }
         return result;
     }
@@ -594,6 +612,8 @@ public static class MathT
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the number is negative.</exception>
     public static T Factorial<T>(T x) where T : INumberBase<T>
     {
+        if (!T.IsInteger(x))
+            throw new ArgumentException("Value must be an integer");
         if (T.IsNegative(x) || T.IsZero(x)) return T.One;
 
         T result = T.One;
@@ -606,13 +626,14 @@ public static class MathT
 
     public static T Modulus<T>(T a, T b) where T : IComparisonOperators<T, T, bool>, INumberBase<T>
     {
-        T sign = T.IsNegative(a * b) ? -T.One : T.One;
+        if (T.IsZero(b))
+            throw new DivideByZeroException();
+        T sign = T.IsNegative(a) ? -T.One : T.One;
         a = T.Abs(a);
         b = T.Abs(b);
         while (a >= b)
         {
             a -= b;
-            sign *= sign;
         }
         return a * sign;
     }
