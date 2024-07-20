@@ -69,6 +69,10 @@ namespace TMath.Numerics
         /// <param name="values">The values to calculate the statistics on.</param>
         public DataStats(params T[] values)
         {
+            if(values.Length == 0)
+            {
+                throw new ArgumentException("Values cannot be empty.", nameof(values));
+            }
             Values = values;
             Mean = TStatistics.Mean(values);
             Median = TStatistics.Median(values);
@@ -84,6 +88,10 @@ namespace TMath.Numerics
 
         public DataStats(IEnumerable<T> values)
         {
+            if(values.Count() == 0)
+            {
+                throw new ArgumentException("Values cannot be empty.", nameof(values));
+            }
             var arr = values.ToArray();
             Values = arr;
             Mean = TStatistics.Mean(arr);
