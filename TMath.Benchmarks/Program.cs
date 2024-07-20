@@ -1,11 +1,11 @@
-﻿using System.Reflection;
-using BenchmarkDotNet.Columns;
+﻿using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Loggers;
 using BenchmarkDotNet.Running;
+using System.Reflection;
 
 
 namespace TMath.Benchmarks
@@ -33,7 +33,7 @@ namespace TMath.Benchmarks
                                                 .ToArray())
                                                 .Run(args, config);
 
-            
+
         }
     }
 }

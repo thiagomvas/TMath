@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using TMath.Deprecated.Numerics;
 
 namespace TMath.Deprecated.Numerics.Models
 {

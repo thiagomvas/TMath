@@ -1,5 +1,7 @@
 ﻿using System.Numerics;
-using TMath;
+
+namespace TMath;
+
 
 /// <summary>
 /// Provides mathematical functions with generic support for exponentiation, roots, trigonometry, hyperbolic functions, and special functions.
@@ -28,7 +30,7 @@ public static class MathT
         if (p == 1) return x;
         if (p < 0)
         {
-            return (x / x) / Pow(x, -p);
+            return x / x / Pow(x, -p);
         }
         T result = x;
         for (int i = 1; i < p; i++)
@@ -164,7 +166,7 @@ public static class MathT
 
         T result = x;
         T prev = result;
-        T term = x;    
+        T term = x;
 
         T factorial = T.One;
         T two = T.One + T.One;
@@ -212,7 +214,7 @@ public static class MathT
 
         T result = T.One;
         T prev = result;
-        T term = T.One;    
+        T term = T.One;
 
         T factorial = T.One;
         T two = T.One + T.One;
@@ -254,7 +256,7 @@ public static class MathT
     /// <remarks>Uses the formula sin(x) / cos(x)</remarks>
     public static T TanPS<T>(T x, int n = 10) where T : INumberBase<T>, IComparisonOperators<T, T, bool>
         => SinPS(x, n) / CosPS(x, n);
-    
+
 
     /// <summary>
     /// Calculates the secant of an angle.
@@ -389,7 +391,7 @@ public static class MathT
     {
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
-        T result = x;  
+        T result = x;
         T term = x;
         T prev = result;
 
@@ -438,7 +440,7 @@ public static class MathT
     {
         if (n < 1) throw new ArgumentOutOfRangeException(nameof(n));
 
-        T result = T.One;  
+        T result = T.One;
         T term = T.One;
         T prev = result;
 
@@ -617,7 +619,7 @@ public static class MathT
         if (T.IsNegative(x) || T.IsZero(x)) return T.One;
 
         T result = T.One;
-        for(T i = x; !T.IsZero(i); i--)
+        for (T i = x; !T.IsZero(i); i--)
         {
             result *= i;
         }

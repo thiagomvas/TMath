@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using TMath.Deprecated.Numerics.Interfaces;
 
 namespace TMath.Deprecated.Numerics.AdvancedMath.LinearAlgebra
 {

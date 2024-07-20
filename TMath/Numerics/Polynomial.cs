@@ -54,7 +54,7 @@ namespace TMath.Numerics
             return result;
         }
 
-        public Func<T,T> AsFunc()
+        public Func<T, T> AsFunc()
         {
             return Evaluate;
         }
@@ -78,7 +78,7 @@ namespace TMath.Numerics
         {
             var newCoefficients = new T[_coefficients.Length - 1];
             T mult = T.One;
-            for(int i = 1; i < _coefficients.Length; i++)
+            for (int i = 1; i < _coefficients.Length; i++)
             {
                 newCoefficients[i - 1] = _coefficients[i] * mult;
                 mult++;
@@ -184,16 +184,16 @@ namespace TMath.Numerics
 
         public static Polynomial<T> MaxMagnitude(Polynomial<T> x, Polynomial<T> y)
         {
-            if(x.Coefficients.Length > y.Coefficients.Length)
+            if (x.Coefficients.Length > y.Coefficients.Length)
                 return x;
-            if(x.Coefficients.Length < y.Coefficients.Length)
+            if (x.Coefficients.Length < y.Coefficients.Length)
                 return y;
 
             var lastCoefX = x.Coefficients[x.Coefficients.Length - 1];
             var lastCoefY = y.Coefficients[y.Coefficients.Length - 1];
             var max = T.MaxMagnitude(lastCoefX, lastCoefY);
 
-            if(max == lastCoefX)
+            if (max == lastCoefX)
                 return x;
 
             return y;
@@ -203,12 +203,12 @@ namespace TMath.Numerics
         {
             if (IsNaN(x))
                 return y;
-            if(IsNaN(y))
+            if (IsNaN(y))
                 return x;
 
             if (IsInfinity(x))
                 return y;
-            if(IsInfinity(y))
+            if (IsInfinity(y))
                 return x;
 
             return MaxMagnitude(x, y);
@@ -369,7 +369,7 @@ namespace TMath.Numerics
                 {
                     continue;
                 }
-                if(!first)
+                if (!first)
                 {
                     if (T.IsNegative(Coefficients[i]))
                     {
@@ -380,7 +380,7 @@ namespace TMath.Numerics
                         sb.Append(" + ");
                     }
                 }
-                if((i == 0) || T.Abs(Coefficients[i]) != T.One)
+                if ((i == 0) || T.Abs(Coefficients[i]) != T.One)
                 {
                     sb.Append(Coefficients[i].ToString(format, formatProvider));
                 }
@@ -420,7 +420,7 @@ namespace TMath.Numerics
 
         static bool INumberBase<Polynomial<T>>.TryConvertFromChecked<TOther>(TOther value, out Polynomial<T> result)
         {
-            if(value is Polynomial<T> p)
+            if (value is Polynomial<T> p)
             {
                 result = p;
                 return true;
@@ -526,16 +526,16 @@ namespace TMath.Numerics
         public static Polynomial<T> operator +(Polynomial<T> left, Polynomial<T> right)
         {
             T[] newCoefs;
-            if(left.Degree > right.Degree)
+            if (left.Degree > right.Degree)
                 newCoefs = new T[left.Degree + 1].Select(c => T.Zero).ToArray();
             else
                 newCoefs = new T[right.Degree + 1].Select(c => T.Zero).ToArray();
 
-            for(int i = 0; i < newCoefs.Length; i++)
+            for (int i = 0; i < newCoefs.Length; i++)
             {
-                if(i <= left.Degree)
+                if (i <= left.Degree)
                     newCoefs[i] = left.Coefficients[i];
-                if(i <= right.Degree)
+                if (i <= right.Degree)
                     newCoefs[i] += right.Coefficients[i];
             }
 
@@ -607,9 +607,9 @@ namespace TMath.Numerics
 
         public static bool operator ==(Polynomial<T>? left, Polynomial<T>? right)
         {
-            if(left is null && right is null)
+            if (left is null && right is null)
                 return true;
-            if(left is null || right is null)
+            if (left is null || right is null)
                 return false;
 
             return left.Degree == right.Degree && left.Coefficients.SequenceEqual(right.Coefficients);
@@ -617,9 +617,9 @@ namespace TMath.Numerics
 
         public static bool operator !=(Polynomial<T>? left, Polynomial<T>? right)
         {
-            if(left is null && right is null)
+            if (left is null && right is null)
                 return false;
-            if(left is null || right is null)
+            if (left is null || right is null)
                 return true;
 
 
@@ -635,9 +635,9 @@ namespace TMath.Numerics
         public static Polynomial<T> operator *(Polynomial<T> left, Polynomial<T> right)
         {
             var newCoefs = new T[left.Degree + right.Degree + 1].Select(c => T.Zero).ToArray();
-            for(int i = 0; i <= left.Degree; i++)
+            for (int i = 0; i <= left.Degree; i++)
             {
-                for(int j = 0; j <= right.Degree; j++)
+                for (int j = 0; j <= right.Degree; j++)
                 {
                     newCoefs[i + j] += left.Coefficients[i] * right.Coefficients[j];
                 }
@@ -657,9 +657,9 @@ namespace TMath.Numerics
             for (int i = 0; i < newCoefs.Length; i++)
             {
                 T l = T.Zero, r = T.Zero;
-                if(i <= left.Degree)
+                if (i <= left.Degree)
                     l = left.Coefficients[i];
-                if(i <= right.Degree)
+                if (i <= right.Degree)
                     r = right.Coefficients[i];
 
                 newCoefs[i] = l - r;
@@ -679,9 +679,9 @@ namespace TMath.Numerics
 
         public static bool operator >(Polynomial<T> left, Polynomial<T> right)
         {
-            if(left.Degree == right.Degree)
+            if (left.Degree == right.Degree)
             {
-                for(int i = left.Degree; i >= 0; i--)
+                for (int i = left.Degree; i >= 0; i--)
                 {
                     if (left.Coefficients[i] > right.Coefficients[i])
                         return true;
@@ -704,9 +704,9 @@ namespace TMath.Numerics
 
         public static bool operator <(Polynomial<T> left, Polynomial<T> right)
         {
-            if(left.Degree == right.Degree)
+            if (left.Degree == right.Degree)
             {
-                for(int i = left.Degree; i >= 0; i--)
+                for (int i = left.Degree; i >= 0; i--)
                 {
                     if (left.Coefficients[i] < right.Coefficients[i])
                         return true;

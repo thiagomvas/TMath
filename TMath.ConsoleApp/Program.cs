@@ -1,6 +1,5 @@
 using System.Reflection;
 using TMath;
-using TMath.Numerics;
 
 // Num of functions in MathT
 int numOfFunctions = typeof(MathT).GetMethods().Length;

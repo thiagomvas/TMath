@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace TMath.Tests
+﻿namespace TMath.Tests
 {
     [TestFixture]
     public class MathTTests

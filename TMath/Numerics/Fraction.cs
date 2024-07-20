@@ -21,7 +21,7 @@ namespace TMath.Numerics
 
         public static explicit operator double(Fraction value)
         {
-            return (double) value.Numerator / value.Denominator;
+            return (double)value.Numerator / value.Denominator;
         }
 
     }
@@ -42,9 +42,9 @@ namespace TMath.Numerics
             get => _denominator;
             set
             {
-                if(T.IsZero(value))
+                if (T.IsZero(value))
                     throw new DivideByZeroException("Denominator cannot be zero.");
-                if(T.IsNegative(value))
+                if (T.IsNegative(value))
                 {
                     _numerator = -_numerator;
                     _denominator = -value;
@@ -146,7 +146,7 @@ namespace TMath.Numerics
         /// <inheritdoc/>
         public static bool IsEvenInteger(Fraction<T> value)
         {
-             return MathT.Modulus(value.Numerator / value.Denominator, T.One + T.One) == T.Zero;
+            return MathT.Modulus(value.Numerator / value.Denominator, T.One + T.One) == T.Zero;
         }
 
         /// <inheritdoc/>
@@ -235,25 +235,25 @@ namespace TMath.Numerics
         /// <inheritdoc/>
         public static Fraction<T> MaxMagnitude(Fraction<T> x, Fraction<T> y)
         {
-            return T.MaxMagnitude((T) x, (T) y);
+            return T.MaxMagnitude((T)x, (T)y);
         }
 
         /// <inheritdoc/>
         public static Fraction<T> MaxMagnitudeNumber(Fraction<T> x, Fraction<T> y)
         {
-            return T.MaxMagnitudeNumber((T) x, (T) y);
+            return T.MaxMagnitudeNumber((T)x, (T)y);
         }
 
         /// <inheritdoc/>
         public static Fraction<T> MinMagnitude(Fraction<T> x, Fraction<T> y)
         {
-            return T.MinMagnitude((T) x, (T) y);
+            return T.MinMagnitude((T)x, (T)y);
         }
 
         /// <inheritdoc/>
         public static Fraction<T> MinMagnitudeNumber(Fraction<T> x, Fraction<T> y)
         {
-            return T.MinMagnitudeNumber((T) x, (T) y);
+            return T.MinMagnitudeNumber((T)x, (T)y);
         }
 
 
@@ -612,21 +612,21 @@ namespace TMath.Numerics
         /// <inheritdoc/>
         public static bool operator ==(Fraction<T>? left, Fraction<T>? right)
         {
-            if(left is null && right is null)
+            if (left is null && right is null)
                 return true;
-            if(left is null || right is null)
+            if (left is null || right is null)
                 return false;
-            return (T) left == (T) right;
+            return (T)left == (T)right;
         }
 
         /// <inheritdoc/>
         public static bool operator !=(Fraction<T>? left, Fraction<T>? right)
         {
-            if(left is null && right is null)
+            if (left is null && right is null)
                 return false;
-            if(left is null || right is null)
+            if (left is null || right is null)
                 return true;
-            return (T) left != (T) right;
+            return (T)left != (T)right;
         }
 
         /// <inheritdoc/>
