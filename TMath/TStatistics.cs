@@ -135,8 +135,13 @@ namespace TMath
         /// <param name="values">The values to calculate the percentile for.</param>
         /// <param name="percentile">The percentile to calculate (between 0 and 1).</param>
         /// <returns>The value at the specified percentile.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the percentile is not between 0 and 1.</exception>
         public static T Percentile<T>(T[] values, double percentile) where T : INumberBase<T>
         {
+            if(percentile > 1 || percentile < 0)
+            {
+                throw new ArgumentOutOfRangeException("The percentile must be between 0 and 1.");
+            }
             Array.Sort(values);
             double n = values.Length;
             double index = (n - 1) * percentile;
