@@ -33,6 +33,16 @@ public class Sampler<T> where T : INumberBase<T>
     /// Default is 0.
     /// </summary>
     public double UniformNoiseMax { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the probability of an outlier to be generated. The value should be between 0 and 1.
+    /// </summary>
+    public double OutlierProbability { get; set; } = 0;
+
+    /// <summary>
+    /// Gets or sets the factor by which the outlier values will be scaled.
+    /// </summary>
+    public T OutlierFactor { get; set; } = T.Zero;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Sampler{T}"/> class.
@@ -63,7 +73,9 @@ public class Sampler<T> where T : INumberBase<T>
         var step = (end - start) / T.CreateSaturating(count);
         for (var i = 0; i < count; i++)
         {
-            yield return start + (step * T.CreateSaturating(i)) + T.CreateSaturating(ApplyNoise());
+            bool isOutlier = _random.NextDouble() < OutlierProbability;
+            var outlierMult = isOutlier ? OutlierFactor : T.One;
+            yield return start + (step * T.CreateSaturating(i)) + T.CreateSaturating(ApplyNoise()) * outlierMult;
         }
     }
 
