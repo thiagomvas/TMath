@@ -78,4 +78,51 @@ public static class MathT
     /// <returns>The truncated value of <paramref name="n"/></returns>
     public static TSelf Truncate<TSelf>(TSelf n) where TSelf : IFloatingPoint<TSelf> => TSelf.Truncate(n);
     #endregion
+
+    #region Trigonometry
+
+    public static TSelf Sin<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.Sin(radians);
+    
+    public static TSelf SinDeg<TSelf>(TSelf degrees) where TSelf :  INumberBase<TSelf> ,ITrigonometricFunctions<TSelf>
+        => TSelf.Sin(degrees * Constants<TSelf>.Degree);
+    
+    public static TSelf Cos<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.Cos(radians);
+
+    public static TSelf CosDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
+        => TSelf.Cos(degrees * Constants<TSelf>.Degree);
+
+    public static TSelf Tan<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.Tan(radians);
+
+    public static TSelf TanDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
+        => TSelf.Tan(degrees * Constants<TSelf>.Degree);
+
+    public static TSelf Sec<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Cos(radians);
+
+    public static TSelf SecDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Cos(degrees * Constants<TSelf>.Degree);
+
+    public static TSelf Csc<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Sin(radians);
+
+    public static TSelf CscDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Sin(degrees * Constants<TSelf>.Degree);
+
+    public static TSelf Cot<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Tan(radians);
+
+    public static TSelf CotDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
+        => TSelf.One / TSelf.Tan(degrees * Constants<TSelf>.Degree);
+
+
+    
+    
+    
+    
+
+
+    #endregion
 }
