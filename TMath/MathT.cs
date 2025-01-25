@@ -220,4 +220,96 @@ public static class MathT
     public static TSelf RootN<TSelf>(TSelf n, int root) where TSelf : IRootFunctions<TSelf> => TSelf.RootN(n, root);
 
     #endregion
+
+    #region Logarithm
+
+    /// <summary>
+    /// Computes the base-2 logarithm of a number.
+    /// </summary>
+    /// <param name="n">The value whose base-2 logarithm is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The base-2 logarithm of <paramref name="n"/></returns>
+    public static TSelf Log2<TSelf>(TSelf n) where TSelf : ILogarithmicFunctions<TSelf> => TSelf.Log2(n);
+
+    /// <summary>
+    /// Computes the base-10 logarithm of a number.
+    /// </summary>
+    /// <param name="n">The value whose base-10 logarithm is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The base-10 logarithm of <paramref name="n"/></returns>
+    public static TSelf Log10<TSelf>(TSelf n) where TSelf : ILogarithmicFunctions<TSelf> => TSelf.Log10(n);
+
+    /// <summary>
+    /// Computes the natural logarithm (base e) of a number.
+    /// </summary>
+    /// <param name="n">The value whose natural logarithm is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The natural logarithm of <paramref name="n"/></returns>
+    public static TSelf Ln<TSelf>(TSelf n) where TSelf : ILogarithmicFunctions<TSelf> => TSelf.Log(n);
+
+    /// <summary>
+    /// Computes the logarithm of a number in a specified base.
+    /// </summary>
+    /// <param name="n">The value whose logarithm is to be computed</param>
+    /// <param name="b">The base of the logarithm</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The logarithm of <paramref name="n"/> in the specified base <paramref name="b"/></returns>
+    public static TSelf Log<TSelf>(TSelf n, TSelf b) where TSelf : ILogarithmicFunctions<TSelf> => TSelf.Log(n, b);
+
+    #endregion
+
+    #region Hyperbolics
+
+    /// <summary>
+    /// Computes the hyperbolic sine of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic sine is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic sine of <paramref name="n"/></returns>
+    public static TSelf Sinh<TSelf>(TSelf n) where TSelf : IHyperbolicFunctions<TSelf> => TSelf.Sinh(n);
+
+    /// <summary>
+    /// Computes the hyperbolic cosine of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic cosine is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic cosine of <paramref name="n"/></returns>
+    public static TSelf Cosh<TSelf>(TSelf n) where TSelf : IHyperbolicFunctions<TSelf> => TSelf.Cosh(n);
+
+    /// <summary>
+    /// Computes the hyperbolic tangent of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic tangent is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic tangent of <paramref name="n"/></returns>
+    public static TSelf Tanh<TSelf>(TSelf n) where TSelf : IHyperbolicFunctions<TSelf> => TSelf.Tanh(n);
+
+    /// <summary>
+    /// Computes the hyperbolic secant of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic secant is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic secant of <paramref name="n"/></returns>
+    public static TSelf Sech<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>, IHyperbolicFunctions<TSelf>
+        => TSelf.One / Sinh(n);
+
+    /// <summary>
+    /// Computes the hyperbolic cosecant of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic cosecant is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic cosecant of <paramref name="n"/></returns>
+    public static TSelf Csch<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>, IHyperbolicFunctions<TSelf>
+        => TSelf.One / Cosh(n);
+
+    /// <summary>
+    /// Computes the hyperbolic cotangent of a number.
+    /// </summary>
+    /// <param name="n">The value whose hyperbolic cotangent is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The hyperbolic cotangent of <paramref name="n"/></returns>
+    public static TSelf Coth<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>, IHyperbolicFunctions<TSelf>
+        => TSelf.One / Tanh(n);
+
+    #endregion
 }
