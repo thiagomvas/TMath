@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath.ConsoleApp", "TMath.C
 		{5624A9A5-0099-402F-BE98-11B58A7D80AB} = {5624A9A5-0099-402F-BE98-11B58A7D80AB}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath", "TMath\TMath.csproj", "{40EE9667-AA6C-45DB-ACEE-D41E8AC471AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,10 @@ Global
 		{244E7C44-B386-499C-831C-51D14FFCFD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244E7C44-B386-499C-831C-51D14FFCFD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244E7C44-B386-499C-831C-51D14FFCFD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40EE9667-AA6C-45DB-ACEE-D41E8AC471AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EE9667-AA6C-45DB-ACEE-D41E8AC471AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EE9667-AA6C-45DB-ACEE-D41E8AC471AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EE9667-AA6C-45DB-ACEE-D41E8AC471AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
