@@ -347,7 +347,50 @@ public static class MathT
 
     #endregion
 
-    #region Special
+    #region Special & Others
+
+    /// <summary>
+    /// Computes the power of a number raised to another number.
+    /// </summary>
+    /// <param name="x">The base value</param>
+    /// <param name="y">The exponent value</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The result of raising <paramref name="x"/> to the power of <paramref name="y"/></returns>
+    public static TSelf Pow<TSelf>(TSelf x, TSelf y) where TSelf : IPowerFunctions<TSelf> => TSelf.Pow(x, y);
+
+    /// <summary>
+    /// Computes the power of a number raised to an integer exponent.
+    /// </summary>
+    /// <param name="x">The base value</param>
+    /// <param name="y">The integer exponent value</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The result of raising <paramref name="x"/> to the power of <paramref name="y"/></returns>
+    public static TSelf Pow<TSelf>(TSelf x, int y) where TSelf : INumberBase<TSelf>
+    {
+        if (y == 0)
+            return TSelf.One;
+        if (y == 1)
+            return x;
+        if (y < 0)
+            return TSelf.One / Pow(x, -y);
+
+        TSelf result = TSelf.One;
+        while (y > 0)
+        {
+            result *= x;
+            y--;
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Computes the exponential function of a number.
+    /// </summary>
+    /// <param name="n">The value whose exponential function is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The exponential function of <paramref name="n"/></returns>
+    public static TSelf Exp<TSelf>(TSelf n) where TSelf : IExponentialFunctions<TSelf> => TSelf.Exp(n);
 
     /// <summary>
     /// Calculates the factorial of a number.
