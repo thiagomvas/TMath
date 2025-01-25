@@ -77,52 +77,118 @@ public static class MathT
     /// <typeparam name="TSelf">The numeric type.</typeparam>
     /// <returns>The truncated value of <paramref name="n"/></returns>
     public static TSelf Truncate<TSelf>(TSelf n) where TSelf : IFloatingPoint<TSelf> => TSelf.Truncate(n);
+
     #endregion
 
     #region Trigonometry
 
+    /// <summary>
+    /// Computes the sine of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The sine of the angle</returns>
     public static TSelf Sin<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.Sin(radians);
-    
-    public static TSelf SinDeg<TSelf>(TSelf degrees) where TSelf :  INumberBase<TSelf> ,ITrigonometricFunctions<TSelf>
+
+    /// <summary>
+    /// Computes the sine of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The sine of the angle</returns>
+    public static TSelf SinDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.Sin(degrees * Constants<TSelf>.Degree);
-    
+
+    /// <summary>
+    /// Computes the cosine of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cosine of the angle</returns>
     public static TSelf Cos<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.Cos(radians);
 
+    /// <summary>
+    /// Computes the cosine of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cosine of the angle</returns>
     public static TSelf CosDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.Cos(degrees * Constants<TSelf>.Degree);
 
+    /// <summary>
+    /// Computes the tangent of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The tangent of the angle</returns>
     public static TSelf Tan<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.Tan(radians);
 
+    /// <summary>
+    /// Computes the tangent of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The tangent of the angle</returns>
     public static TSelf TanDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.Tan(degrees * Constants<TSelf>.Degree);
 
+    /// <summary>
+    /// Computes the secant of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The secant of the angle</returns>
     public static TSelf Sec<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Cos(radians);
 
+    /// <summary>
+    /// Computes the secant of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The secant of the angle</returns>
     public static TSelf SecDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Cos(degrees * Constants<TSelf>.Degree);
 
+    /// <summary>
+    /// Computes the cosecant of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cosecant of the angle</returns>
     public static TSelf Csc<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Sin(radians);
 
+    /// <summary>
+    /// Computes the cosecant of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cosecant of the angle</returns>
     public static TSelf CscDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Sin(degrees * Constants<TSelf>.Degree);
 
+    /// <summary>
+    /// Computes the cotangent of an angle specified in radians.
+    /// </summary>
+    /// <param name="radians">The angle in radians</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cotangent of the angle</returns>
     public static TSelf Cot<TSelf>(TSelf radians) where TSelf : ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Tan(radians);
 
+    /// <summary>
+    /// Computes the cotangent of an angle specified in degrees.
+    /// </summary>
+    /// <param name="degrees">The angle in degrees</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cotangent of the angle</returns>
     public static TSelf CotDeg<TSelf>(TSelf degrees) where TSelf : INumberBase<TSelf>, ITrigonometricFunctions<TSelf>
         => TSelf.One / TSelf.Tan(degrees * Constants<TSelf>.Degree);
-
-
-    
-    
-    
-    
-
 
     #endregion
 }
