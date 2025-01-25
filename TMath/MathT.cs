@@ -77,6 +77,15 @@ public static class MathT
     /// <typeparam name="TSelf">The numeric type.</typeparam>
     /// <returns>The truncated value of <paramref name="n"/></returns>
     public static TSelf Truncate<TSelf>(TSelf n) where TSelf : IFloatingPoint<TSelf> => TSelf.Truncate(n);
+    
+    public static TSelf Min<TSelf>(TSelf a, TSelf b) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+        => a < b ? a : b;
+    
+    public static TSelf Max<TSelf>(TSelf a, TSelf b) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+        => a > b ? a : b;
+    
+    public static TSelf Clamp<TSelf>(TSelf value, TSelf min, TSelf max) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+        => value < min ? min : value > max ? max : value;
 
     #endregion
 
