@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace TMath;
 
+/// <summary>
+/// Generics math class for numeric operations.
+/// </summary>
 public static class MathT
 {
     /// <summary>

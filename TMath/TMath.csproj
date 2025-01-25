@@ -10,7 +10,6 @@
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Description>A C# Math library using Generics to add support for more number types.</Description>
         <PackageProjectUrl>https://github.com/thiagomvas/TMath</PackageProjectUrl>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/thiagomvas/TMath</RepositoryUrl>
         <PackageTags>math, generics, csharp</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
