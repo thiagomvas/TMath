@@ -77,14 +77,39 @@ public static class MathT
     /// <typeparam name="TSelf">The numeric type.</typeparam>
     /// <returns>The truncated value of <paramref name="n"/></returns>
     public static TSelf Truncate<TSelf>(TSelf n) where TSelf : IFloatingPoint<TSelf> => TSelf.Truncate(n);
-    
-    public static TSelf Min<TSelf>(TSelf a, TSelf b) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+
+    /// <summary>
+    /// Returns the smaller of two values.
+    /// </summary>
+    /// <param name="a">The first value to compare</param>
+    /// <param name="b">The second value to compare</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The smaller of <paramref name="a"/> and <paramref name="b"/></returns>
+    public static TSelf Min<TSelf>(TSelf a, TSelf b)
+        where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool>
         => a < b ? a : b;
-    
-    public static TSelf Max<TSelf>(TSelf a, TSelf b) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+
+    /// <summary>
+    /// Returns the larger of two values.
+    /// </summary>
+    /// <param name="a">The first value to compare</param>
+    /// <param name="b">The second value to compare</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The larger of <paramref name="a"/> and <paramref name="b"/></returns>
+    public static TSelf Max<TSelf>(TSelf a, TSelf b)
+        where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool>
         => a > b ? a : b;
-    
-    public static TSelf Clamp<TSelf>(TSelf value, TSelf min, TSelf max) where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool> 
+
+    /// <summary>
+    /// Clamps a value to be within a specified range.
+    /// </summary>
+    /// <param name="value">The value to clamp</param>
+    /// <param name="min">The minimum value of the range</param>
+    /// <param name="max">The maximum value of the range</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The clamped value of <paramref name="value"/> within the range [<paramref name="min"/>, <paramref name="max"/>]</returns>
+    public static TSelf Clamp<TSelf>(TSelf value, TSelf min, TSelf max)
+        where TSelf : INumberBase<TSelf>, IComparisonOperators<TSelf, TSelf, bool>
         => value < min ? min : value > max ? max : value;
 
     #endregion
@@ -337,18 +362,18 @@ public static class MathT
     public static TSelf Factorial<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>
     {
         // TODO: Alternate implementation for negative factorials using the gamma function
-        if(TSelf.IsNegative(n))
-            throw new ArgumentOutOfRangeException("Cannot compute factorial of a negative number");
+        if (TSelf.IsNegative(n))
+            throw new ArgumentOutOfRangeException(nameof(n), "Cannot compute factorial of a negative number");
         if (TSelf.IsZero(n) || n == TSelf.One)
             return TSelf.One;
-        
+
         TSelf result = TSelf.One;
         while (TSelf.IsPositive(n))
         {
             result *= n;
             n -= TSelf.One;
         }
-        
+
         return result;
     }
 
