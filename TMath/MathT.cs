@@ -4,6 +4,11 @@ namespace TMath;
 
 public static class MathT
 {
+    /// <summary>
+    /// Alternate implementation of the MathT class for supporting more numeric types that don't implement the default interfaces.
+    /// </summary>
+    public static readonly AlternateMathT Alternate = new();
+
     #region Rounding functions
 
     /// <summary>

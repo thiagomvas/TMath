@@ -593,4 +593,10 @@ public static class Constants<TSelf> where TSelf : INumberBase<TSelf>
     public static readonly TSelf Yocto = TSelf.CreateSaturating(1e-24);
 
     #endregion
+
+    #region Internals
+
+    internal static readonly TSelf Two = TSelf.CreateSaturating(2);
+
+    #endregion
 }
