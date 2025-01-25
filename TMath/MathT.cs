@@ -312,4 +312,36 @@ public static class MathT
         => TSelf.One / Tanh(n);
 
     #endregion
+
+    #region Special
+
+    /// <summary>
+    /// Calculates the factorial of a number.
+    /// </summary>
+    /// <param name="n">The value to compute the factorial of.</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The value of <paramref name="n"/>!</returns>
+    /// <exception cref="ArgumentOutOfRangeException">When <paramref name="n"/> is negative.</exception>
+    /// <remarks>
+    /// For floating point types, the result is the factorial of ceiling of <paramref name="n"/>.
+    /// </remarks>
+    public static TSelf Factorial<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>
+    {
+        // TODO: Alternate implementation for negative factorials using the gamma function
+        if(TSelf.IsNegative(n))
+            throw new ArgumentOutOfRangeException("Cannot compute factorial of a negative number");
+        if (TSelf.IsZero(n) || n == TSelf.One)
+            return TSelf.One;
+        
+        TSelf result = TSelf.One;
+        while (TSelf.IsPositive(n))
+        {
+            result *= n;
+            n -= TSelf.One;
+        }
+        
+        return result;
+    }
+
+    #endregion
 }
