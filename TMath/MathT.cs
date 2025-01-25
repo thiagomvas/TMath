@@ -191,4 +191,33 @@ public static class MathT
         => TSelf.One / TSelf.Tan(degrees * Constants<TSelf>.Degree);
 
     #endregion
+
+    #region Roots
+
+    /// <summary>
+    /// Computes the square root of a number.
+    /// </summary>
+    /// <param name="n">The value whose square root is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The square root of <paramref name="n"/></returns>
+    public static TSelf Sqrt<TSelf>(TSelf n) where TSelf : IRootFunctions<TSelf> => TSelf.Sqrt(n);
+
+    /// <summary>
+    /// Computes the cube root of a number.
+    /// </summary>
+    /// <param name="n">The value whose cube root is to be computed</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The cube root of <paramref name="n"/></returns>
+    public static TSelf Cbrt<TSelf>(TSelf n) where TSelf : IRootFunctions<TSelf> => TSelf.Cbrt(n);
+
+    /// <summary>
+    /// Computes the nth root of a number.
+    /// </summary>
+    /// <param name="n">The value whose nth root is to be computed</param>
+    /// <param name="root">The degree of the root</param>
+    /// <typeparam name="TSelf">The numeric type.</typeparam>
+    /// <returns>The nth root of <paramref name="n"/></returns>
+    public static TSelf RootN<TSelf>(TSelf n, int root) where TSelf : IRootFunctions<TSelf> => TSelf.RootN(n, root);
+
+    #endregion
 }
