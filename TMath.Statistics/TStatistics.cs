@@ -38,10 +38,15 @@ public static class TStatistics
         }
         return sum / count;
     }
-    
     public static TSelf StandardDeviation<TSelf>(IEnumerable<TSelf> data) where TSelf : INumberBase<TSelf>, IRootFunctions<TSelf>
     {
         return TSelf.Sqrt(Variance(data));
+    }
+    internal static TSelf StandardDeviationBoxed<TSelf>(IEnumerable<TSelf> data) where TSelf : INumberBase<TSelf>
+    {
+        var doubleData = data.Select(double.CreateSaturating);
+        var stdDev = StandardDeviation(doubleData);
+        return TSelf.CreateSaturating(stdDev);
     }
     
     public static TSelf Covariance<TSelf>(IEnumerable<TSelf> data1, IEnumerable<TSelf> data2) where TSelf : INumberBase<TSelf>
@@ -64,7 +69,13 @@ public static class TStatistics
     {
         return Covariance(data1, data2) / (StandardDeviation(data1) * StandardDeviation(data2));
     }
-    
+    internal static TSelf CorrelationBoxed<TSelf>(IEnumerable<TSelf> data1, IEnumerable<TSelf> data2) where TSelf : INumberBase<TSelf>
+    {
+        var doubleData1 = data1.Select(double.CreateSaturating);
+        var doubleData2 = data2.Select(double.CreateSaturating);
+        var correlation = Correlation(doubleData1, doubleData2);
+        return TSelf.CreateSaturating(correlation);
+    }
     public static TSelf Skewness<TSelf>(IEnumerable<TSelf> data) where TSelf : INumberBase<TSelf>, IRootFunctions<TSelf>
     {
         var mean = Mean(data);
@@ -77,6 +88,12 @@ public static class TStatistics
             count++;
         }
         return sum / (count * variance * StandardDeviation(data));
+    }
+    internal static TSelf SkewnessBoxed<TSelf>(IEnumerable<TSelf> data) where TSelf : INumberBase<TSelf>
+    {
+        var doubleData = data.Select(double.CreateSaturating);
+        var skewness = Skewness(doubleData);
+        return TSelf.CreateSaturating(skewness);
     }
     
     public static TSelf Kurtosis<TSelf>(IEnumerable<TSelf> data) where TSelf : INumberBase<TSelf>
