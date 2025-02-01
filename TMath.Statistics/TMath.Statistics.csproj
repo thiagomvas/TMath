@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>TMath.Statistics</PackageId>
+        <Title>TMath.Statistics</Title>
+        <Authors>thiagomvas</Authors>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Description>A C# library for statistical functions and calculations, supporting generics for allowing any numeric type.</Description>
+        <PackageProjectUrl>https://github.com/thiagomvas/TMath.Statistics</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/thiagomvas/TMath.Statistics</RepositoryUrl>
+        <PackageTags>math, statistics, generics, csharp, numerical</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Version>2.0.0-alpha</Version>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+
+    <PropertyGroup>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+
+</Project>

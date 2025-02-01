@@ -8,7 +8,7 @@
         <Title>TMath.Abstractions</Title>
         <Authors>thiagomvas</Authors>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <Description>A C# Math abstractions library using Generics to add support for more number types.</Description>
+        <Description>Abstractions for TMath, a generics math library.</Description>
         <PackageProjectUrl>https://github.com/thiagomvas/TMath.Abstractions</PackageProjectUrl>
         <RepositoryUrl>https://github.com/thiagomvas/TMath.Abstractions</RepositoryUrl>
         <PackageTags>math, generics, csharp, numerical, abstractions</PackageTags>
