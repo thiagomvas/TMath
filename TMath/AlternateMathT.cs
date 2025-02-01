@@ -11,9 +11,16 @@ public class AlternateMathT
     internal AlternateMathT()
     {
     }
+    
+    #region Internals
+    public static TSelf BoxedSqrt<TSelf>(TSelf n) where TSelf : INumberBase<TSelf>
+    {
+        var d = double.CreateSaturating(n);
+        return TSelf.CreateSaturating(Math.Sqrt(d));
+    }
+    #endregion
 
     #region Hyperbolics
-
     /// <summary>
     /// Computes the hyperbolic sine of a number using exponential formulas.
     /// </summary>

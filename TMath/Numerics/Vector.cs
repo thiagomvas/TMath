@@ -16,7 +16,7 @@ public class Vector<T> : IVector<T>
     {
         _values = values ?? throw new ArgumentNullException(nameof(values));
         Length = _values.Length;
-        Magnitude = _values.Select(val => val * val).Aggregate(T.Zero, (acc, val) => acc + val);
+        Magnitude = AlternateMathT.BoxedSqrt(_values.Select(val => val * val).Aggregate(T.Zero, (acc, val) => acc + val));
     }
 
     public string ToString(string? format, IFormatProvider? formatProvider)
