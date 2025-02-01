@@ -1,4 +1,6 @@
 using System.Numerics;
+using TMath.Extensions;
+
 namespace TMath;
 
 /// <summary>

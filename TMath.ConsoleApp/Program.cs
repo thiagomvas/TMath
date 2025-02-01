@@ -1,4 +1,4 @@
-using TMath;
-
-Console.WriteLine(MathT.Factorial(-1)); 
+using TMath.Abstractions;
+using TMath.Numerics;
+using TMath.Extensions;
 

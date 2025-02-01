@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>TMath.Abstractions</PackageId>
+        <Title>TMath.Abstractions</Title>
+        <Authors>thiagomvas</Authors>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Description>A C# Math abstractions library using Generics to add support for more number types.</Description>
+        <PackageProjectUrl>https://github.com/thiagomvas/TMath.Abstractions</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/thiagomvas/TMath.Abstractions</RepositoryUrl>
+        <PackageTags>math, generics, csharp, numerical, abstractions</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Version>1.0.0</Version>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+</Project>

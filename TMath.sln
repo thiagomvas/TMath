@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath", "TMath\TMath.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath.Tests", "TMath.Tests\TMath.Tests.csproj", "{5DB8FF05-AA48-4072-B5A7-2FAE97B2FF24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMath.Abstractions", "TMath.Abstractions\TMath.Abstractions.csproj", "{0389A8EA-80E4-4969-A16A-E7B1745D8B97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{5DB8FF05-AA48-4072-B5A7-2FAE97B2FF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DB8FF05-AA48-4072-B5A7-2FAE97B2FF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DB8FF05-AA48-4072-B5A7-2FAE97B2FF24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0389A8EA-80E4-4969-A16A-E7B1745D8B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0389A8EA-80E4-4969-A16A-E7B1745D8B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0389A8EA-80E4-4969-A16A-E7B1745D8B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0389A8EA-80E4-4969-A16A-E7B1745D8B97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
