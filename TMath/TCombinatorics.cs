@@ -23,7 +23,7 @@ public static class TCombinatorics
 		/// <param name="allowDuplicates">Whether to allow duplicate elements in the permutations.</param>
 		/// <returns>The number of permutations for selecting k elements from a set of n elements.</returns>
 
-		public static T Permutations<T>(T n, T k, bool allowDuplicates = false) where T : INumber<T>, IBinaryInteger<T>
+		public static T Permutations<T>(T n, T k, bool allowDuplicates = false) where T : INumberBase<T>, IBinaryInteger<T>
 			=> allowDuplicates ? Pow<T, T>(n, k) : Factorial(n) / Factorial(n - k);
 
 		/// <summary>
@@ -40,7 +40,7 @@ public static class TCombinatorics
 		/// <param name="allowDuplicates">Whether to allow duplicate elements in the permutations.</param>
 		/// <returns>The number of permutations for selecting k elements from the collection.</returns>
 
-		public static TTarget Permutations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
+		public static TTarget Permutations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumberBase<TTarget>, IBinaryInteger<TTarget>
 			=> allowDuplicates ? Pow<TTarget, int>(elements.Count(), int.CreateSaturating(k))
 							   : Factorial(Helpers.Count<TTarget, TSource>(elements)) / Factorial(Helpers.Count<TTarget, TSource>(elements) - k);
 
@@ -87,7 +87,7 @@ public static class TCombinatorics
 		/// <param name="allowDuplicates">Whether to allow duplicate elements in the combinations.</param>
 		/// <returns>The number of combinations for selecting k elements from a set of n elements.</returns>
 
-		public static T Combinations<T>(T n, T k, bool allowDuplicates = false) where T : INumber<T>, IBinaryInteger<T>
+		public static T Combinations<T>(T n, T k, bool allowDuplicates = false) where T : INumberBase<T>, IBinaryInteger<T>
 		{
 			if (allowDuplicates)
 				return Factorial(n + k - T.One) / (Factorial(k) * Factorial(n - T.One));
@@ -109,7 +109,7 @@ public static class TCombinatorics
 		/// <param name="allowDuplicates">Whether to allow duplicate elements in the combinations.</param>
 		/// <returns>The number of combinations for selecting k elements from the collection.</returns>
 
-		public static TTarget Combinations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumber<TTarget>, IBinaryInteger<TTarget>
+		public static TTarget Combinations<TSource, TTarget>(IEnumerable<TSource> elements, TTarget k, bool allowDuplicates = false) where TTarget : INumberBase<TTarget>, IBinaryInteger<TTarget>
 		{
 			if (allowDuplicates)
 				return Factorial(Helpers.Count<TTarget, TSource>(elements) + k - TTarget.One) / (Factorial(k) * Factorial(Helpers.Count<TTarget, TSource>(elements) - TTarget.One));
