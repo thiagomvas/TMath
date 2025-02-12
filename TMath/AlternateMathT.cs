@@ -20,6 +20,25 @@ public class AlternateMathT
     }
     #endregion
 
+    #region Exponentials
+
+    /// <summary>
+    /// Calculates a to the power of b.
+    /// </summary>
+    /// <param name="a">The base</param>
+    /// <param name="b">The exponent</param>
+    /// <typeparam name="TTarget">A generic type that inherits <see cref="INumber{TSelf}"/></typeparam>
+    /// <typeparam name="TSource">A generic type that inherits <see cref="INumber{TSelf}"/></typeparam>
+    /// <returns>a to the power of b</returns>
+    /// <remarks>
+    /// This function is slower than <see cref="Pow{T}(T, T)"/> and should only be used when the type T does not implement <see cref="IPowerFunctions{TSelf}"/>.
+    /// </remarks>
+    public static TTarget Pow<TTarget,TSource>(TSource a, TSource b) 
+        where TTarget : INumber<TTarget>
+        where TSource : INumber<TSource> => TTarget.CreateSaturating(double.Pow(Convert.ToDouble(a), Convert.ToDouble(b)));
+
+    #endregion
+    
     #region Hyperbolics
     /// <summary>
     /// Computes the hyperbolic sine of a number using exponential formulas.
